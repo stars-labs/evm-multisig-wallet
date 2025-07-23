@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:etherscan.io)",
+      "WebFetch(domain:docs.layerzero.network)",
+      "WebFetch(domain:medium.com)",
+      "WebFetch(domain:www.blog.eigenlayer.xyz)",
+      "WebFetch(domain:blog.eigencloud.xyz)"
+    ],
+    "deny": []
+  }
+}

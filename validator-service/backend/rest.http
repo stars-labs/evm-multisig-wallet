@@ -1,0 +1,129 @@
+### MultiSig Validator Service API Testing
+### Base URL: http://localhost:3002
+
+# =============================================================================
+# HEALTH & STATUS ENDPOINTS
+# =============================================================================
+
+### Get API Information
+GET http://localhost:3002/api/
+
+### Health Check
+GET http://localhost:3002/api/health
+
+### Service Metrics
+GET http://localhost:3002/api/metrics
+
+### Detailed Status
+GET http://localhost:3002/api/status
+
+# =============================================================================
+# WALLET MANAGEMENT ENDPOINTS
+# =============================================================================
+
+### List All Wallets
+GET http://localhost:3002/api/wallets
+
+### List Wallets for Specific Network
+GET http://localhost:3002/api/wallets?network=localhost
+
+### Add Wallet (Localhost - MultiSig)
+POST http://localhost:3002/api/wallets
+Content-Type: application/json
+
+{
+  "address": "0x9f39A39631b2E49B59A614D37465431890612b5a",
+  "network": "sepolia",
+  "name": "Sepolia MultiSig Wallet",
+  "type": "MultiSigWallet"
+}
+
+### Add Wallet (MultiSig with Daily Limit)
+POST http://localhost:3002/api/wallets
+Content-Type: application/json
+
+{
+  "address": "0xbdb8ed781577405f3FaEa59b33bA2fb05179ee61",
+  "network": "sepolia",
+  "name": "Sepolia MultiSig with Daily Limit",
+  "type": "MultiSigWalletWithDailyLimit"
+}
+
+### Add Wallet (Sepolia Network)
+POST http://localhost:3002/api/wallets
+Content-Type: application/json
+
+{
+  "address": "0x1234567890123456789012345678901234567890",
+  "network": "sepolia",
+  "name": "Sepolia MultiSig Wallet",
+  "type": "MultiSigWallet"
+}
+
+### Add Wallet (Auto-detect Contract Type)
+POST http://localhost:3002/api/wallets
+Content-Type: application/json
+
+{
+  "address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+  "network": "localhost",
+  "name": "Auto-detected Wallet"
+}
+
+### Get Specific Wallet Details
+GET http://localhost:3002/api/wallets/0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512?network=localhost
+
+### Remove Wallet
+DELETE http://localhost:3002/api/wallets/0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512?network=localhost
+
+# =============================================================================
+# ERROR TESTING ENDPOINTS
+# =============================================================================
+
+### Test Invalid Address Format
+POST http://localhost:3002/api/wallets
+Content-Type: application/json
+
+{
+  "address": "invalid-address",
+  "network": "localhost",
+  "name": "Invalid Address Test"
+}
+
+### Test Missing Required Fields
+POST http://localhost:3002/api/wallets
+Content-Type: application/json
+
+{
+  "address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"
+}
+
+### Test Invalid Network
+POST http://localhost:3002/api/wallets
+Content-Type: application/json
+
+{
+  "address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+  "network": "invalid-network",
+  "name": "Invalid Network Test"
+}
+
+### Test Unmonitored Network (when MONITORED_NETWORKS=localhost)
+POST http://localhost:3002/api/wallets
+Content-Type: application/json
+
+{
+  "address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+  "network": "mainnet",
+  "name": "Unmonitored Network Test"
+}
+
+# =============================================================================
+# LEGACY ENDPOINTS (Backward Compatibility)
+# =============================================================================
+
+### Legacy Health Check
+GET http://localhost:3002/health
+
+### Legacy Metrics
+GET http://localhost:3002/metrics

@@ -75,6 +75,7 @@ export interface MultiSigEvent {
   removed: boolean;
   topics?: string[];
   args: any;
+  index?: number; // Fallback index for sorting when logIndex is undefined
 }
 
 export interface SubmissionEvent extends MultiSigEvent {
@@ -250,21 +251,29 @@ export class MultiSigContract {
       const filter = this.contract.filters[eventName]();
       const events = await this.contract.queryFilter(filter, fromBlock, toBlock);
       
-      return events.map(event => {
+      const mappedEvents = events.map(event => {
         const eventLog = event as any; // ethers.js EventLog
-        return {
+        const mapped = {
           event: eventLog.eventName || eventName,
           address: eventLog.address,
           blockNumber: eventLog.blockNumber,
           blockHash: eventLog.blockHash,
           transactionHash: eventLog.transactionHash,
           transactionIndex: eventLog.transactionIndex,
-          logIndex: eventLog.logIndex || 0,
+          logIndex: eventLog.logIndex !== undefined ? eventLog.logIndex : eventLog.index || 0,
           removed: eventLog.removed || false,
           args: this.parseEventArgs(eventLog.args || []),
+          // Store original index for sorting fallback
+          index: eventLog.index
         };
+        // console.log(`[DEBUG] Mapped ${eventName} event:`, mapped); // Reduced logging
+        return mapped;
       });
+      
+      console.log(`[DEBUG] getEvents(${eventName}) returning ${mappedEvents.length} events`);
+      return mappedEvents;
     } catch (error) {
+      console.log(`[DEBUG] getEvents(${eventName}) ERROR:`, error);
       throw new Error(`Failed to get ${eventName} events: ${error}`);
     }
   }
@@ -274,7 +283,10 @@ export class MultiSigContract {
     toBlock: number | 'latest' = 'latest'
   ): Promise<MultiSigEvent[]> {
     try {
-      const eventNames = [
+      console.log(`[DEBUG] getAllEvents(${fromBlock}, ${toBlock}) called on contract ${this.contract.target}`);
+      
+      // Base events available on all MultiSig wallets
+      const baseEventNames = [
         'Submission',
         'Confirmation',
         'Revocation', 
@@ -283,30 +295,71 @@ export class MultiSigContract {
         'Deposit',
         'OwnerAddition',
         'OwnerRemoval',
-        'RequirementChange',
-        'DailyLimitChange'
+        'RequirementChange'
       ];
+      
+      // Check if contract has DailyLimitChange (only for MultiSigWalletWithDailyLimit)
+      const eventNames = [...baseEventNames];
+      if (this.contract.interface.hasFunction('dailyLimit')) {
+        eventNames.push('DailyLimitChange');
+        console.log(`[DEBUG] Contract has daily limit functionality, including DailyLimitChange events`);
+      } else {
+        console.log(`[DEBUG] Contract is standard MultiSigWallet, skipping DailyLimitChange events`);
+      }
+      
+      console.log(`[DEBUG] Will check ${eventNames.length} event types:`, eventNames);
       
       const allEvents: MultiSigEvent[] = [];
       
       for (const eventName of eventNames) {
         try {
-          const events = await this.getEvents(eventName, fromBlock, toBlock);
+              const events = await this.getEvents(eventName, fromBlock, toBlock);
+          if (events.length > 0) {
+            console.log(`[DEBUG] Got ${events.length} ${eventName} events`);
+          }
           allEvents.push(...events);
         } catch (error) {
+          console.log(`[DEBUG] Skipping ${eventName} due to error:`, error);
           // Skip events that don't exist on this contract
           continue;
         }
       }
       
-      // Sort by block number and log index
-      return allEvents.sort((a, b) => {
+      console.log(`[DEBUG] Total events collected before sorting: ${allEvents.length}`);
+      
+      // Log events before sorting
+      console.log(`[DEBUG] Events BEFORE sorting:`);
+      allEvents.forEach((event, i) => {
+        const eventIndex = event.logIndex !== undefined ? event.logIndex : (event as any).index || 0;
+        console.log(`[DEBUG]   Event ${i}: ${event.event} block=${event.blockNumber} logIndex=${event.logIndex} index=${(event as any).index} finalIndex=${eventIndex}`);
+      });
+      
+      // Sort by block number and log index (use index if logIndex is not available)
+      const sortedEvents = allEvents.sort((a, b) => {
         if (a.blockNumber !== b.blockNumber) {
           return a.blockNumber - b.blockNumber;
         }
-        return a.logIndex - b.logIndex;
+        // Use the index property from ethers event if logIndex is undefined
+        const aIndex = a.logIndex !== undefined ? a.logIndex : (a as any).index || 0;
+        const bIndex = b.logIndex !== undefined ? b.logIndex : (b as any).index || 0;
+        // Only log when actually swapping order
+        if (aIndex !== bIndex) {
+          console.log(`[DEBUG] Sorting: ${a.event}(${aIndex}) vs ${b.event}(${bIndex}) = ${aIndex - bIndex}`);
+        }
+        return aIndex - bIndex;
       });
+      
+      // Log events after sorting
+      console.log(`[DEBUG] Events AFTER sorting:`);
+      sortedEvents.forEach((event, i) => {
+        const eventIndex = event.logIndex !== undefined ? event.logIndex : (event as any).index || 0;
+        console.log(`[DEBUG]   Event ${i}: ${event.event} block=${event.blockNumber} logIndex=${event.logIndex} index=${(event as any).index} finalIndex=${eventIndex}`);
+      });
+      
+      console.log(`[DEBUG] getAllEvents returning ${sortedEvents.length} sorted events`);
+      return sortedEvents;
     } catch (error) {
+      console.log(`[DEBUG] getAllEvents ERROR:`, error);
       throw new Error(`Failed to get all events: ${error}`);
     }
   }
@@ -321,7 +374,8 @@ export class MultiSigContract {
     for (let i = 0; i < args.length; i++) {
       const value = args[i];
       if (typeof value === 'bigint') {
-        parsed[i] = value;
+        // Convert BigInt to string to avoid serialization issues
+        parsed[i] = value.toString();
       } else {
         parsed[i] = value;
       }

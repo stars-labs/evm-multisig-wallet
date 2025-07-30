@@ -24,6 +24,7 @@ import {
   AlertModel,
   ModelUtils
 } from '../models';
+import { SlackNotifier, TransactionAlert, OwnerAlert } from './slackNotifier';
 
 export interface EventProcessorConfig {
   enableValidation: boolean;
@@ -35,6 +36,7 @@ export class EventProcessor {
   private db: Database;
   private logger: winston.Logger;
   private config: EventProcessorConfig;
+  private slackNotifier: SlackNotifier;
   
   constructor(
     db: Database,
@@ -48,6 +50,7 @@ export class EventProcessor {
     this.db = db;
     this.logger = logger;
     this.config = config;
+    this.slackNotifier = new SlackNotifier(logger);
   }
   
   // ============================================================================
@@ -141,6 +144,12 @@ export class EventProcessor {
         action,
         submitter: submission.submitter,
       });
+
+      // Send Slack notification for transaction submission
+      const walletForNotification = await this.getWalletByAddress(wallet.address, wallet.network);
+      if (walletForNotification) {
+        await this.sendTransactionSubmissionNotification(wallet, submission, action, walletForNotification);
+      }
       
     } catch (error) {
       this.logger.error('Failed to process transaction submission:', error);
@@ -168,10 +177,15 @@ export class EventProcessor {
         );
         
         if (!transaction) {
-          this.logger.warn('Transaction not found for confirmation', {
+          this.logger.error('Transaction not found for confirmation - this indicates submission event was not processed first', {
             wallet: wallet.address,
             transactionId: confirmation.transactionId,
+            confirmer: confirmation.confirmer,
+            blockNumber: confirmation.blockNumber,
+            transactionHash: confirmation.transactionHash
           });
+          // Create an alert for this inconsistency
+          await this.createTransactionNotFoundAlert(wallet, confirmation, client);
           return;
         }
         
@@ -225,6 +239,16 @@ export class EventProcessor {
           totalConfirmations: confirmations.length,
         });
       });
+
+      // Send Slack notification for transaction confirmation  
+      const updatedTransaction = await this.getTransactionByWalletAndId(
+        wallet.address,
+        wallet.network,
+        confirmation.transactionId
+      );
+      if (updatedTransaction) {
+        await this.sendTransactionConfirmationNotification(wallet, confirmation, updatedTransaction.confirmations || []);
+      }
       
     } catch (error) {
       this.logger.error('Failed to process transaction confirmation:', error);
@@ -260,6 +284,9 @@ export class EventProcessor {
         wallet: wallet.address,
         transactionId,
       });
+
+      // Send Slack notification for transaction execution
+      await this.sendTransactionExecutionNotification(wallet, transactionId, event.timestamp);
       
     } catch (error) {
       this.logger.error('Failed to process transaction execution:', error);
@@ -328,6 +355,9 @@ export class EventProcessor {
         changeType: change.changeType,
         owner: change.owner,
       });
+
+      // Send Slack notification for owner change
+      await this.sendOwnerChangeNotification(wallet, change, event.timestamp);
       
     } catch (error) {
       this.logger.error('Failed to process owner change:', error);
@@ -532,6 +562,43 @@ export class EventProcessor {
       ]
     );
   }
+
+  private async createTransactionNotFoundAlert(
+    wallet: WalletConfig,
+    confirmation: TransactionConfirmationData,
+    client: any
+  ): Promise<void> {
+    const walletRecord = await this.getWalletByAddress(
+      wallet.address,
+      wallet.network,
+      client
+    );
+    
+    if (!walletRecord) return;
+    
+    await client.query(
+      `INSERT INTO alerts (
+        wallet_id, priority, type, title, message, risk_level,
+        severity_score, context, notification_channels
+      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
+      [
+        walletRecord.id,
+        AlertPriority.P1, // Critical system issue
+        'event_processing_error',
+        'Transaction not found for confirmation',
+        `Confirmation event received for transaction ID ${confirmation.transactionId} but no submission event was processed. This may indicate event processing order issues.`,
+        RiskLevel.HIGH,
+        95,
+        JSON.stringify({
+          transactionId: confirmation.transactionId,
+          confirmer: confirmation.confirmer,
+          blockNumber: confirmation.blockNumber,
+          transactionHash: confirmation.transactionHash,
+        }),
+        JSON.stringify(['email', 'slack']),
+      ]
+    );
+  }
   
   private calculateTransferPercentage(value: string, balance: string): number {
     return ModelUtils.calculateTransferPercentage(value, balance);
@@ -624,5 +691,216 @@ export class EventProcessor {
       createdAt: row.created_at,
       updatedAt: row.updated_at,
     };
+  }
+
+  // ============================================================================
+  // SLACK NOTIFICATION HELPERS
+  // ============================================================================
+
+  private async sendTransactionSubmissionNotification(
+    wallet: WalletConfig,
+    submission: TransactionSubmissionData,
+    action: TransactionAction,
+    walletRecord: WalletModel
+  ): Promise<void> {
+    try {
+      const alert: TransactionAlert = {
+        wallet: {
+          address: wallet.address,
+          name: walletRecord.name,
+          network: wallet.network
+        },
+        transaction: {
+          id: submission.transactionId,
+          action,
+          submitter: submission.submitter,
+          destination: submission.destination,
+          value: submission.value,
+          required: walletRecord.required,
+          confirmations: 0
+        },
+        alertType: 'submission',
+        timestamp: submission.timestamp
+      };
+
+      // Check if it's a large transaction (> 1 ETH)
+      const valueInEth = parseFloat(submission.value) / 1e18;
+      if (valueInEth > 1) {
+        await this.slackNotifier.notifyLargeTransaction(alert);
+      } else {
+        await this.slackNotifier.notifyTransactionSubmission(alert);
+      }
+
+      // Check if destination is unknown
+      if (submission.destination && await this.isUnknownRecipient(submission.destination, wallet.network)) {
+        await this.slackNotifier.notifyUnknownRecipient(alert);
+      }
+
+    } catch (error) {
+      this.logger.error('Failed to send transaction submission notification:', error);
+    }
+  }
+
+  private async sendTransactionConfirmationNotification(
+    wallet: WalletConfig,
+    confirmation: TransactionConfirmationData,
+    confirmations: any[]
+  ): Promise<void> {
+    try {
+      // Get wallet and transaction details
+      const walletRecord = await this.getWalletByAddress(wallet.address, wallet.network);
+      const transaction = await this.getTransactionByWalletAndId(
+        wallet.address,
+        wallet.network,
+        confirmation.transactionId
+      );
+
+      if (!walletRecord || !transaction) return;
+
+      const alert: TransactionAlert = {
+        wallet: {
+          address: wallet.address,
+          name: walletRecord.name,
+          network: wallet.network
+        },
+        transaction: {
+          id: confirmation.transactionId,
+          action: transaction.action,
+          submitter: transaction.submitter,
+          destination: transaction.destination,
+          value: transaction.value,
+          required: walletRecord.required,
+          confirmations: confirmations.length
+        },
+        alertType: 'confirmation',
+        timestamp: confirmation.timestamp
+      };
+
+      await this.slackNotifier.notifyTransactionConfirmation(alert);
+
+    } catch (error) {
+      this.logger.error('Failed to send transaction confirmation notification:', error);
+    }
+  }
+
+  private async sendTransactionExecutionNotification(
+    wallet: WalletConfig,
+    transactionId: number,
+    timestamp: Date
+  ): Promise<void> {
+    try {
+      // Get wallet and transaction details
+      const walletRecord = await this.getWalletByAddress(wallet.address, wallet.network);
+      const transaction = await this.getTransactionByWalletAndId(
+        wallet.address,
+        wallet.network,
+        transactionId
+      );
+
+      if (!walletRecord || !transaction) return;
+
+      const alert: TransactionAlert = {
+        wallet: {
+          address: wallet.address,
+          name: walletRecord.name,
+          network: wallet.network
+        },
+        transaction: {
+          id: transactionId,
+          action: transaction.action,
+          submitter: transaction.submitter,
+          destination: transaction.destination,
+          value: transaction.value,
+          required: walletRecord.required,
+          confirmations: walletRecord.required // Fully confirmed if executed
+        },
+        alertType: 'execution',
+        timestamp
+      };
+
+      await this.slackNotifier.notifyTransactionExecution(alert);
+
+    } catch (error) {
+      this.logger.error('Failed to send transaction execution notification:', error);
+    }
+  }
+
+  private async sendOwnerChangeNotification(
+    wallet: WalletConfig,
+    change: OwnerChangeData,
+    timestamp: Date
+  ): Promise<void> {
+    try {
+      const walletRecord = await this.getWalletByAddress(wallet.address, wallet.network);
+      if (!walletRecord) return;
+
+      const alert: OwnerAlert = {
+        wallet: {
+          address: wallet.address,
+          name: walletRecord.name,
+          network: wallet.network
+        },
+        change: {
+          type: change.changeType,
+          owner: change.owner,
+          newOwner: change.newOwner
+        },
+        timestamp
+      };
+
+      await this.slackNotifier.notifyOwnerChange(alert);
+
+    } catch (error) {
+      this.logger.error('Failed to send owner change notification:', error);
+    }
+  }
+
+  private async isUnknownRecipient(address: string, network: NetworkType): Promise<boolean> {
+    try {
+      const result = await this.db.query(
+        'SELECT id FROM recipients WHERE address = $1 AND network = $2',
+        [address, network]
+      );
+      return result.length === 0;
+    } catch (error) {
+      this.logger.error('Failed to check recipient status:', error);
+      return true; // Assume unknown if check fails
+    }
+  }
+
+  private async getWalletByAddress(address: string, network: NetworkType): Promise<WalletModel | null> {
+    try {
+      const result = await this.db.query(
+        'SELECT * FROM wallets WHERE address = $1 AND network = $2',
+        [address, network]
+      );
+      
+      if (result.length === 0) return null;
+      return this.mapWalletFromDb(result[0]);
+    } catch (error) {
+      this.logger.error('Failed to get wallet:', error);
+      return null;
+    }
+  }
+
+  private async getTransactionByWalletAndId(
+    walletAddress: string,
+    network: NetworkType,
+    transactionId: number
+  ): Promise<TransactionModel | null> {
+    try {
+      const result = await this.db.query(
+        `SELECT t.* FROM transactions t
+         JOIN wallets w ON t.wallet_id = w.id
+         WHERE w.address = $1 AND w.network = $2 AND t.transaction_id = $3`,
+        [walletAddress, network, transactionId]
+      );
+      
+      if (result.length === 0) return null;
+      return this.mapTransactionFromDb(result[0]);
+    } catch (error) {
+      this.logger.error('Failed to get transaction:', error);
+      return null;
+    }
   }
 }

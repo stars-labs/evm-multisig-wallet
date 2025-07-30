@@ -23,6 +23,53 @@ CREATE TYPE notification_channel AS ENUM ('email', 'slack', 'discord', 'webhook'
 -- CORE ENTITIES
 -- ============================================================================
 
+-- Multi-chain configuration and sync state management
+CREATE TABLE chains (
+    id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    
+    -- Chain identification
+    network network_type NOT NULL UNIQUE,
+    chain_id INTEGER NOT NULL UNIQUE,
+    name VARCHAR(100) NOT NULL,
+    
+    -- Chain configuration
+    rpc_url VARCHAR(500) NOT NULL,
+    rpc_backup_urls JSONB DEFAULT '[]', -- Array of backup RPC URLs
+    
+    -- Block and sync configuration  
+    block_confirmations INTEGER NOT NULL DEFAULT 3,
+    start_block BIGINT NOT NULL DEFAULT 0,
+    last_processed_block BIGINT NOT NULL DEFAULT 0,
+    
+    -- Rate limiting configuration
+    rate_limit_rps INTEGER NOT NULL DEFAULT 5, -- Requests per second
+    rate_limit_rpm INTEGER NOT NULL DEFAULT 100, -- Requests per minute  
+    rate_limit_backoff_multiplier DECIMAL(3,1) NOT NULL DEFAULT 1.5,
+    rate_limit_max_backoff_ms INTEGER NOT NULL DEFAULT 60000,
+    
+    -- Sync configuration
+    sync_interval_ms INTEGER NOT NULL DEFAULT 30000, -- 30 seconds
+    max_blocks_per_batch INTEGER NOT NULL DEFAULT 1000,
+    batch_size INTEGER NOT NULL DEFAULT 100,
+    
+    -- Chain status
+    enabled BOOLEAN NOT NULL DEFAULT true,
+    sync_status VARCHAR(20) NOT NULL DEFAULT 'stopped', -- stopped, running, error, paused
+    last_sync_at TIMESTAMP WITH TIME ZONE,
+    last_error TEXT,
+    last_error_at TIMESTAMP WITH TIME ZONE,
+    
+    -- Health metrics
+    consecutive_errors INTEGER NOT NULL DEFAULT 0,
+    total_requests INTEGER NOT NULL DEFAULT 0,
+    total_errors INTEGER NOT NULL DEFAULT 0,
+    avg_response_time_ms INTEGER,
+    
+    -- Metadata
+    created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
+);
+
 -- Registered wallets for monitoring
 CREATE TABLE wallets (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
@@ -301,6 +348,12 @@ SELECT create_hypertable('audit_logs', 'timestamp');
 -- INDEXES FOR PERFORMANCE
 -- ============================================================================
 
+-- Chains
+CREATE INDEX idx_chains_network ON chains(network);
+CREATE INDEX idx_chains_enabled ON chains(enabled) WHERE enabled = true;
+CREATE INDEX idx_chains_sync_status ON chains(sync_status);
+CREATE INDEX idx_chains_last_sync ON chains(last_sync_at);
+
 -- Wallets
 CREATE INDEX idx_wallets_network ON wallets(network);
 CREATE INDEX idx_wallets_monitored ON wallets(monitored) WHERE monitored = true;
@@ -361,6 +414,7 @@ END;
 $$ LANGUAGE plpgsql;
 
 -- Triggers for updated_at
+CREATE TRIGGER tr_chains_updated_at BEFORE UPDATE ON chains FOR EACH ROW EXECUTE FUNCTION update_updated_at();
 CREATE TRIGGER tr_owners_updated_at BEFORE UPDATE ON owners FOR EACH ROW EXECUTE FUNCTION update_updated_at();
 CREATE TRIGGER tr_recipients_updated_at BEFORE UPDATE ON recipients FOR EACH ROW EXECUTE FUNCTION update_updated_at();
 CREATE TRIGGER tr_alerts_updated_at BEFORE UPDATE ON alerts FOR EACH ROW EXECUTE FUNCTION update_updated_at();
@@ -487,12 +541,54 @@ INSERT INTO configurations (scope, category, settings, created_by) VALUES
     }
 }', 'system');
 
+-- Initial chain configurations
+INSERT INTO chains (
+    network, chain_id, name, rpc_url, 
+    block_confirmations, start_block, 
+    rate_limit_rps, rate_limit_rpm,
+    sync_interval_ms, max_blocks_per_batch
+) VALUES
+-- Mainnet
+('mainnet', 1, 'Ethereum Mainnet', 
+ COALESCE(NULLIF(current_setting('app.mainnet_rpc_url', true), ''), 'https://mainnet.infura.io/v3/YOUR_PROJECT_ID'),
+ 12, 0, 3, 50, 60000, 500),
+
+-- Sepolia Testnet  
+('sepolia', 11155111, 'Ethereum Sepolia Testnet',
+ COALESCE(NULLIF(current_setting('app.sepolia_rpc_url', true), ''), 'https://sepolia.infura.io/v3/76b6da167a1a45ecb381010150ee9d31'),
+ 3, 0, 2, 30, 45000, 100),
+
+-- Goerli Testnet
+('goerli', 5, 'Ethereum Goerli Testnet',
+ COALESCE(NULLIF(current_setting('app.goerli_rpc_url', true), ''), 'https://goerli.infura.io/v3/YOUR_PROJECT_ID'),
+ 3, 0, 3, 50, 30000, 200),
+
+-- Polygon
+('polygon', 137, 'Polygon Mainnet',
+ COALESCE(NULLIF(current_setting('app.polygon_rpc_url', true), ''), 'https://polygon-mainnet.infura.io/v3/YOUR_PROJECT_ID'),
+ 20, 0, 5, 100, 15000, 1000),
+
+-- Arbitrum
+('arbitrum', 42161, 'Arbitrum One',
+ COALESCE(NULLIF(current_setting('app.arbitrum_rpc_url', true), ''), 'https://arbitrum-mainnet.infura.io/v3/YOUR_PROJECT_ID'),
+ 1, 0, 10, 200, 15000, 2000),
+
+-- Localhost for development
+('localhost', 31337, 'Local Hardhat Network',
+ COALESCE(NULLIF(current_setting('app.localhost_rpc_url', true), ''), 'http://127.0.0.1:8545'),
+ 1, 1, 50, 1000, 5000, 10000)
+
+ON CONFLICT (network) DO UPDATE SET
+    rpc_url = EXCLUDED.rpc_url,
+    updated_at = NOW();
+
 -- Common recipient categories for initial classification
 INSERT INTO recipients (address, network, name, category, risk_level, verified, source, added_by) VALUES
 ('0x0000000000000000000000000000000000000000', 'sepolia', 'Burn Address', 'burn', 'medium', true, 'manual', 'system'),
 ('0xdAC17F958D2ee523a2206206994597C13D831ec7', 'mainnet', 'Tether USD (USDT)', 'token', 'low', true, 'manual', 'system'),
 ('0xA0b86a33E6411a3344c45b6D3b7eB0B99d3e3d7a', 'mainnet', 'Uniswap V3: Router', 'defi', 'low', true, 'manual', 'system');
 
+COMMENT ON TABLE chains IS 'Multi-chain configuration and sync state management';
 COMMENT ON TABLE wallets IS 'Registered MultiSig wallets for monitoring and validation';
 COMMENT ON TABLE owners IS 'Owner recognition database with automatic learning and manual verification';
 COMMENT ON TABLE recipients IS 'Whitelist of known recipients with risk assessment';

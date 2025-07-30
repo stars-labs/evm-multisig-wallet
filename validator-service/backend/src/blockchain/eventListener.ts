@@ -372,19 +372,48 @@ export class MultiSigEventListener extends EventEmitter {
     toBlock: number
   ): Promise<void> {
     try {
+      this.logger.debug(`Processing events for wallet ${wallet.address} blocks ${fromBlock}-${toBlock}`, {
+        wallet: wallet.address,
+        network: wallet.network,
+        type: wallet.type,
+        fromBlock,
+        toBlock
+      });
+
+      console.log(`[DEBUG] processWalletEvents called for wallet ${wallet.address}, blocks ${fromBlock}-${toBlock}`);
+      console.log(`[DEBUG] Wallet type: ${wallet.type}, hasDailyLimit: ${wallet.type === WalletType.MULTISIG_WALLET_WITH_DAILY_LIMIT}`);
+
       const contract = this.contractFactory.getContract(
         wallet.address,
         wallet.network,
         wallet.type === WalletType.MULTISIG_WALLET_WITH_DAILY_LIMIT
       );
       
+      console.log(`[DEBUG] Contract created, target: ${contract.getAddress()}`);
+      console.log(`[DEBUG] About to call getAllEvents(${fromBlock}, ${toBlock})`);
+      
       const events = await contract.getAllEvents(fromBlock, toBlock);
       
+      console.log(`[DEBUG] getAllEvents returned ${events.length} events`);
+      
+      this.logger.debug(`Found ${events.length} events for wallet ${wallet.address}`, {
+        wallet: wallet.address,
+        eventCount: events.length,
+        events: events.map(e => ({ event: e.event, block: e.blockNumber, tx: e.transactionHash }))
+      });
+      
       for (const event of events) {
+        console.log(`[DEBUG] Processing individual event: ${event.event} at block ${event.blockNumber}`);
+        this.logger.debug(`Processing event ${event.event} for wallet ${wallet.address}`, {
+          event: event.event,
+          blockNumber: event.blockNumber,
+          transactionHash: event.transactionHash
+        });
         await this.processEvent(wallet, event);
       }
       
     } catch (error) {
+      console.log(`[DEBUG] processWalletEvents ERROR:`, error);
       this.logger.error(`Error processing events for wallet ${wallet.address}:`, error);
       this.emit('walletError', { wallet, error });
     }
@@ -697,7 +726,29 @@ export class MultiSigEventListener extends EventEmitter {
     event: MultiSigEvent,
     processedEvent: ProcessedEvent
   ): Promise<void> {
-    const transactionId = Number(event.args.transactionId);
+    // Parse transaction ID properly (could be BigInt from ethers.js)
+    let transactionId: number;
+    try {
+      let rawTxId: any;
+      if (event.args && typeof event.args.transactionId !== 'undefined') {
+        rawTxId = event.args.transactionId;
+      } else if (event.args && typeof event.args['0'] !== 'undefined') {
+        rawTxId = event.args['0'];
+      }
+      
+      transactionId = typeof rawTxId === 'bigint' 
+        ? Number(rawTxId)
+        : Number(rawTxId || 0);
+    } catch (error) {
+      this.logger.error(`Failed to parse transaction ID in execution failure:`, error);
+      return;
+    }
+    
+    // Validate transaction ID
+    if (isNaN(transactionId) || transactionId < 0) {
+      this.logger.error(`Invalid transaction ID in execution failure: ${transactionId}`);
+      return;
+    }
     
     this.emit('transactionFailed', {
       wallet,

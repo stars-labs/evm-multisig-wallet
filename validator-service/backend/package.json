@@ -9,6 +9,13 @@
     "start": "node dist/index.js",
     "test": "jest",
     "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:all": "ts-node src/__tests__/runAllTests.ts",
+    "test:unit": "jest --testPathPattern='.*\\.test\\.ts$' --testPathIgnorePatterns='integration'",
+    "test:integration": "jest --testPathPattern='integration'",
+    "test:services": "jest --testPathPattern='services'",
+    "test:config": "jest --testPathPattern='config'",
+    "test:utils": "jest --testPathPattern='utils'",
     "test:simple": "ts-node src/test/simpleTest.ts",
     "test:events": "ts-node src/test/eventListenerTest.ts",
     "test:debug": "ts-node src/test/eventDebugTest.ts",
@@ -23,6 +30,7 @@
   },
   "dependencies": {
     "@multisig-validator/shared": "file:../shared",
+    "axios": "^1.11.0",
     "bcryptjs": "^2.4.3",
     "bull": "^4.12.0",
     "cors": "^2.8.5",
@@ -60,21 +68,5 @@
     "ts-node": "^10.9.1",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.3.0"
-  },
-  "jest": {
-    "preset": "ts-jest",
-    "testEnvironment": "node",
-    "roots": [
-      "<rootDir>/src"
-    ],
-    "testMatch": [
-      "**/__tests__/**/*.ts",
-      "**/?(*.)+(spec|test).ts"
-    ],
-    "collectCoverageFrom": [
-      "src/**/*.ts",
-      "!src/**/*.d.ts",
-      "!src/index.ts"
-    ]
   }
 }

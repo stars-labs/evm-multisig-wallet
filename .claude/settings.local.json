@@ -35,7 +35,13 @@
       "Bash(START_BLOCK=1 MONITORED_NETWORKS=localhost npx ts-node --transpile-only src/index.ts)",
       "WebFetch(domain:sepolia.etherscan.io)",
       "Bash(curl:*)",
-      "Bash(true)"
+      "Bash(true)",
+      "Bash(pgrep:*)",
+      "Bash(PGPASSWORD=secure_password_123 psql -h localhost -U validator_user -d multisig_validator -c \"UPDATE chains SET consecutive_errors = 0, last_error = NULL WHERE network = ''localhost'';\")",
+      "Bash(npm test)",
+      "Bash(npx jest:*)",
+      "Bash(chmod:*)",
+      "Bash(./check-results.sh:*)"
     ],
     "deny": []
   }

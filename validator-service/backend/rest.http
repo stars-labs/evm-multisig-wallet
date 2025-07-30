@@ -32,9 +32,9 @@ POST http://localhost:3002/api/wallets
 Content-Type: application/json
 
 {
-  "address": "0x9f39A39631b2E49B59A614D37465431890612b5a",
-  "network": "sepolia",
-  "name": "Sepolia MultiSig Wallet",
+  "address": "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512",
+  "network": "localhost",
+  "name": "Localhost MultiSig Wallet",
   "type": "MultiSigWallet"
 }
 
@@ -43,9 +43,9 @@ POST http://localhost:3002/api/wallets
 Content-Type: application/json
 
 {
-  "address": "0xbdb8ed781577405f3FaEa59b33bA2fb05179ee61",
-  "network": "sepolia",
-  "name": "Sepolia MultiSig with Daily Limit",
+  "address": "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0",
+  "network": "localhost",
+  "name": "Localhost MultiSig with Daily Limit",
   "type": "MultiSigWalletWithDailyLimit"
 }
 

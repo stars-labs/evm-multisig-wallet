@@ -186,6 +186,47 @@ export class ValidatorService extends EventEmitter {
         'api' // registered_by
       ]);
       
+      // Populate owners table with current contract owners
+      for (const ownerAddress of owners) {
+        try {
+          await this.db.query(`
+            INSERT INTO owners (
+              address, network, first_seen, wallets, transaction_count,
+              risk_level, confidence_score, status
+            ) VALUES ($1, $2, NOW(), $3, 0, 'medium', 50, 'active')
+            ON CONFLICT (address, network) 
+            DO UPDATE SET 
+              wallets = CASE 
+                WHEN NOT (owners.wallets::jsonb @> $4::jsonb)
+                THEN (owners.wallets::jsonb || $4::jsonb)
+                ELSE owners.wallets::jsonb 
+              END,
+              updated_at = NOW()
+          `, [
+            ownerAddress,
+            network,
+            JSON.stringify([address]), // Initialize with this wallet for new records
+            JSON.stringify([address])  // Add this wallet to existing records if not present
+          ]);
+          
+          this.logger.debug('Owner record updated', { 
+            owner: ownerAddress, 
+            wallet: address, 
+            network 
+          });
+          
+        } catch (error) {
+          this.logger.error(`Failed to update owner record for ${ownerAddress}:`, error);
+          // Continue processing other owners even if one fails
+        }
+      }
+      
+      this.logger.info('Updated owners table with contract owners', {
+        wallet: address,
+        network,
+        ownersProcessed: owners.length
+      });
+      
       // Create wallet config for event listener
       const walletConfig: WalletConfig = {
         address,
@@ -481,7 +522,7 @@ export class ValidatorService extends EventEmitter {
     try {
       // Only load wallets from configured networks
       const networkPlaceholders = this.config.networks.map((_, i) => `$${i + 1}`).join(',');
-      const wallets = await this.db.query<{
+      const result = await this.db.query<{
         address: string;
         network: NetworkType;
         type: WalletType;
@@ -491,7 +532,7 @@ export class ValidatorService extends EventEmitter {
         this.config.networks
       );
       
-      for (const wallet of wallets) {
+      for (const wallet of result) {
         const walletConfig: WalletConfig = {
           address: wallet.address,
           network: wallet.network,
@@ -502,7 +543,7 @@ export class ValidatorService extends EventEmitter {
         this.eventListener.addWallet(walletConfig);
       }
       
-      this.logger.info(`Loaded ${wallets.length} wallets from database`);
+      this.logger.info(`Loaded ${result.length} wallets from database`);
       
     } catch (error) {
       this.logger.error('Failed to load wallets from database:', error);

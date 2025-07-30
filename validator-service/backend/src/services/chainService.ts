@@ -173,7 +173,7 @@ export class ChainService {
           ELSE sync_status 
         END,
         updated_at = NOW()
-      WHERE network = $2
+      WHERE network = $1
     `, [network]);
   }
 
@@ -233,7 +233,7 @@ export class ChainService {
       rpcBackupUrls: row.rpc_backup_urls || [],
       blockConfirmations: row.block_confirmations,
       startBlock: row.start_block,
-      lastProcessedBlock: row.last_processed_block,
+      lastProcessedBlock: parseInt(row.last_processed_block) || 0,
       rateLimitRps: row.rate_limit_rps,
       rateLimitRpm: row.rate_limit_rpm,
       rateLimitBackoffMultiplier: row.rate_limit_backoff_multiplier,

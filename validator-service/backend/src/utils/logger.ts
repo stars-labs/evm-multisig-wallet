@@ -68,7 +68,7 @@ export const logger = winston.createLogger({
       
       // Combined log file
       new winston.transports.File({
-        filename: 'logs/combined.log',
+        filename: 'validator-service.backend.log',
         maxsize: 10 * 1024 * 1024, // 10MB
         maxFiles: 10,
         tailable: true,

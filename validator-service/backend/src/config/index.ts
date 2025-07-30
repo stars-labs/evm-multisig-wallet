@@ -1,7 +1,85 @@
-// Configuration management for MultiSig Validator Service
+// Enhanced configuration management for MultiSig Validator Service
 import dotenv from 'dotenv';
+import joi from 'joi';
 
-dotenv.config();
+// Load environment variables
+if (process.env.NODE_ENV === 'test') {
+  dotenv.config({ path: '.env.test' });
+} else {
+  dotenv.config();
+}
+
+// Configuration validation schema
+const configSchema = joi.object({
+  NODE_ENV: joi.string().valid('development', 'production', 'test').default('development'),
+  PORT: joi.number().port().default(3001),
+  HOST: joi.string().hostname().default('0.0.0.0'),
+  
+  // Database
+  DB_HOST: joi.string().hostname().required(),
+  DB_PORT: joi.number().port().default(5432),
+  DB_NAME: joi.string().required(),
+  DB_USER: joi.string().required(),
+  DB_PASSWORD: joi.string().required(),
+  DB_SSL: joi.boolean().default(false),
+  
+  // Security
+  JWT_SECRET: joi.string().min(32).required(),
+  BCRYPT_ROUNDS: joi.number().min(8).max(15).default(12),
+  
+  // Rate Limiting
+  RATE_LIMIT_WINDOW: joi.number().positive().default(900000), // 15 minutes
+  RATE_LIMIT_MAX: joi.number().positive().default(100),
+  
+  // Blockchain
+  MAINNET_RPC_URL: joi.string().uri().optional(),
+  SEPOLIA_RPC_URL: joi.string().uri().optional(),
+  GOERLI_RPC_URL: joi.string().uri().optional(),
+  LOCALHOST_RPC_URL: joi.string().uri().optional(),
+  
+  // Redis
+  REDIS_HOST: joi.string().hostname().default('localhost'),
+  REDIS_PORT: joi.number().port().default(6379),
+  REDIS_PASSWORD: joi.string().optional(),
+  REDIS_DB: joi.number().min(0).max(15).default(0),
+  
+  // Notifications
+  SLACK_WEBHOOK_URL: joi.string().uri().optional(),
+  SLACK_DEFAULT_CHANNEL: joi.string().allow('').default('#multisig-alerts'),
+  SLACK_ENABLED: joi.boolean().default(false),
+  
+  EMAIL_SERVICE: joi.string().default('gmail'),
+  EMAIL_USER: joi.string().email().optional(),
+  EMAIL_PASSWORD: joi.string().optional(),
+  EMAIL_FROM: joi.string().email().optional(),
+  
+  // Logging
+  LOG_LEVEL: joi.string().valid('error', 'warn', 'info', 'debug').default('info'),
+  LOG_FILE: joi.boolean().default(false),
+  LOG_CONSOLE: joi.boolean().default(true),
+  
+  // Event Processing
+  EVENT_BATCH_SIZE: joi.number().positive().default(100),
+  MAX_BLOCKS_PER_BATCH: joi.number().positive().default(1000),
+  SYNC_INTERVAL: joi.number().positive().default(30000),
+  START_BLOCK: joi.number().min(0).default(1),
+  
+  // Rate Limiting for RPC
+  RPC_REQUESTS_PER_SECOND: joi.number().positive().default(2),
+  RPC_REQUESTS_PER_MINUTE: joi.number().positive().default(50),
+  BACKOFF_MULTIPLIER: joi.number().positive().default(2.0),
+  MAX_BACKOFF_TIME: joi.number().positive().default(120000)
+});
+
+// Validate environment variables
+const { error, value: validatedEnv } = configSchema.validate(process.env, {
+  allowUnknown: true,
+  stripUnknown: true
+});
+
+if (error) {
+  throw new Error(`Configuration validation error: ${error.details.map(d => d.message).join(', ')}`);
+}
 
 export interface Config {
   server: {
@@ -54,8 +132,9 @@ export interface Config {
       from: string;
     };
     slack: {
-      defaultWebhook?: string;
-      botToken?: string;
+      webhookUrl: string;
+      defaultChannel: string;
+      enabled: boolean;
     };
   };
   security: {
@@ -73,43 +152,43 @@ export interface Config {
 
 const config: Config = {
   server: {
-    port: parseInt(process.env.PORT || '3001'),
-    host: process.env.HOST || '0.0.0.0',
-    nodeEnv: process.env.NODE_ENV || 'development',
+    port: validatedEnv.PORT,
+    host: validatedEnv.HOST,
+    nodeEnv: validatedEnv.NODE_ENV,
   },
   database: {
-    host: process.env.DB_HOST || 'localhost',
-    port: parseInt(process.env.DB_PORT || '5432'),
-    name: process.env.DB_NAME || 'multisig_validator',
-    user: process.env.DB_USER || 'postgres',
-    password: process.env.DB_PASSWORD || '',
-    ssl: process.env.DB_SSL === 'true',
+    host: validatedEnv.DB_HOST,
+    port: validatedEnv.DB_PORT,
+    name: validatedEnv.DB_NAME,
+    user: validatedEnv.DB_USER,
+    password: validatedEnv.DB_PASSWORD,
+    ssl: validatedEnv.DB_SSL,
   },
   blockchain: {
     networks: {
       mainnet: {
-        rpcUrl: process.env.MAINNET_RPC_URL || 'https://mainnet.infura.io/v3/YOUR_PROJECT_ID',
+        rpcUrl: validatedEnv.MAINNET_RPC_URL || 'https://mainnet.infura.io/v3/YOUR_PROJECT_ID',
         chainId: 1,
         blockConfirmations: 12,
         retryAttempts: 3,
         retryDelay: 2000,
       },
       sepolia: {
-        rpcUrl: process.env.SEPOLIA_RPC_URL || 'https://sepolia.infura.io/v3/76b6da167a1a45ecb381010150ee9d31',
+        rpcUrl: validatedEnv.SEPOLIA_RPC_URL || 'https://sepolia.infura.io/v3/76b6da167a1a45ecb381010150ee9d31',
         chainId: 11155111,
         blockConfirmations: 3,
         retryAttempts: 3,
         retryDelay: 1000,
       },
       goerli: {
-        rpcUrl: process.env.GOERLI_RPC_URL || 'https://goerli.infura.io/v3/YOUR_PROJECT_ID',
+        rpcUrl: validatedEnv.GOERLI_RPC_URL || 'https://goerli.infura.io/v3/YOUR_PROJECT_ID',
         chainId: 5,
         blockConfirmations: 3,
         retryAttempts: 3,
         retryDelay: 1000,
       },
       localhost: {
-        rpcUrl: process.env.LOCALHOST_RPC_URL || 'http://127.0.0.1:8545',
+        rpcUrl: validatedEnv.LOCALHOST_RPC_URL || 'http://127.0.0.1:8545',
         chainId: 31337,
         blockConfirmations: 1,
         retryAttempts: 3,
@@ -117,59 +196,71 @@ const config: Config = {
       },
     },
     eventSync: {
-      batchSize: parseInt(process.env.EVENT_BATCH_SIZE || '100'),
-      maxBlocksPerBatch: parseInt(process.env.MAX_BLOCKS_PER_BATCH || '1000'),
-      syncInterval: parseInt(process.env.SYNC_INTERVAL || '30000'), // 30 seconds (reduced from 10)
-      startBlock: parseInt(process.env.START_BLOCK || '1'), // Start from block 1 for localhost testing
+      batchSize: validatedEnv.EVENT_BATCH_SIZE,
+      maxBlocksPerBatch: validatedEnv.MAX_BLOCKS_PER_BATCH,
+      syncInterval: validatedEnv.SYNC_INTERVAL,
+      startBlock: validatedEnv.START_BLOCK,
       rateLimiting: {
-        requestsPerSecond: parseInt(process.env.RPC_REQUESTS_PER_SECOND || '2'), // More conservative for Sepolia
-        requestsPerMinute: parseInt(process.env.RPC_REQUESTS_PER_MINUTE || '50'), // Reduced from 100
-        backoffMultiplier: parseFloat(process.env.BACKOFF_MULTIPLIER || '2.0'), // More aggressive backoff
-        maxBackoffTime: parseInt(process.env.MAX_BACKOFF_TIME || '120000'), // 2 minutes max
+        requestsPerSecond: validatedEnv.RPC_REQUESTS_PER_SECOND,
+        requestsPerMinute: validatedEnv.RPC_REQUESTS_PER_MINUTE,
+        backoffMultiplier: validatedEnv.BACKOFF_MULTIPLIER,
+        maxBackoffTime: validatedEnv.MAX_BACKOFF_TIME,
       }
     },
   },
   redis: {
-    host: process.env.REDIS_HOST || 'localhost',
-    port: parseInt(process.env.REDIS_PORT || '6379'),
-    password: process.env.REDIS_PASSWORD,
-    db: parseInt(process.env.REDIS_DB || '0'),
+    host: validatedEnv.REDIS_HOST,
+    port: validatedEnv.REDIS_PORT,
+    password: validatedEnv.REDIS_PASSWORD,
+    db: validatedEnv.REDIS_DB,
   },
   notifications: {
     email: {
-      service: process.env.EMAIL_SERVICE || 'gmail',
-      user: process.env.EMAIL_USER || '',
-      password: process.env.EMAIL_PASSWORD || '',
-      from: process.env.EMAIL_FROM || 'noreply@validator.com',
+      service: validatedEnv.EMAIL_SERVICE,
+      user: validatedEnv.EMAIL_USER || '',
+      password: validatedEnv.EMAIL_PASSWORD || '',
+      from: validatedEnv.EMAIL_FROM || 'noreply@validator.com',
     },
     slack: {
-      defaultWebhook: process.env.SLACK_WEBHOOK_URL,
-      botToken: process.env.SLACK_BOT_TOKEN,
+      webhookUrl: validatedEnv.SLACK_WEBHOOK_URL || '',
+      defaultChannel: validatedEnv.SLACK_DEFAULT_CHANNEL,
+      enabled: validatedEnv.SLACK_ENABLED,
     },
   },
   security: {
-    jwtSecret: process.env.JWT_SECRET || 'dev-secret-change-in-production',
-    bcryptRounds: parseInt(process.env.BCRYPT_ROUNDS || '12'),
-    rateLimitWindow: parseInt(process.env.RATE_LIMIT_WINDOW || '900000'), // 15 minutes
-    rateLimitMax: parseInt(process.env.RATE_LIMIT_MAX || '100'),
+    jwtSecret: validatedEnv.JWT_SECRET,
+    bcryptRounds: validatedEnv.BCRYPT_ROUNDS,
+    rateLimitWindow: validatedEnv.RATE_LIMIT_WINDOW,
+    rateLimitMax: validatedEnv.RATE_LIMIT_MAX,
   },
   logging: {
-    level: process.env.LOG_LEVEL || 'info',
-    file: process.env.LOG_FILE === 'true',
-    console: process.env.LOG_CONSOLE !== 'false',
+    level: validatedEnv.LOG_LEVEL,
+    file: validatedEnv.LOG_FILE,
+    console: validatedEnv.LOG_CONSOLE,
   },
 };
 
-// Validation
-const requiredEnvVars = [
-  'DB_PASSWORD',
-  'JWT_SECRET',
-];
-
-const missingEnvVars = requiredEnvVars.filter(envVar => !process.env[envVar]);
-
-if (missingEnvVars.length > 0 && process.env.NODE_ENV === 'production') {
-  throw new Error(`Missing required environment variables: ${missingEnvVars.join(', ')}`);
+// Production-specific validation
+if (validatedEnv.NODE_ENV === 'production') {
+  const productionSchema = joi.object({
+    JWT_SECRET: joi.string().min(64).required(), // Stronger requirement in production
+    DB_PASSWORD: joi.string().min(8).required(),
+    SLACK_WEBHOOK_URL: joi.string().uri().when('SLACK_ENABLED', {
+      is: true,
+      then: joi.required(),
+      otherwise: joi.optional()
+    })
+  });
+  
+  const { error: prodError } = productionSchema.validate(validatedEnv);
+  if (prodError) {
+    throw new Error(`Production configuration error: ${prodError.details.map(d => d.message).join(', ')}`);
+  }
+  
+  // Warn about development defaults in production
+  if (validatedEnv.JWT_SECRET.includes('dev-secret')) {
+    console.warn('WARNING: Using development JWT secret in production!');
+  }
 }
 
 export default config;

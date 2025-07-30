@@ -3,11 +3,12 @@ const hre = require("hardhat");
 async function main() {
   console.log("Deploying MultiSig Wallet contracts...");
   
-  // Configuration - MODIFY THESE VALUES
+  // Configuration - use first 3 Hardhat accounts for testing
+  const signers = await hre.ethers.getSigners();
   const owners = [
-    "0xF9B9d028818496894267eBD3B3eA3c537d24f9B5", // RE1a
-    "0x855c9E5aC7431df8524F964ab3A0F4805469049f", // RE2
-    "0x4eA8869eF1a9Bf454172BBAec3586AdcAFCE86d9"  // RE3
+    signers[0].address, // First Hardhat account
+    signers[1].address, // Second Hardhat account
+    signers[2].address  // Third Hardhat account
   ];
   
   const requiredConfirmations = 2; // 2 out of 3 signatures required

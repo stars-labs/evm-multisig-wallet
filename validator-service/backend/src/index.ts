@@ -119,8 +119,8 @@ class ValidatorApp {
       logger.info('✅ MultiSig Validator Application started successfully');
       
       // Log status
-      const status = this.validatorService.getStatus();
-      logger.info('Service status:', status);
+      const status = await this.validatorService.getStatus();
+      logger.info('Service status', status);
       
     } catch (error) {
       logger.error('Failed to start application:', error);

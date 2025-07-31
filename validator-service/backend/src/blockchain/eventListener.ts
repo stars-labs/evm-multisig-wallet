@@ -105,7 +105,7 @@ export class MultiSigEventListener extends EventEmitter {
   constructor(logger: winston.Logger, db: Database) {
     super();
     this.logger = logger;
-    this.contractFactory = new ContractFactory(config.blockchain.networks);
+    this.contractFactory = new ContractFactory(config.blockchain.networks, logger);
     this.chainService = new ChainService(db, logger);
   }
   
@@ -223,6 +223,10 @@ export class MultiSigEventListener extends EventEmitter {
     // Initialize last processed block if not set
     if (chainConfig.lastProcessedBlock === 0) {
       const startBlock = await this.getStartBlock(network);
+      this.logger.debug(`Chain ${network} starting from block ${startBlock}`, {
+        network,
+        startBlock
+      });
       await this.chainService.updateSyncState(network, {
         lastProcessedBlock: startBlock,
         syncStatus: 'running',
@@ -274,12 +278,18 @@ export class MultiSigEventListener extends EventEmitter {
     try {
       const walletsOnNetwork = this.getMonitoredWallets(network).filter(w => w.active);
       if (walletsOnNetwork.length === 0) {
+        this.logger.debug(`No active wallets found for ${network}, skipping sync`);
         return;
       }
+      
       
       // Get chain configuration from database
       const chainConfig = await this.chainService.getChainByNetwork(network);
       if (!chainConfig || !chainConfig.enabled) {
+        this.logger.warn(`Chain config not found or disabled for ${network}`, { 
+          configExists: !!chainConfig, 
+          enabled: chainConfig?.enabled 
+        });
         return;
       }
       
@@ -307,19 +317,27 @@ export class MultiSigEventListener extends EventEmitter {
         return; // No new blocks
       }
       
+      this.logger.debug(`Block sync status for ${network}`, {
+        currentBlock,
+        lastProcessed,
+        blocksToProcess: currentBlock - lastProcessed
+      });
+      
       // Process blocks in smaller batches using chain configuration
       const maxBatch = Math.min(
         currentBlock,
         lastProcessed + chainConfig.maxBlocksPerBatch
       );
       
-      this.logger.debug(`Syncing blocks ${lastProcessed + 1} to ${maxBatch} for ${network}`, {
+      this.logger.info(`Syncing blocks ${lastProcessed + 1} to ${maxBatch} for ${network}`, {
+        totalBlocks: maxBatch - lastProcessed,
         rateLimiterStats: rateLimiter?.getStats(),
         chainConfig: {
           rps: chainConfig.rateLimitRps,
           batchSize: chainConfig.maxBlocksPerBatch
         }
       });
+      
       
       for (const wallet of walletsOnNetwork) {
         // Apply rate limiting before each wallet's events
@@ -341,9 +359,16 @@ export class MultiSigEventListener extends EventEmitter {
         lastSyncAt: new Date()
       });
       
+      this.logger.debug(`Completed sync for ${network}`, {
+        processedBlocks: maxBatch - lastProcessed,
+        newLastBlock: maxBatch,
+        walletsProcessed: walletsOnNetwork.length
+      });
+      
       // Reset error count on successful sync
       if (chainConfig.consecutiveErrors > 0) {
         await this.chainService.resetErrorCount(network);
+        this.logger.info(`Reset error count for ${network} after successful sync`);
       }
       
     } catch (error) {
@@ -372,48 +397,59 @@ export class MultiSigEventListener extends EventEmitter {
     toBlock: number
   ): Promise<void> {
     try {
-      this.logger.debug(`Processing events for wallet ${wallet.address} blocks ${fromBlock}-${toBlock}`, {
-        wallet: wallet.address,
-        network: wallet.network,
-        type: wallet.type,
-        fromBlock,
-        toBlock
-      });
-
-      console.log(`[DEBUG] processWalletEvents called for wallet ${wallet.address}, blocks ${fromBlock}-${toBlock}`);
-      console.log(`[DEBUG] Wallet type: ${wallet.type}, hasDailyLimit: ${wallet.type === WalletType.MULTISIG_WALLET_WITH_DAILY_LIMIT}`);
-
       const contract = this.contractFactory.getContract(
         wallet.address,
         wallet.network,
         wallet.type === WalletType.MULTISIG_WALLET_WITH_DAILY_LIMIT
       );
       
-      console.log(`[DEBUG] Contract created, target: ${contract.getAddress()}`);
-      console.log(`[DEBUG] About to call getAllEvents(${fromBlock}, ${toBlock})`);
+      // Check if contract exists at start block to avoid querying non-existent contracts
+      const provider = this.contractFactory.getProvider(wallet.network);
+      const codeAtStart = await provider.getCode(wallet.address, fromBlock);
+      
+      if (codeAtStart === '0x' || codeAtStart === '0x0') {
+        this.logger.debug('Contract not deployed at start block, skipping', {
+          wallet: wallet.address,
+          network: wallet.network,
+          fromBlock,
+          toBlock
+        });
+        return;
+      }
       
       const events = await contract.getAllEvents(fromBlock, toBlock);
       
-      console.log(`[DEBUG] getAllEvents returned ${events.length} events`);
-      
-      this.logger.debug(`Found ${events.length} events for wallet ${wallet.address}`, {
-        wallet: wallet.address,
-        eventCount: events.length,
-        events: events.map(e => ({ event: e.event, block: e.blockNumber, tx: e.transactionHash }))
-      });
+      if (events.length > 0) {
+        this.logger.info(`Found ${events.length} events for wallet ${wallet.address}`, {
+          wallet: wallet.address,
+          network: wallet.network,
+          blocks: `${fromBlock}-${toBlock}`,
+          events: events.map(e => ({
+            type: e.event,
+            block: e.blockNumber,
+            tx: e.transactionHash,
+            args: e.args
+          }))
+        });
+        
+        // Log full event details
+        for (const event of events) {
+          this.logger.info(`Event details: ${event.event}`, {
+            wallet: wallet.address,
+            blockNumber: event.blockNumber,
+            transactionHash: event.transactionHash,
+            logIndex: event.logIndex,
+            args: event.args,
+            removed: event.removed
+          });
+        }
+      }
       
       for (const event of events) {
-        console.log(`[DEBUG] Processing individual event: ${event.event} at block ${event.blockNumber}`);
-        this.logger.debug(`Processing event ${event.event} for wallet ${wallet.address}`, {
-          event: event.event,
-          blockNumber: event.blockNumber,
-          transactionHash: event.transactionHash
-        });
         await this.processEvent(wallet, event);
       }
       
     } catch (error) {
-      console.log(`[DEBUG] processWalletEvents ERROR:`, error);
       this.logger.error(`Error processing events for wallet ${wallet.address}:`, error);
       this.emit('walletError', { wallet, error });
     }

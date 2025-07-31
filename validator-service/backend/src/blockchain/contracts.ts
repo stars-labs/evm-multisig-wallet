@@ -1,5 +1,6 @@
 // Smart contract ABIs and interfaces for MultiSig wallets
 import { ethers } from 'ethers';
+import winston from 'winston';
 
 // ============================================================================
 // MULTISIG WALLET ABI
@@ -135,13 +136,16 @@ export interface DailyLimitChangeEvent extends MultiSigEvent {
 export class MultiSigContract {
   private contract: ethers.Contract;
   private provider: ethers.Provider;
+  private logger?: winston.Logger;
   
   constructor(
     address: string,
     provider: ethers.Provider,
-    hasDailyLimit: boolean = false
+    hasDailyLimit: boolean = false,
+    logger?: winston.Logger
   ) {
     this.provider = provider;
+    this.logger = logger;
     const abi = hasDailyLimit ? MULTISIG_WALLET_WITH_DAILY_LIMIT_ABI : MULTISIG_WALLET_ABI;
     // Ensure address is properly checksummed for ethers.js v6
     const checksummedAddress = ethers.getAddress(address);
@@ -248,33 +252,71 @@ export class MultiSigContract {
     toBlock: number | 'latest' = 'latest'
   ): Promise<MultiSigEvent[]> {
     try {
-      const filter = this.contract.filters[eventName]();
-      const events = await this.contract.queryFilter(filter, fromBlock, toBlock);
+      this.logger?.debug(`Querying ${eventName} events`, {
+        contract: this.contract.target,
+        eventName,
+        fromBlock,
+        toBlock
+      });
       
-      const mappedEvents = events.map(event => {
-        const eventLog = event as any; // ethers.js EventLog
-        const mapped = {
+      // Use direct contract.queryFilter for specific events
+      const events = await this.contract.queryFilter(eventName, fromBlock, toBlock);
+      
+      // Map the events to our format
+      const mappedEvents = events.map((event) => {
+        const eventLog = event as ethers.EventLog;
+        
+        // Parse the arguments - ethers v6 provides args as an array
+        const args: Record<string, any> = {};
+        if (eventLog.args) {
+          // Convert array args to object with indices
+          eventLog.args.forEach((arg, index) => {
+            args[index] = typeof arg === 'bigint' ? arg.toString() : arg;
+          });
+          
+          // Also include named arguments if available
+          const fragment = eventLog.fragment;
+          if (fragment && fragment.inputs) {
+            fragment.inputs.forEach((input, index) => {
+              if (input.name && eventLog.args[index] !== undefined) {
+                args[input.name] = typeof eventLog.args[index] === 'bigint' 
+                  ? eventLog.args[index].toString() 
+                  : eventLog.args[index];
+              }
+            });
+          }
+        }
+        
+        return {
           event: eventLog.eventName || eventName,
           address: eventLog.address,
           blockNumber: eventLog.blockNumber,
           blockHash: eventLog.blockHash,
           transactionHash: eventLog.transactionHash,
           transactionIndex: eventLog.transactionIndex,
-          logIndex: eventLog.logIndex !== undefined ? eventLog.logIndex : eventLog.index || 0,
+          logIndex: eventLog.index,
           removed: eventLog.removed || false,
-          args: this.parseEventArgs(eventLog.args || []),
-          // Store original index for sorting fallback
+          args: args,
           index: eventLog.index
         };
-        // console.log(`[DEBUG] Mapped ${eventName} event:`, mapped); // Reduced logging
-        return mapped;
       });
       
-      console.log(`[DEBUG] getEvents(${eventName}) returning ${mappedEvents.length} events`);
+      if (mappedEvents.length > 0) {
+        this.logger?.debug(`Found ${mappedEvents.length} ${eventName} events`, {
+          eventName,
+          count: mappedEvents.length,
+          contract: this.contract.target
+        });
+      }
+      
       return mappedEvents;
     } catch (error) {
-      console.log(`[DEBUG] getEvents(${eventName}) ERROR:`, error);
-      throw new Error(`Failed to get ${eventName} events: ${error}`);
+      this.logger?.error(`Failed to get ${eventName} events`, {
+        eventName,
+        contract: this.contract.target,
+        error: error instanceof Error ? error.message : String(error)
+      });
+      return [];
     }
   }
   
@@ -283,83 +325,88 @@ export class MultiSigContract {
     toBlock: number | 'latest' = 'latest'
   ): Promise<MultiSigEvent[]> {
     try {
-      console.log(`[DEBUG] getAllEvents(${fromBlock}, ${toBlock}) called on contract ${this.contract.target}`);
+      this.logger?.debug('Querying all contract events', {
+        contract: this.contract.target,
+        fromBlock,
+        toBlock
+      });
       
-      // Base events available on all MultiSig wallets
-      const baseEventNames = [
-        'Submission',
-        'Confirmation',
-        'Revocation', 
-        'Execution',
-        'ExecutionFailure',
-        'Deposit',
-        'OwnerAddition',
-        'OwnerRemoval',
-        'RequirementChange'
-      ];
+      // Get logs directly from provider with the contract address
+      // This is more reliable than using contract.queryFilter("*")
+      const logs = await this.provider.getLogs({
+        address: this.contract.target as string,
+        fromBlock: fromBlock,
+        toBlock: toBlock
+      });
       
-      // Check if contract has DailyLimitChange (only for MultiSigWalletWithDailyLimit)
-      const eventNames = [...baseEventNames];
-      if (this.contract.interface.hasFunction('dailyLimit')) {
-        eventNames.push('DailyLimitChange');
-        console.log(`[DEBUG] Contract has daily limit functionality, including DailyLimitChange events`);
-      } else {
-        console.log(`[DEBUG] Contract is standard MultiSigWallet, skipping DailyLimitChange events`);
-      }
+      const events: MultiSigEvent[] = [];
       
-      console.log(`[DEBUG] Will check ${eventNames.length} event types:`, eventNames);
-      
-      const allEvents: MultiSigEvent[] = [];
-      
-      for (const eventName of eventNames) {
+      // Parse each log using the contract interface
+      for (const log of logs) {
         try {
-              const events = await this.getEvents(eventName, fromBlock, toBlock);
-          if (events.length > 0) {
-            console.log(`[DEBUG] Got ${events.length} ${eventName} events`);
+          const parsedLog = this.contract.interface.parseLog({
+            topics: log.topics as string[],
+            data: log.data
+          });
+          
+          if (parsedLog) {
+            // Convert to our event format
+            const args: Record<string, any> = {};
+            if (parsedLog.args) {
+              parsedLog.args.forEach((arg, index) => {
+                args[index] = typeof arg === 'bigint' ? arg.toString() : arg;
+                // Also add named args
+                const input = parsedLog.fragment.inputs[index];
+                if (input && input.name) {
+                  args[input.name] = typeof arg === 'bigint' ? arg.toString() : arg;
+                }
+              });
+            }
+            
+            events.push({
+              event: parsedLog.name,
+              address: log.address,
+              blockNumber: log.blockNumber,
+              blockHash: log.blockHash,
+              transactionHash: log.transactionHash,
+              transactionIndex: log.transactionIndex,
+              logIndex: log.index,
+              removed: log.removed || false,
+              args: args,
+              index: log.index
+            });
           }
-          allEvents.push(...events);
-        } catch (error) {
-          console.log(`[DEBUG] Skipping ${eventName} due to error:`, error);
-          // Skip events that don't exist on this contract
-          continue;
+        } catch (e) {
+          this.logger?.warn('Failed to parse contract log', {
+            logIndex: log.index,
+            blockNumber: log.blockNumber,
+            error: e instanceof Error ? e.message : String(e)
+          });
         }
       }
       
-      console.log(`[DEBUG] Total events collected before sorting: ${allEvents.length}`);
-      
-      // Log events before sorting
-      console.log(`[DEBUG] Events BEFORE sorting:`);
-      allEvents.forEach((event, i) => {
-        const eventIndex = event.logIndex !== undefined ? event.logIndex : (event as any).index || 0;
-        console.log(`[DEBUG]   Event ${i}: ${event.event} block=${event.blockNumber} logIndex=${event.logIndex} index=${(event as any).index} finalIndex=${eventIndex}`);
-      });
-      
-      // Sort by block number and log index (use index if logIndex is not available)
-      const sortedEvents = allEvents.sort((a, b) => {
+      // Sort events by block number and log index
+      events.sort((a, b) => {
         if (a.blockNumber !== b.blockNumber) {
           return a.blockNumber - b.blockNumber;
         }
-        // Use the index property from ethers event if logIndex is undefined
-        const aIndex = a.logIndex !== undefined ? a.logIndex : (a as any).index || 0;
-        const bIndex = b.logIndex !== undefined ? b.logIndex : (b as any).index || 0;
-        // Only log when actually swapping order
-        if (aIndex !== bIndex) {
-          console.log(`[DEBUG] Sorting: ${a.event}(${aIndex}) vs ${b.event}(${bIndex}) = ${aIndex - bIndex}`);
-        }
-        return aIndex - bIndex;
+        return a.logIndex - b.logIndex;
       });
       
-      // Log events after sorting
-      console.log(`[DEBUG] Events AFTER sorting:`);
-      sortedEvents.forEach((event, i) => {
-        const eventIndex = event.logIndex !== undefined ? event.logIndex : (event as any).index || 0;
-        console.log(`[DEBUG]   Event ${i}: ${event.event} block=${event.blockNumber} logIndex=${event.logIndex} index=${(event as any).index} finalIndex=${eventIndex}`);
-      });
+      if (events.length > 0) {
+        this.logger?.debug(`Found contract events`, {
+          totalEvents: events.length,
+          eventTypes: [...new Set(events.map(e => e.event))],
+          contract: this.contract.target
+        });
+      }
       
-      console.log(`[DEBUG] getAllEvents returning ${sortedEvents.length} sorted events`);
-      return sortedEvents;
+      return events;
     } catch (error) {
-      console.log(`[DEBUG] getAllEvents ERROR:`, error);
+      this.logger?.error('Failed to get all events', {
+        contract: this.contract.target,
+        error: error instanceof Error ? error.message : String(error)
+      });
       throw new Error(`Failed to get all events: ${error}`);
     }
   }
@@ -368,21 +415,6 @@ export class MultiSigContract {
   // UTILITY METHODS
   // ============================================================================
   
-  private parseEventArgs(args: any[]): Record<string, any> {
-    const parsed: Record<string, any> = {};
-    
-    for (let i = 0; i < args.length; i++) {
-      const value = args[i];
-      if (typeof value === 'bigint') {
-        // Convert BigInt to string to avoid serialization issues
-        parsed[i] = value.toString();
-      } else {
-        parsed[i] = value;
-      }
-    }
-    
-    return parsed;
-  }
   
   getAddress(): string {
     return this.contract.target as string;
@@ -448,8 +480,10 @@ export class MultiSigContract {
 
 export class ContractFactory {
   private providers: Map<string, ethers.Provider> = new Map();
+  private logger?: winston.Logger;
   
-  constructor(networkConfigs: Record<string, { rpcUrl: string }>) {
+  constructor(networkConfigs: Record<string, { rpcUrl: string }>, logger?: winston.Logger) {
+    this.logger = logger;
     for (const [network, config] of Object.entries(networkConfigs)) {
       const provider = new ethers.JsonRpcProvider(config.rpcUrl);
       this.providers.set(network, provider);
@@ -466,7 +500,7 @@ export class ContractFactory {
       throw new Error(`Provider not found for network: ${network}`);
     }
     
-    return new MultiSigContract(address, provider, hasDailyLimit);
+    return new MultiSigContract(address, provider, hasDailyLimit, this.logger);
   }
   
   getProvider(network: string): ethers.Provider {

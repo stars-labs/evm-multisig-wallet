@@ -133,13 +133,9 @@ export class SlackNotifier {
       }]
     };
 
-    // Only notify if transaction is now fully confirmed or if it's a large amount
-    const isFullyConfirmed = alert.transaction.confirmations >= alert.transaction.required;
-    const isLargeAmount = parseFloat(alert.transaction.value) > 1e18; // > 1 ETH
-    
-    if (isFullyConfirmed || isLargeAmount) {
-      await this.sendMessage(message);
-    }
+    // Always notify for confirmations - users want to see progress
+    // Previously only notified when fully confirmed or large amount, but this was too restrictive
+    await this.sendMessage(message);
   }
 
   async notifyTransactionExecution(alert: TransactionAlert): Promise<void> {

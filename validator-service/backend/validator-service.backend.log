@@ -1531,3 +1531,1329 @@
 {"cors":true,"level":"info","logging":true,"message":"API server running on port 3001","monitoredNetworks":["localhost"],"port":3001,"service":"multisig-validator","timestamp":"2025-07-30T15:39:55.684Z"}
 {"level":"info","message":"✅ MultiSig Validator Application started successfully","service":"multisig-validator","timestamp":"2025-07-30T15:39:55.684Z"}
 {"level":"info","message":"Service status:","service":"multisig-validator","timestamp":"2025-07-30T15:39:55.684Z"}
+{"level":"info","message":"Configured to monitor networks: localhost","service":"multisig-validator","timestamp":"2025-07-30T15:46:50.095Z"}
+{"level":"info","message":"Starting MultiSig Validator Application","service":"multisig-validator","timestamp":"2025-07-30T15:46:50.099Z"}
+{"level":"info","message":"Testing database connection...","service":"multisig-validator","timestamp":"2025-07-30T15:46:50.099Z"}
+{"idleConnections":0,"level":"debug","message":"New database client connected","service":"multisig-validator","timestamp":"2025-07-30T15:46:50.117Z","totalConnections":1,"waitingClients":0}
+{"level":"info","message":"Database connection successful","service":"multisig-validator","timestamp":"2025-07-30T15:46:50.118Z"}
+{"level":"info","message":"Starting validator service...","service":"multisig-validator","timestamp":"2025-07-30T15:46:50.118Z"}
+{"level":"info","message":"Starting MultiSig Validator Service","service":"multisig-validator","timestamp":"2025-07-30T15:46:50.118Z"}
+{"address":"0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512","level":"info","message":"Added wallet for monitoring","network":"localhost","service":"multisig-validator","timestamp":"2025-07-30T15:46:50.127Z","type":"MultiSigWallet"}
+{"level":"info","message":"Loaded 1 wallets from database","service":"multisig-validator","timestamp":"2025-07-30T15:46:50.128Z"}
+{"level":"info","message":"Starting MultiSig event listener","service":"multisig-validator","timestamp":"2025-07-30T15:46:50.128Z"}
+{"level":"info","message":"Starting monitoring for network: localhost","service":"multisig-validator","timestamp":"2025-07-30T15:46:50.128Z"}
+{"level":"info","message":"Initial sync for localhost will start in 1s","service":"multisig-validator","timestamp":"2025-07-30T15:46:50.130Z"}
+{"level":"info","message":"Validator service started","service":"multisig-validator","timestamp":"2025-07-30T15:46:50.130Z"}
+{"level":"info","message":"Validator service started successfully","service":"multisig-validator","timestamp":"2025-07-30T15:46:50.130Z"}
+{"level":"info","message":"Starting API server...","service":"multisig-validator","timestamp":"2025-07-30T15:46:50.130Z"}
+{"cors":true,"level":"info","logging":true,"message":"API server running on port 3001","monitoredNetworks":["localhost"],"port":3001,"service":"multisig-validator","timestamp":"2025-07-30T15:46:50.131Z"}
+{"level":"info","message":"✅ MultiSig Validator Application started successfully","service":"multisig-validator","timestamp":"2025-07-30T15:46:50.131Z"}
+{"level":"info","message":"Service status:","service":"multisig-validator","timestamp":"2025-07-30T15:46:50.131Z"}
+{"chainConfig":{"batchSize":10000,"rps":50},"level":"debug","message":"Syncing blocks 11 to 11 for localhost","rateLimiterStats":{"backoffUntil":0,"consecutiveErrors":0,"requestsLastHour":4,"requestsLastMinute":4,"requestsLastSecond":1,"totalRateLimited":0,"totalRequests":4},"service":"multisig-validator","timestamp":"2025-07-30T15:47:06.160Z"}
+{"fromBlock":11,"level":"debug","message":"Processing events for wallet 0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512 blocks 11-11","network":"localhost","service":"multisig-validator","timestamp":"2025-07-30T15:47:06.161Z","toBlock":11,"type":"MultiSigWallet","wallet":"0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"}
+{"eventCount":2,"events":[{"block":11,"event":"Submission","tx":"0xad1d64be56e150e9ff46f9df6a7645cf63ff5cdbe282fc2bbb653b030accdcf1"},{"block":11,"event":"Confirmation","tx":"0xad1d64be56e150e9ff46f9df6a7645cf63ff5cdbe282fc2bbb653b030accdcf1"}],"level":"debug","message":"Found 2 events for wallet 0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512","service":"multisig-validator","timestamp":"2025-07-30T15:47:06.301Z","wallet":"0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"}
+{"blockNumber":11,"event":"Submission","level":"debug","message":"Processing event Submission for wallet 0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512","service":"multisig-validator","timestamp":"2025-07-30T15:47:06.301Z","transactionHash":"0xad1d64be56e150e9ff46f9df6a7645cf63ff5cdbe282fc2bbb653b030accdcf1"}
+{"level":"info","message":"=== SUBMISSION EVENT DEBUG START ===","service":"multisig-validator","timestamp":"2025-07-30T15:47:06.314Z"}
+{"level":"info","message":"Wallet: 0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512 (localhost)","service":"multisig-validator","timestamp":"2025-07-30T15:47:06.315Z"}
+{"level":"info","message":"Block: 11, TX: 0xad1d64be56e150e9ff46f9df6a7645cf63ff5cdbe282fc2bbb653b030accdcf1","service":"multisig-validator","timestamp":"2025-07-30T15:47:06.315Z"}
+{"address":"0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512","args":{"0":"6"},"argsEntries":[["0","6"]],"argsKeys":["0"],"argsType":"object","blockNumber":11,"event":"Submission","level":"info","logIndex":0,"message":"Full event structure:","service":"multisig-validator","timestamp":"2025-07-30T15:47:06.316Z","transactionHash":"0xad1d64be56e150e9ff46f9df6a7645cf63ff5cdbe282fc2bbb653b030accdcf1"}
+{"level":"info","message":"Event args breakdown:","service":"multisig-validator","timestamp":"2025-07-30T15:47:06.316Z"}
+{"level":"info","message":"  args.0: 6 (type: string)","service":"multisig-validator","timestamp":"2025-07-30T15:47:06.316Z"}
+{"level":"debug","message":"Raw transaction ID from event: 6 (type: string)","service":"multisig-validator","timestamp":"2025-07-30T15:47:06.316Z"}
+{"level":"debug","message":"Parsed transaction ID: 6","service":"multisig-validator","timestamp":"2025-07-30T15:47:06.316Z"}
+{"action":"transfer","level":"info","message":"Transaction submitted","service":"multisig-validator","submitter":"0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266","timestamp":"2025-07-30T15:47:06.343Z","transactionId":6,"wallet":"0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"}
+{"blockNumber":11,"event":"Confirmation","level":"debug","message":"Processing event Confirmation for wallet 0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512","service":"multisig-validator","timestamp":"2025-07-30T15:47:06.343Z","transactionHash":"0xad1d64be56e150e9ff46f9df6a7645cf63ff5cdbe282fc2bbb653b030accdcf1"}
+{"level":"debug","message":"Transaction started","service":"multisig-validator","timestamp":"2025-07-30T15:47:06.344Z"}
+{"idleConnections":0,"level":"debug","message":"New database client connected","service":"multisig-validator","timestamp":"2025-07-30T15:47:06.352Z","totalConnections":2,"waitingClients":0}
+{"level":"info","message":"=== CONFIRMATION EVENT DEBUG ===","service":"multisig-validator","timestamp":"2025-07-30T15:47:06.354Z"}
+{"args":{"0":"0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266","1":"6"},"argsEntries":[["0","0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"],["1","6"]],"argsKeys":["0","1"],"level":"info","message":"Event args:","service":"multisig-validator","timestamp":"2025-07-30T15:47:06.354Z"}
+{"level":"debug","message":"Parsed confirmation: transactionId=6, confirmer=0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266","service":"multisig-validator","timestamp":"2025-07-30T15:47:06.354Z"}
+{"confirmer":"0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266","level":"info","message":"Transaction confirmed","service":"multisig-validator","timestamp":"2025-07-30T15:47:06.354Z","transactionId":6,"wallet":"0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"}
+{"idleConnections":1,"level":"debug","message":"New database client connected","service":"multisig-validator","timestamp":"2025-07-30T15:47:06.364Z","totalConnections":4,"waitingClients":0}
+{"level":"debug","message":"Transaction started","service":"multisig-validator","timestamp":"2025-07-30T15:47:06.365Z"}
+{"blockNumber":11,"confirmer":"0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266","level":"error","message":"Transaction not found for confirmation - this indicates submission event was not processed first","service":"multisig-validator","timestamp":"2025-07-30T15:47:06.369Z","transactionHash":"0xad1d64be56e150e9ff46f9df6a7645cf63ff5cdbe282fc2bbb653b030accdcf1","transactionId":6,"wallet":"0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"}
+{"idleConnections":0,"level":"debug","message":"New database client connected","service":"multisig-validator","timestamp":"2025-07-30T15:47:06.370Z","totalConnections":4,"waitingClients":0}
+{"duration":32,"level":"debug","message":"Transaction committed","service":"multisig-validator","timestamp":"2025-07-30T15:47:06.376Z"}
+{"action":"transfer","level":"info","message":"Transaction submission processed","service":"multisig-validator","submitter":"0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266","timestamp":"2025-07-30T15:47:06.377Z","transactionId":6,"wallet":"0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"}
+{"duration":26,"level":"debug","message":"Transaction committed","service":"multisig-validator","timestamp":"2025-07-30T15:47:06.391Z"}
+{"confirmer":"0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266","level":"info","message":"Transaction confirmed","service":"multisig-validator","timestamp":"2025-07-30T15:47:06.397Z","transactionId":6,"wallet":"0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"}
+{"channel":"#multisig-alerts","level":"debug","message":"Slack notification sent successfully","service":"multisig-validator","text":"📝 *New MultiSig Transaction Submitted*","timestamp":"2025-07-30T15:47:06.903Z"}
+{"channel":"#multisig-alerts","level":"debug","message":"Slack notification sent successfully","service":"multisig-validator","text":"⚠️ *Unknown Recipient Alert*","timestamp":"2025-07-30T15:47:07.435Z"}
+{"action":"transfer","level":"info","message":"New transaction submitted","service":"multisig-validator","submitter":"0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266","timestamp":"2025-07-30T15:47:07.436Z","transactionId":6,"value":"100000000000000000","wallet":"0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"}
+{"level":"info","message":"Received SIGTERM, shutting down gracefully","service":"multisig-validator","timestamp":"2025-07-30T16:00:30.671Z"}
+{"level":"info","message":"Configured to monitor networks: localhost","service":"multisig-validator","timestamp":"2025-07-30T16:00:30.898Z"}
+{"level":"info","message":"Configured to monitor networks: localhost","service":"multisig-validator","timestamp":"2025-07-30T16:00:30.898Z"}
+{"level":"info","message":"Starting MultiSig Validator Application","service":"multisig-validator","timestamp":"2025-07-30T16:00:30.902Z"}
+{"level":"info","message":"Testing database connection...","service":"multisig-validator","timestamp":"2025-07-30T16:00:30.902Z"}
+{"level":"info","message":"Starting MultiSig Validator Application","service":"multisig-validator","timestamp":"2025-07-30T16:00:30.902Z"}
+{"level":"info","message":"Testing database connection...","service":"multisig-validator","timestamp":"2025-07-30T16:00:30.902Z"}
+{"idleConnections":0,"level":"debug","message":"New database client connected","service":"multisig-validator","timestamp":"2025-07-30T16:00:30.918Z","totalConnections":1,"waitingClients":0}
+{"idleConnections":0,"level":"debug","message":"New database client connected","service":"multisig-validator","timestamp":"2025-07-30T16:00:30.919Z","totalConnections":1,"waitingClients":0}
+{"level":"info","message":"Database connection successful","service":"multisig-validator","timestamp":"2025-07-30T16:00:30.920Z"}
+{"level":"info","message":"Starting validator service...","service":"multisig-validator","timestamp":"2025-07-30T16:00:30.920Z"}
+{"level":"info","message":"Starting MultiSig Validator Service","service":"multisig-validator","timestamp":"2025-07-30T16:00:30.920Z"}
+{"level":"info","message":"Database connection successful","service":"multisig-validator","timestamp":"2025-07-30T16:00:30.920Z"}
+{"level":"info","message":"Starting validator service...","service":"multisig-validator","timestamp":"2025-07-30T16:00:30.921Z"}
+{"level":"info","message":"Starting MultiSig Validator Service","service":"multisig-validator","timestamp":"2025-07-30T16:00:30.921Z"}
+{"address":"0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512","level":"info","message":"Added wallet for monitoring","network":"localhost","service":"multisig-validator","timestamp":"2025-07-30T16:00:30.927Z","type":"MultiSigWallet"}
+{"address":"0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512","level":"info","message":"Added wallet for monitoring","network":"localhost","service":"multisig-validator","timestamp":"2025-07-30T16:00:30.927Z","type":"MultiSigWallet"}
+{"level":"info","message":"Loaded 1 wallets from database","service":"multisig-validator","timestamp":"2025-07-30T16:00:30.927Z"}
+{"level":"info","message":"Starting MultiSig event listener","service":"multisig-validator","timestamp":"2025-07-30T16:00:30.927Z"}
+{"level":"info","message":"Starting monitoring for network: localhost","service":"multisig-validator","timestamp":"2025-07-30T16:00:30.927Z"}
+{"level":"info","message":"Loaded 1 wallets from database","service":"multisig-validator","timestamp":"2025-07-30T16:00:30.928Z"}
+{"level":"info","message":"Starting MultiSig event listener","service":"multisig-validator","timestamp":"2025-07-30T16:00:30.928Z"}
+{"level":"info","message":"Starting monitoring for network: localhost","service":"multisig-validator","timestamp":"2025-07-30T16:00:30.928Z"}
+{"level":"info","message":"Initial sync for localhost will start in 1s","service":"multisig-validator","timestamp":"2025-07-30T16:00:30.929Z"}
+{"level":"info","message":"Initial sync for localhost will start in 1s","service":"multisig-validator","timestamp":"2025-07-30T16:00:30.930Z"}
+{"level":"info","message":"Validator service started","service":"multisig-validator","timestamp":"2025-07-30T16:00:30.930Z"}
+{"level":"info","message":"Validator service started successfully","service":"multisig-validator","timestamp":"2025-07-30T16:00:30.930Z"}
+{"level":"info","message":"Starting API server...","service":"multisig-validator","timestamp":"2025-07-30T16:00:30.930Z"}
+{"cors":true,"level":"info","logging":true,"message":"API server running on port 3001","monitoredNetworks":["localhost"],"port":3001,"service":"multisig-validator","timestamp":"2025-07-30T16:00:30.931Z"}
+{"level":"info","message":"✅ MultiSig Validator Application started successfully","service":"multisig-validator","timestamp":"2025-07-30T16:00:30.931Z"}
+{"level":"info","message":"Service status:","service":"multisig-validator","timestamp":"2025-07-30T16:00:30.931Z"}
+{"level":"info","message":"Received SIGTERM, shutting down gracefully","service":"multisig-validator","timestamp":"2025-07-30T16:00:41.421Z"}
+{"level":"info","message":"Configured to monitor networks: localhost","service":"multisig-validator","timestamp":"2025-07-30T16:00:41.626Z"}
+{"level":"info","message":"Starting MultiSig Validator Application","service":"multisig-validator","timestamp":"2025-07-30T16:00:41.630Z"}
+{"level":"info","message":"Testing database connection...","service":"multisig-validator","timestamp":"2025-07-30T16:00:41.630Z"}
+{"idleConnections":0,"level":"debug","message":"New database client connected","service":"multisig-validator","timestamp":"2025-07-30T16:00:41.643Z","totalConnections":1,"waitingClients":0}
+{"level":"info","message":"Database connection successful","service":"multisig-validator","timestamp":"2025-07-30T16:00:41.645Z"}
+{"level":"info","message":"Starting validator service...","service":"multisig-validator","timestamp":"2025-07-30T16:00:41.645Z"}
+{"level":"info","message":"Starting MultiSig Validator Service","service":"multisig-validator","timestamp":"2025-07-30T16:00:41.645Z"}
+{"address":"0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512","level":"info","message":"Added wallet for monitoring","network":"localhost","service":"multisig-validator","timestamp":"2025-07-30T16:00:41.650Z","type":"MultiSigWallet"}
+{"level":"info","message":"Loaded 1 wallets from database","service":"multisig-validator","timestamp":"2025-07-30T16:00:41.650Z"}
+{"level":"info","message":"Starting MultiSig event listener","service":"multisig-validator","timestamp":"2025-07-30T16:00:41.650Z"}
+{"level":"info","message":"Starting monitoring for network: localhost","service":"multisig-validator","timestamp":"2025-07-30T16:00:41.650Z"}
+{"level":"info","message":"Initial sync for localhost will start in 1s","service":"multisig-validator","timestamp":"2025-07-30T16:00:41.653Z"}
+{"level":"info","message":"Validator service started","service":"multisig-validator","timestamp":"2025-07-30T16:00:41.654Z"}
+{"level":"info","message":"Validator service started successfully","service":"multisig-validator","timestamp":"2025-07-30T16:00:41.654Z"}
+{"level":"info","message":"Starting API server...","service":"multisig-validator","timestamp":"2025-07-30T16:00:41.654Z"}
+{"cors":true,"level":"info","logging":true,"message":"API server running on port 3001","monitoredNetworks":["localhost"],"port":3001,"service":"multisig-validator","timestamp":"2025-07-30T16:00:41.655Z"}
+{"level":"info","message":"✅ MultiSig Validator Application started successfully","service":"multisig-validator","timestamp":"2025-07-30T16:00:41.655Z"}
+{"level":"info","message":"Service status:","service":"multisig-validator","timestamp":"2025-07-30T16:00:41.655Z"}
+{"level":"info","message":"Received SIGTERM, shutting down gracefully","service":"multisig-validator","timestamp":"2025-07-30T16:00:52.595Z"}
+{"level":"info","message":"Configured to monitor networks: localhost","service":"multisig-validator","timestamp":"2025-07-30T16:00:52.801Z"}
+{"level":"info","message":"Starting MultiSig Validator Application","service":"multisig-validator","timestamp":"2025-07-30T16:00:52.805Z"}
+{"level":"info","message":"Testing database connection...","service":"multisig-validator","timestamp":"2025-07-30T16:00:52.805Z"}
+{"idleConnections":0,"level":"debug","message":"New database client connected","service":"multisig-validator","timestamp":"2025-07-30T16:00:52.818Z","totalConnections":1,"waitingClients":0}
+{"level":"info","message":"Database connection successful","service":"multisig-validator","timestamp":"2025-07-30T16:00:52.819Z"}
+{"level":"info","message":"Starting validator service...","service":"multisig-validator","timestamp":"2025-07-30T16:00:52.819Z"}
+{"level":"info","message":"Starting MultiSig Validator Service","service":"multisig-validator","timestamp":"2025-07-30T16:00:52.819Z"}
+{"address":"0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512","level":"info","message":"Added wallet for monitoring","network":"localhost","service":"multisig-validator","timestamp":"2025-07-30T16:00:52.824Z","type":"MultiSigWallet"}
+{"level":"info","message":"Loaded 1 wallets from database","service":"multisig-validator","timestamp":"2025-07-30T16:00:52.824Z"}
+{"level":"info","message":"Starting MultiSig event listener","service":"multisig-validator","timestamp":"2025-07-30T16:00:52.824Z"}
+{"level":"info","message":"Starting monitoring for network: localhost","service":"multisig-validator","timestamp":"2025-07-30T16:00:52.824Z"}
+{"level":"info","message":"Initial sync for localhost will start in 1s","service":"multisig-validator","timestamp":"2025-07-30T16:00:52.827Z"}
+{"level":"info","message":"Validator service started","service":"multisig-validator","timestamp":"2025-07-30T16:00:52.828Z"}
+{"level":"info","message":"Validator service started successfully","service":"multisig-validator","timestamp":"2025-07-30T16:00:52.828Z"}
+{"level":"info","message":"Starting API server...","service":"multisig-validator","timestamp":"2025-07-30T16:00:52.828Z"}
+{"cors":true,"level":"info","logging":true,"message":"API server running on port 3001","monitoredNetworks":["localhost"],"port":3001,"service":"multisig-validator","timestamp":"2025-07-30T16:00:52.828Z"}
+{"level":"info","message":"✅ MultiSig Validator Application started successfully","service":"multisig-validator","timestamp":"2025-07-30T16:00:52.829Z"}
+{"level":"info","message":"Service status:","service":"multisig-validator","timestamp":"2025-07-30T16:00:52.829Z"}
+{"level":"info","message":"Received SIGTERM, shutting down gracefully","service":"multisig-validator","timestamp":"2025-07-30T16:01:05.843Z"}
+{"level":"info","message":"Configured to monitor networks: localhost","service":"multisig-validator","timestamp":"2025-07-30T16:01:06.039Z"}
+{"level":"info","message":"Starting MultiSig Validator Application","service":"multisig-validator","timestamp":"2025-07-30T16:01:06.043Z"}
+{"level":"info","message":"Testing database connection...","service":"multisig-validator","timestamp":"2025-07-30T16:01:06.043Z"}
+{"idleConnections":0,"level":"debug","message":"New database client connected","service":"multisig-validator","timestamp":"2025-07-30T16:01:06.057Z","totalConnections":1,"waitingClients":0}
+{"level":"info","message":"Database connection successful","service":"multisig-validator","timestamp":"2025-07-30T16:01:06.059Z"}
+{"level":"info","message":"Starting validator service...","service":"multisig-validator","timestamp":"2025-07-30T16:01:06.059Z"}
+{"level":"info","message":"Starting MultiSig Validator Service","service":"multisig-validator","timestamp":"2025-07-30T16:01:06.059Z"}
+{"address":"0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512","level":"info","message":"Added wallet for monitoring","network":"localhost","service":"multisig-validator","timestamp":"2025-07-30T16:01:06.063Z","type":"MultiSigWallet"}
+{"level":"info","message":"Loaded 1 wallets from database","service":"multisig-validator","timestamp":"2025-07-30T16:01:06.063Z"}
+{"level":"info","message":"Starting MultiSig event listener","service":"multisig-validator","timestamp":"2025-07-30T16:01:06.063Z"}
+{"level":"info","message":"Starting monitoring for network: localhost","service":"multisig-validator","timestamp":"2025-07-30T16:01:06.064Z"}
+{"level":"info","message":"Initial sync for localhost will start in 1s","service":"multisig-validator","timestamp":"2025-07-30T16:01:06.067Z"}
+{"level":"info","message":"Validator service started","service":"multisig-validator","timestamp":"2025-07-30T16:01:06.067Z"}
+{"level":"info","message":"Validator service started successfully","service":"multisig-validator","timestamp":"2025-07-30T16:01:06.067Z"}
+{"level":"info","message":"Starting API server...","service":"multisig-validator","timestamp":"2025-07-30T16:01:06.067Z"}
+{"cors":true,"level":"info","logging":true,"message":"API server running on port 3001","monitoredNetworks":["localhost"],"port":3001,"service":"multisig-validator","timestamp":"2025-07-30T16:01:06.067Z"}
+{"level":"info","message":"✅ MultiSig Validator Application started successfully","service":"multisig-validator","timestamp":"2025-07-30T16:01:06.068Z"}
+{"level":"info","message":"Service status:","service":"multisig-validator","timestamp":"2025-07-30T16:01:06.068Z"}
+{"level":"info","message":"Received SIGTERM, shutting down gracefully","service":"multisig-validator","timestamp":"2025-07-30T16:01:15.538Z"}
+{"level":"info","message":"Configured to monitor networks: localhost","service":"multisig-validator","timestamp":"2025-07-30T16:01:15.737Z"}
+{"level":"info","message":"Starting MultiSig Validator Application","service":"multisig-validator","timestamp":"2025-07-30T16:01:15.741Z"}
+{"level":"info","message":"Testing database connection...","service":"multisig-validator","timestamp":"2025-07-30T16:01:15.742Z"}
+{"idleConnections":0,"level":"debug","message":"New database client connected","service":"multisig-validator","timestamp":"2025-07-30T16:01:15.755Z","totalConnections":1,"waitingClients":0}
+{"level":"info","message":"Database connection successful","service":"multisig-validator","timestamp":"2025-07-30T16:01:15.756Z"}
+{"level":"info","message":"Starting validator service...","service":"multisig-validator","timestamp":"2025-07-30T16:01:15.756Z"}
+{"level":"info","message":"Starting MultiSig Validator Service","service":"multisig-validator","timestamp":"2025-07-30T16:01:15.756Z"}
+{"address":"0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512","level":"info","message":"Added wallet for monitoring","network":"localhost","service":"multisig-validator","timestamp":"2025-07-30T16:01:15.762Z","type":"MultiSigWallet"}
+{"level":"info","message":"Loaded 1 wallets from database","service":"multisig-validator","timestamp":"2025-07-30T16:01:15.762Z"}
+{"level":"info","message":"Starting MultiSig event listener","service":"multisig-validator","timestamp":"2025-07-30T16:01:15.762Z"}
+{"level":"info","message":"Starting monitoring for network: localhost","service":"multisig-validator","timestamp":"2025-07-30T16:01:15.763Z"}
+{"level":"info","message":"Initial sync for localhost will start in 1s","service":"multisig-validator","timestamp":"2025-07-30T16:01:15.766Z"}
+{"level":"info","message":"Validator service started","service":"multisig-validator","timestamp":"2025-07-30T16:01:15.766Z"}
+{"level":"info","message":"Validator service started successfully","service":"multisig-validator","timestamp":"2025-07-30T16:01:15.766Z"}
+{"level":"info","message":"Starting API server...","service":"multisig-validator","timestamp":"2025-07-30T16:01:15.766Z"}
+{"cors":true,"level":"info","logging":true,"message":"API server running on port 3001","monitoredNetworks":["localhost"],"port":3001,"service":"multisig-validator","timestamp":"2025-07-30T16:01:15.767Z"}
+{"level":"info","message":"✅ MultiSig Validator Application started successfully","service":"multisig-validator","timestamp":"2025-07-30T16:01:15.767Z"}
+{"level":"info","message":"Service status:","service":"multisig-validator","timestamp":"2025-07-30T16:01:15.767Z"}
+{"level":"info","message":"Received SIGTERM, shutting down gracefully","service":"multisig-validator","timestamp":"2025-07-30T16:01:25.932Z"}
+{"level":"info","message":"Configured to monitor networks: localhost","service":"multisig-validator","timestamp":"2025-07-30T16:01:26.132Z"}
+{"level":"info","message":"Starting MultiSig Validator Application","service":"multisig-validator","timestamp":"2025-07-30T16:01:26.136Z"}
+{"level":"info","message":"Testing database connection...","service":"multisig-validator","timestamp":"2025-07-30T16:01:26.136Z"}
+{"idleConnections":0,"level":"debug","message":"New database client connected","service":"multisig-validator","timestamp":"2025-07-30T16:01:26.150Z","totalConnections":1,"waitingClients":0}
+{"level":"info","message":"Database connection successful","service":"multisig-validator","timestamp":"2025-07-30T16:01:26.151Z"}
+{"level":"info","message":"Starting validator service...","service":"multisig-validator","timestamp":"2025-07-30T16:01:26.151Z"}
+{"level":"info","message":"Starting MultiSig Validator Service","service":"multisig-validator","timestamp":"2025-07-30T16:01:26.152Z"}
+{"address":"0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512","level":"info","message":"Added wallet for monitoring","network":"localhost","service":"multisig-validator","timestamp":"2025-07-30T16:01:26.157Z","type":"MultiSigWallet"}
+{"level":"info","message":"Loaded 1 wallets from database","service":"multisig-validator","timestamp":"2025-07-30T16:01:26.157Z"}
+{"level":"info","message":"Starting MultiSig event listener","service":"multisig-validator","timestamp":"2025-07-30T16:01:26.157Z"}
+{"level":"info","message":"Starting monitoring for network: localhost","service":"multisig-validator","timestamp":"2025-07-30T16:01:26.157Z"}
+{"level":"info","message":"Initial sync for localhost will start in 1s","service":"multisig-validator","timestamp":"2025-07-30T16:01:26.160Z"}
+{"level":"info","message":"Validator service started","service":"multisig-validator","timestamp":"2025-07-30T16:01:26.160Z"}
+{"level":"info","message":"Validator service started successfully","service":"multisig-validator","timestamp":"2025-07-30T16:01:26.160Z"}
+{"level":"info","message":"Starting API server...","service":"multisig-validator","timestamp":"2025-07-30T16:01:26.160Z"}
+{"cors":true,"level":"info","logging":true,"message":"API server running on port 3001","monitoredNetworks":["localhost"],"port":3001,"service":"multisig-validator","timestamp":"2025-07-30T16:01:26.161Z"}
+{"level":"info","message":"✅ MultiSig Validator Application started successfully","service":"multisig-validator","timestamp":"2025-07-30T16:01:26.161Z"}
+{"level":"info","message":"Service status:","service":"multisig-validator","timestamp":"2025-07-30T16:01:26.161Z"}
+{"level":"info","message":"Received SIGTERM, shutting down gracefully","service":"multisig-validator","timestamp":"2025-07-30T16:01:35.614Z"}
+{"level":"info","message":"Configured to monitor networks: localhost","service":"multisig-validator","timestamp":"2025-07-30T16:01:35.820Z"}
+{"level":"info","message":"Starting MultiSig Validator Application","service":"multisig-validator","timestamp":"2025-07-30T16:01:35.825Z"}
+{"level":"info","message":"Testing database connection...","service":"multisig-validator","timestamp":"2025-07-30T16:01:35.825Z"}
+{"idleConnections":0,"level":"debug","message":"New database client connected","service":"multisig-validator","timestamp":"2025-07-30T16:01:35.840Z","totalConnections":1,"waitingClients":0}
+{"level":"info","message":"Database connection successful","service":"multisig-validator","timestamp":"2025-07-30T16:01:35.842Z"}
+{"level":"info","message":"Starting validator service...","service":"multisig-validator","timestamp":"2025-07-30T16:01:35.842Z"}
+{"level":"info","message":"Starting MultiSig Validator Service","service":"multisig-validator","timestamp":"2025-07-30T16:01:35.842Z"}
+{"address":"0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512","level":"info","message":"Added wallet for monitoring","network":"localhost","service":"multisig-validator","timestamp":"2025-07-30T16:01:35.847Z","type":"MultiSigWallet"}
+{"level":"info","message":"Loaded 1 wallets from database","service":"multisig-validator","timestamp":"2025-07-30T16:01:35.847Z"}
+{"level":"info","message":"Starting MultiSig event listener","service":"multisig-validator","timestamp":"2025-07-30T16:01:35.847Z"}
+{"level":"info","message":"Starting monitoring for network: localhost","service":"multisig-validator","timestamp":"2025-07-30T16:01:35.847Z"}
+{"level":"info","message":"Initial sync for localhost will start in 1s","service":"multisig-validator","timestamp":"2025-07-30T16:01:35.850Z"}
+{"level":"info","message":"Validator service started","service":"multisig-validator","timestamp":"2025-07-30T16:01:35.850Z"}
+{"level":"info","message":"Validator service started successfully","service":"multisig-validator","timestamp":"2025-07-30T16:01:35.850Z"}
+{"level":"info","message":"Starting API server...","service":"multisig-validator","timestamp":"2025-07-30T16:01:35.850Z"}
+{"cors":true,"level":"info","logging":true,"message":"API server running on port 3001","monitoredNetworks":["localhost"],"port":3001,"service":"multisig-validator","timestamp":"2025-07-30T16:01:35.851Z"}
+{"level":"info","message":"✅ MultiSig Validator Application started successfully","service":"multisig-validator","timestamp":"2025-07-30T16:01:35.851Z"}
+{"level":"info","message":"Service status:","service":"multisig-validator","timestamp":"2025-07-30T16:01:35.851Z"}
+{"level":"info","message":"Configured to monitor networks: localhost","service":"multisig-validator","timestamp":"2025-07-30T16:02:36.793Z"}
+{"level":"info","message":"Starting MultiSig Validator Application","service":"multisig-validator","timestamp":"2025-07-30T16:02:36.797Z"}
+{"level":"info","message":"Testing database connection...","service":"multisig-validator","timestamp":"2025-07-30T16:02:36.798Z"}
+{"idleConnections":0,"level":"debug","message":"New database client connected","service":"multisig-validator","timestamp":"2025-07-30T16:02:36.811Z","totalConnections":1,"waitingClients":0}
+{"level":"info","message":"Database connection successful","service":"multisig-validator","timestamp":"2025-07-30T16:02:36.812Z"}
+{"level":"info","message":"Starting validator service...","service":"multisig-validator","timestamp":"2025-07-30T16:02:36.812Z"}
+{"level":"info","message":"Starting MultiSig Validator Service","service":"multisig-validator","timestamp":"2025-07-30T16:02:36.813Z"}
+{"address":"0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512","level":"info","message":"Added wallet for monitoring","network":"localhost","service":"multisig-validator","timestamp":"2025-07-30T16:02:36.818Z","type":"MultiSigWallet"}
+{"level":"info","message":"Loaded 1 wallets from database","service":"multisig-validator","timestamp":"2025-07-30T16:02:36.818Z"}
+{"level":"info","message":"Starting MultiSig event listener","service":"multisig-validator","timestamp":"2025-07-30T16:02:36.818Z"}
+{"level":"info","message":"Starting monitoring for network: localhost","service":"multisig-validator","timestamp":"2025-07-30T16:02:36.818Z"}
+{"level":"info","message":"Initial sync for localhost will start in 1s","service":"multisig-validator","timestamp":"2025-07-30T16:02:36.820Z"}
+{"level":"info","message":"Validator service started","service":"multisig-validator","timestamp":"2025-07-30T16:02:36.820Z"}
+{"level":"info","message":"Validator service started successfully","service":"multisig-validator","timestamp":"2025-07-30T16:02:36.820Z"}
+{"level":"info","message":"Starting API server...","service":"multisig-validator","timestamp":"2025-07-30T16:02:36.820Z"}
+{"cors":true,"level":"info","logging":true,"message":"API server running on port 3001","monitoredNetworks":["localhost"],"port":3001,"service":"multisig-validator","timestamp":"2025-07-30T16:02:36.821Z"}
+{"level":"info","message":"✅ MultiSig Validator Application started successfully","service":"multisig-validator","timestamp":"2025-07-30T16:02:36.821Z"}
+{"level":"info","message":"Service status:","service":"multisig-validator","timestamp":"2025-07-30T16:02:36.822Z"}
+{"chainConfig":{"batchSize":10000,"rps":50},"level":"debug","message":"Syncing blocks 12 to 12 for localhost","rateLimiterStats":{"backoffUntil":0,"consecutiveErrors":0,"requestsLastHour":3,"requestsLastMinute":3,"requestsLastSecond":1,"totalRateLimited":0,"totalRequests":3},"service":"multisig-validator","timestamp":"2025-07-30T16:02:47.848Z"}
+{"fromBlock":12,"level":"debug","message":"Processing events for wallet 0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512 blocks 12-12","network":"localhost","service":"multisig-validator","timestamp":"2025-07-30T16:02:47.849Z","toBlock":12,"type":"MultiSigWallet","wallet":"0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"}
+{"eventCount":2,"events":[{"block":12,"event":"Submission","tx":"0x1bd2d251f8eaf440f09f7f07a086125d698e338cafdfaad24239b126f26a21b9"},{"block":12,"event":"Confirmation","tx":"0x1bd2d251f8eaf440f09f7f07a086125d698e338cafdfaad24239b126f26a21b9"}],"level":"debug","message":"Found 2 events for wallet 0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512","service":"multisig-validator","timestamp":"2025-07-30T16:02:47.979Z","wallet":"0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"}
+{"blockNumber":12,"event":"Submission","level":"debug","message":"Processing event Submission for wallet 0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512","service":"multisig-validator","timestamp":"2025-07-30T16:02:47.980Z","transactionHash":"0x1bd2d251f8eaf440f09f7f07a086125d698e338cafdfaad24239b126f26a21b9"}
+{"level":"info","message":"=== SUBMISSION EVENT DEBUG START ===","service":"multisig-validator","timestamp":"2025-07-30T16:02:47.994Z"}
+{"level":"info","message":"Wallet: 0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512 (localhost)","service":"multisig-validator","timestamp":"2025-07-30T16:02:47.994Z"}
+{"level":"info","message":"Block: 12, TX: 0x1bd2d251f8eaf440f09f7f07a086125d698e338cafdfaad24239b126f26a21b9","service":"multisig-validator","timestamp":"2025-07-30T16:02:47.994Z"}
+{"address":"0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512","args":{"0":"7"},"argsEntries":[["0","7"]],"argsKeys":["0"],"argsType":"object","blockNumber":12,"event":"Submission","level":"info","logIndex":0,"message":"Full event structure:","service":"multisig-validator","timestamp":"2025-07-30T16:02:47.996Z","transactionHash":"0x1bd2d251f8eaf440f09f7f07a086125d698e338cafdfaad24239b126f26a21b9"}
+{"level":"info","message":"Event args breakdown:","service":"multisig-validator","timestamp":"2025-07-30T16:02:47.996Z"}
+{"level":"info","message":"  args.0: 7 (type: string)","service":"multisig-validator","timestamp":"2025-07-30T16:02:47.996Z"}
+{"level":"debug","message":"Raw transaction ID from event: 7 (type: string)","service":"multisig-validator","timestamp":"2025-07-30T16:02:47.996Z"}
+{"level":"debug","message":"Parsed transaction ID: 7","service":"multisig-validator","timestamp":"2025-07-30T16:02:47.996Z"}
+{"level":"debug","message":"Queued event for wallet localhost:0xe7f1725e7734ce288f8367e1bb143e90bb3f0512, queue length: 1","service":"multisig-validator","timestamp":"2025-07-30T16:02:48.025Z"}
+{"level":"debug","message":"Processing event queue for wallet localhost:0xe7f1725e7734ce288f8367e1bb143e90bb3f0512, 1 events","service":"multisig-validator","timestamp":"2025-07-30T16:02:48.025Z"}
+{"action":"transfer","level":"info","message":"Transaction submitted","service":"multisig-validator","submitter":"0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266","timestamp":"2025-07-30T16:02:48.025Z","transactionId":7,"wallet":"0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"}
+{"blockNumber":12,"event":"Confirmation","level":"debug","message":"Processing event Confirmation for wallet 0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512","service":"multisig-validator","timestamp":"2025-07-30T16:02:48.026Z","transactionHash":"0x1bd2d251f8eaf440f09f7f07a086125d698e338cafdfaad24239b126f26a21b9"}
+{"level":"debug","message":"Transaction started","service":"multisig-validator","timestamp":"2025-07-30T16:02:48.027Z"}
+{"idleConnections":0,"level":"debug","message":"New database client connected","service":"multisig-validator","timestamp":"2025-07-30T16:02:48.036Z","totalConnections":2,"waitingClients":0}
+{"level":"info","message":"=== CONFIRMATION EVENT DEBUG ===","service":"multisig-validator","timestamp":"2025-07-30T16:02:48.037Z"}
+{"args":{"0":"0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266","1":"7"},"argsEntries":[["0","0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"],["1","7"]],"argsKeys":["0","1"],"level":"info","message":"Event args:","service":"multisig-validator","timestamp":"2025-07-30T16:02:48.037Z"}
+{"level":"debug","message":"Parsed confirmation: transactionId=7, confirmer=0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266","service":"multisig-validator","timestamp":"2025-07-30T16:02:48.038Z"}
+{"level":"debug","message":"Queued event for wallet localhost:0xe7f1725e7734ce288f8367e1bb143e90bb3f0512, queue length: 1","service":"multisig-validator","timestamp":"2025-07-30T16:02:48.038Z"}
+{"confirmer":"0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266","level":"info","message":"Transaction confirmed","service":"multisig-validator","timestamp":"2025-07-30T16:02:48.038Z","transactionId":7,"wallet":"0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"}
+{"idleConnections":1,"level":"debug","message":"New database client connected","service":"multisig-validator","timestamp":"2025-07-30T16:02:48.044Z","totalConnections":3,"waitingClients":0}
+{"duration":25,"level":"debug","message":"Transaction committed","service":"multisig-validator","timestamp":"2025-07-30T16:02:48.052Z"}
+{"action":"transfer","level":"info","message":"Transaction submission processed","service":"multisig-validator","submitter":"0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266","timestamp":"2025-07-30T16:02:48.052Z","transactionId":7,"wallet":"0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"}
+{"channel":"#multisig-alerts","level":"debug","message":"Slack notification sent successfully","service":"multisig-validator","text":"📝 *New MultiSig Transaction Submitted*","timestamp":"2025-07-30T16:02:48.570Z"}
+{"channel":"#multisig-alerts","level":"debug","message":"Slack notification sent successfully","service":"multisig-validator","text":"⚠️ *Unknown Recipient Alert*","timestamp":"2025-07-30T16:02:49.124Z"}
+{"action":"transfer","level":"info","message":"New transaction submitted","service":"multisig-validator","submitter":"0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266","timestamp":"2025-07-30T16:02:49.125Z","transactionId":7,"value":"100000000000000000","wallet":"0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"}
+{"level":"debug","message":"Processed event for wallet localhost:0xe7f1725e7734ce288f8367e1bb143e90bb3f0512, remaining: 1","service":"multisig-validator","timestamp":"2025-07-30T16:02:49.125Z"}
+{"level":"debug","message":"Transaction started","service":"multisig-validator","timestamp":"2025-07-30T16:02:49.126Z"}
+{"confirmer":"0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266","level":"info","message":"Transaction confirmation processed","service":"multisig-validator","timestamp":"2025-07-30T16:02:49.143Z","totalConfirmations":1,"transactionId":7,"wallet":"0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"}
+{"duration":18,"level":"debug","message":"Transaction committed","service":"multisig-validator","timestamp":"2025-07-30T16:02:49.145Z"}
+{"confirmer":"0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266","level":"info","message":"Transaction confirmed","service":"multisig-validator","timestamp":"2025-07-30T16:02:49.150Z","transactionId":7,"wallet":"0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"}
+{"level":"debug","message":"Processed event for wallet localhost:0xe7f1725e7734ce288f8367e1bb143e90bb3f0512, remaining: 0","service":"multisig-validator","timestamp":"2025-07-30T16:02:49.150Z"}
+{"level":"debug","message":"Finished processing event queue for wallet localhost:0xe7f1725e7734ce288f8367e1bb143e90bb3f0512","service":"multisig-validator","timestamp":"2025-07-30T16:02:49.150Z"}
+{"level":"info","message":"Received SIGINT, shutting down gracefully","service":"multisig-validator","timestamp":"2025-07-30T16:05:23.030Z"}
+{"level":"info","message":"Configured to monitor networks: localhost","service":"multisig-validator","timestamp":"2025-07-30T16:06:08.143Z"}
+{"level":"info","message":"Starting MultiSig Validator Application","service":"multisig-validator","timestamp":"2025-07-30T16:06:08.148Z"}
+{"level":"info","message":"Testing database connection...","service":"multisig-validator","timestamp":"2025-07-30T16:06:08.148Z"}
+{"idleConnections":0,"level":"debug","message":"New database client connected","service":"multisig-validator","timestamp":"2025-07-30T16:06:08.159Z","totalConnections":1,"waitingClients":0}
+{"level":"info","message":"Database connection successful","service":"multisig-validator","timestamp":"2025-07-30T16:06:08.161Z"}
+{"level":"info","message":"Starting validator service...","service":"multisig-validator","timestamp":"2025-07-30T16:06:08.161Z"}
+{"level":"info","message":"Starting MultiSig Validator Service","service":"multisig-validator","timestamp":"2025-07-30T16:06:08.161Z"}
+{"address":"0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512","level":"info","message":"Added wallet for monitoring","network":"localhost","service":"multisig-validator","timestamp":"2025-07-30T16:06:08.166Z","type":"MultiSigWallet"}
+{"level":"info","message":"Loaded 1 wallets from database","service":"multisig-validator","timestamp":"2025-07-30T16:06:08.166Z"}
+{"level":"info","message":"Starting MultiSig event listener","service":"multisig-validator","timestamp":"2025-07-30T16:06:08.166Z"}
+{"level":"info","message":"Starting monitoring for network: localhost","service":"multisig-validator","timestamp":"2025-07-30T16:06:08.166Z"}
+{"level":"info","message":"Initial sync for localhost will start in 1s","service":"multisig-validator","timestamp":"2025-07-30T16:06:08.169Z"}
+{"level":"info","message":"Validator service started","service":"multisig-validator","timestamp":"2025-07-30T16:06:08.169Z"}
+{"level":"info","message":"Validator service started successfully","service":"multisig-validator","timestamp":"2025-07-30T16:06:08.169Z"}
+{"level":"info","message":"Starting API server...","service":"multisig-validator","timestamp":"2025-07-30T16:06:08.169Z"}
+{"cors":true,"level":"info","logging":true,"message":"API server running on port 3001","monitoredNetworks":["localhost"],"port":3001,"service":"multisig-validator","timestamp":"2025-07-30T16:06:08.170Z"}
+{"level":"info","message":"✅ MultiSig Validator Application started successfully","service":"multisig-validator","timestamp":"2025-07-30T16:06:08.170Z"}
+{"level":"info","message":"Service status:","service":"multisig-validator","timestamp":"2025-07-30T16:06:08.170Z"}
+{"level":"info","message":"Received SIGTERM, shutting down gracefully","service":"multisig-validator","timestamp":"2025-07-30T16:06:32.654Z"}
+{"level":"info","message":"Configured to monitor networks: localhost","service":"multisig-validator","timestamp":"2025-07-30T16:06:32.853Z"}
+{"level":"info","message":"Starting MultiSig Validator Application","service":"multisig-validator","timestamp":"2025-07-30T16:06:32.858Z"}
+{"level":"info","message":"Testing database connection...","service":"multisig-validator","timestamp":"2025-07-30T16:06:32.858Z"}
+{"idleConnections":0,"level":"debug","message":"New database client connected","service":"multisig-validator","timestamp":"2025-07-30T16:06:32.872Z","totalConnections":1,"waitingClients":0}
+{"level":"info","message":"Database connection successful","service":"multisig-validator","timestamp":"2025-07-30T16:06:32.873Z"}
+{"level":"info","message":"Starting validator service...","service":"multisig-validator","timestamp":"2025-07-30T16:06:32.873Z"}
+{"level":"info","message":"Starting MultiSig Validator Service","service":"multisig-validator","timestamp":"2025-07-30T16:06:32.874Z"}
+{"address":"0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512","level":"info","message":"Added wallet for monitoring","network":"localhost","service":"multisig-validator","timestamp":"2025-07-30T16:06:32.878Z","type":"MultiSigWallet"}
+{"level":"info","message":"Loaded 1 wallets from database","service":"multisig-validator","timestamp":"2025-07-30T16:06:32.878Z"}
+{"level":"info","message":"Starting MultiSig event listener","service":"multisig-validator","timestamp":"2025-07-30T16:06:32.878Z"}
+{"level":"info","message":"Starting monitoring for network: localhost","service":"multisig-validator","timestamp":"2025-07-30T16:06:32.878Z"}
+{"level":"info","message":"Initial sync for localhost will start in 1s","service":"multisig-validator","timestamp":"2025-07-30T16:06:32.882Z"}
+{"level":"info","message":"Validator service started","service":"multisig-validator","timestamp":"2025-07-30T16:06:32.882Z"}
+{"level":"info","message":"Validator service started successfully","service":"multisig-validator","timestamp":"2025-07-30T16:06:32.882Z"}
+{"level":"info","message":"Starting API server...","service":"multisig-validator","timestamp":"2025-07-30T16:06:32.882Z"}
+{"cors":true,"level":"info","logging":true,"message":"API server running on port 3001","monitoredNetworks":["localhost"],"port":3001,"service":"multisig-validator","timestamp":"2025-07-30T16:06:32.883Z"}
+{"level":"info","message":"✅ MultiSig Validator Application started successfully","service":"multisig-validator","timestamp":"2025-07-30T16:06:32.883Z"}
+{"level":"info","message":"Service status:","service":"multisig-validator","timestamp":"2025-07-30T16:06:32.883Z"}
+{"level":"debug","message":"Cleaned 11 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T17:07:24.139Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T17:07:29.142Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T17:07:34.143Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T17:07:39.143Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T17:07:44.160Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T17:07:49.144Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T17:07:54.167Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T17:07:59.151Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T17:08:04.147Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T17:08:09.148Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T17:08:14.149Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T17:08:19.149Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T17:08:24.150Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T17:08:29.150Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T17:08:34.151Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T17:08:39.150Z"}
+{"level":"debug","message":"Cleaned 103 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T17:24:44.415Z"}
+{"attempt":1,"cached":false,"duration":141,"level":"debug","message":"Database query executed","query":"\n        UPDATE chains \n        SET \n          last_processed_block = $1,\n          sync_status = $2","rows":1,"service":"multisig-validator","timestamp":"2025-07-30T17:24:44.570Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T17:34:19.471Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T17:34:24.472Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T17:34:29.473Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T17:34:34.473Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T17:34:39.476Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T17:34:44.473Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T17:34:49.474Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T17:34:54.475Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T17:34:59.476Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T17:35:04.477Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T17:35:09.477Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T17:35:14.478Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T17:35:19.478Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T17:35:24.478Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T17:35:29.479Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T17:51:09.571Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T17:51:14.572Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T17:51:19.573Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T17:51:24.573Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T17:51:29.574Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T17:51:34.575Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T17:51:39.574Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T17:51:44.575Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T17:51:49.575Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:07:24.714Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:07:29.715Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:07:34.716Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:07:39.716Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:07:44.717Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:07:49.718Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:07:54.719Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:07:59.720Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:08:04.719Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:08:09.720Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:08:14.721Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:08:19.720Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:08:24.722Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:08:29.721Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:08:34.722Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:08:39.723Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:24:44.828Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:24:49.827Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:24:54.829Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:24:59.828Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:25:04.829Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:25:09.832Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:25:14.830Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:25:19.829Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:25:24.832Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:25:29.832Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:25:34.833Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:25:39.834Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:25:44.833Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:25:49.833Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:25:54.834Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:25:59.835Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:26:04.835Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:26:09.837Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:26:14.839Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:26:19.837Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:26:24.837Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:26:29.838Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:26:34.838Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:26:39.838Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:26:44.838Z"}
+{"level":"debug","message":"Cleaned 169 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:40:52.358Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:40:57.357Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:41:02.360Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:41:07.362Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:41:12.364Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:41:17.366Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:41:22.367Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:41:27.370Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:41:32.371Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:41:37.372Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:41:42.374Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:41:47.376Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:41:52.379Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:41:57.378Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:42:02.380Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:42:07.383Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:42:12.384Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:42:17.387Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:42:22.389Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:42:27.391Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:42:32.392Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:42:37.394Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:42:42.396Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:42:47.396Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:42:52.420Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:42:57.399Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:43:02.398Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:43:07.400Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:43:12.400Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:43:17.401Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:43:22.402Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:43:27.402Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:43:32.402Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:43:37.402Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:43:42.402Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:43:47.402Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:43:52.404Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:43:57.404Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:44:02.403Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:44:07.403Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:44:12.404Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:44:17.405Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:44:22.405Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:44:27.405Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:44:32.403Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:44:37.404Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:44:42.406Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:44:47.407Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:44:52.408Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:44:57.408Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:45:02.407Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:45:07.408Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:45:12.407Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:45:17.409Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:45:22.409Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:45:27.410Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:45:32.410Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:45:37.410Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:45:42.410Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:45:47.410Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:45:52.409Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:45:57.411Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:46:02.411Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:46:07.411Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:46:12.411Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:46:17.411Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:46:22.411Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:46:27.411Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:46:32.413Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:46:37.414Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:46:42.415Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:46:47.415Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:46:52.417Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:46:57.417Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:47:02.417Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:47:07.416Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:47:12.417Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:47:17.416Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:47:22.419Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:47:27.419Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:47:32.419Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:47:37.420Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:47:42.421Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:47:47.422Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:47:52.421Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:47:57.421Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:48:02.423Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:48:07.423Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:48:12.423Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:48:17.425Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:48:22.423Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:48:27.423Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:48:32.424Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:48:37.427Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:48:42.425Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:48:47.425Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:48:52.426Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:48:57.427Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:49:02.428Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:49:07.427Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:49:12.428Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:49:17.430Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:49:22.429Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:49:27.429Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:49:32.429Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:49:37.429Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:49:42.429Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:49:47.431Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:49:52.432Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:49:57.433Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:50:02.433Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:50:07.435Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:50:12.435Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:50:17.435Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:50:22.435Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:50:27.435Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:50:32.437Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:50:37.437Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:50:42.437Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:50:47.438Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:50:52.438Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:50:57.438Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:51:02.438Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:51:07.439Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:51:12.439Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:51:17.438Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:51:22.439Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:51:27.441Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:51:32.440Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:51:37.441Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:51:42.441Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:51:47.440Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:51:52.442Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:51:57.442Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:52:02.442Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:52:07.443Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:52:12.443Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:52:17.443Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:52:22.444Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:52:27.445Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:52:32.446Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:52:37.446Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:52:42.445Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:52:47.445Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:52:52.445Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:52:57.447Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:53:02.446Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:53:07.447Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:53:12.446Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:53:17.447Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:53:22.447Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:53:27.447Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:53:32.448Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:53:37.449Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:53:42.448Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:53:47.449Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:53:52.450Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:53:57.450Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:54:02.450Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:54:07.451Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:54:12.452Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:54:17.452Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:54:22.452Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:54:27.454Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:54:32.452Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:54:37.454Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:54:42.454Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:54:47.454Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:54:52.454Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:54:57.455Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:55:02.455Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:55:07.455Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:55:12.455Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:55:17.456Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:55:22.456Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:55:27.456Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:55:32.457Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:55:37.457Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:55:42.457Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:55:47.460Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:55:52.460Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:55:57.460Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:56:02.461Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:56:07.462Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:56:12.462Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:56:17.462Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:56:22.462Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:56:27.463Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:56:32.463Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:56:37.463Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:56:42.463Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:56:47.463Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:56:52.464Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:56:57.464Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:57:02.465Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:57:07.465Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:57:12.464Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:57:17.464Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:57:22.466Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:57:27.465Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:57:32.467Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:57:37.467Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:57:42.468Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:57:47.469Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:57:52.469Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:57:57.470Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:58:02.471Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:58:07.472Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:58:12.472Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:58:17.471Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:58:22.472Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:58:27.472Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:58:32.474Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:58:37.473Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:58:42.473Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:58:47.474Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:58:52.475Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:58:57.474Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:59:02.475Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:59:07.475Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:59:12.476Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:59:17.476Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:59:22.477Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:59:27.477Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:59:32.477Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:59:37.478Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:59:42.478Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:59:47.478Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:59:52.479Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T18:59:57.479Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:00:02.479Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:00:07.480Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:00:12.480Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:00:17.480Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:00:22.481Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:00:27.482Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:00:32.482Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:00:37.483Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:00:42.484Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:00:47.484Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:00:52.486Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:00:57.486Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:01:02.487Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:01:07.488Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:01:12.489Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:01:17.488Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:01:22.488Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:01:27.489Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:01:32.489Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:01:37.491Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:01:42.491Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:01:47.491Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:01:52.491Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:01:57.491Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:02:02.491Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:02:07.490Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:02:12.491Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:02:17.492Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:02:22.493Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:02:27.492Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:02:32.493Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:02:37.493Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:02:42.492Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:02:47.494Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:02:52.495Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:02:57.495Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:03:02.495Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:03:07.496Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:03:12.497Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:03:17.497Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:03:22.496Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:03:27.499Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:03:32.497Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:03:37.498Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:03:42.497Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:03:47.497Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:03:52.498Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:03:57.499Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:04:02.500Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:04:07.499Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:04:12.501Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:04:17.501Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:04:22.501Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:04:27.501Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:04:32.501Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:04:37.502Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:04:42.502Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:04:47.502Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:04:52.502Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:04:57.502Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:05:02.507Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:05:07.502Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:05:12.503Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:05:17.504Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:05:22.508Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:05:27.507Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:05:32.507Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:05:37.507Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:05:42.507Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:05:47.508Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:05:52.510Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:05:57.508Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:06:02.509Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:06:07.509Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:06:12.509Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:06:17.509Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:06:22.510Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:06:27.511Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:06:32.511Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:06:37.511Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:06:42.511Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:06:47.512Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:06:52.512Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:06:57.513Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:07:02.514Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:07:07.514Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:07:12.514Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:07:17.514Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:07:22.514Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:07:27.515Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:07:32.515Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:07:37.515Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:07:42.516Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:07:47.516Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:07:52.515Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:07:57.515Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:08:02.517Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:08:07.518Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:08:12.518Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:08:17.518Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:08:22.518Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:08:27.518Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:08:32.519Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:08:37.520Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:08:42.520Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:08:47.520Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:08:52.519Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:08:57.520Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:09:02.520Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:09:07.521Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:09:12.521Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:09:17.522Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:09:22.522Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:09:27.523Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:09:32.524Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:09:37.524Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:09:42.525Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:09:47.524Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:09:52.525Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:09:57.527Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:10:02.524Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:10:07.527Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:10:12.527Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:10:17.526Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:10:22.526Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:10:27.528Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:10:32.528Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:10:37.529Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:10:42.529Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:10:47.528Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:10:52.529Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:10:57.529Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:11:02.529Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:11:07.530Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:11:12.529Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:11:17.531Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:11:22.532Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:11:27.532Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:11:32.532Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:11:37.532Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:11:42.531Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:11:47.532Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:11:52.531Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:11:57.534Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:12:02.534Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:12:07.534Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:12:12.534Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:12:17.533Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:12:22.533Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:12:27.535Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:12:32.536Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:12:37.536Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:12:42.536Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:12:47.536Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:12:52.536Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:12:57.537Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:13:02.537Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:13:07.538Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:13:12.538Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:13:17.538Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:13:22.538Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:13:27.538Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:13:32.539Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:13:37.540Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:13:42.547Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:13:47.542Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:13:52.542Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:13:57.544Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:14:02.542Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:14:07.542Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:14:12.543Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:14:17.542Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:14:22.543Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:14:27.546Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:14:32.545Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:14:37.546Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:14:42.545Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:14:47.546Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:14:52.548Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:14:57.546Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:15:02.546Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:15:07.547Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:15:12.547Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:15:17.548Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:15:22.551Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:15:27.549Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:15:32.552Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:15:37.551Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:15:42.553Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:15:47.552Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:15:52.553Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:15:57.552Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:16:02.553Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:16:07.554Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:16:12.554Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:16:17.555Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:16:22.557Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:16:27.555Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:16:32.556Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:16:37.556Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:16:42.559Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:16:47.558Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:16:52.557Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:16:57.558Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:17:02.559Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:17:07.559Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:17:12.561Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:17:17.560Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:17:22.560Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:17:27.559Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:17:32.559Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:17:37.560Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:17:42.563Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:17:47.562Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:17:52.563Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:17:57.563Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:18:02.563Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:18:07.563Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:18:12.564Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:18:17.565Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:18:22.565Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:18:27.565Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:18:32.564Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:18:37.564Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:18:42.565Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:18:47.567Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:18:52.567Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:18:57.567Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:19:02.567Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:19:07.567Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:19:12.567Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:19:17.568Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:19:22.569Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:19:27.568Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:19:32.569Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:19:37.569Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:19:42.569Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:19:47.569Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:19:52.568Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:19:57.568Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:20:02.571Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:20:07.571Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:20:12.570Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:20:17.570Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:20:22.572Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:20:27.569Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:20:32.570Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:20:37.571Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:20:42.571Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:20:47.570Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:20:52.572Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:20:57.574Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:21:02.573Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:21:07.573Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:21:12.573Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:21:17.573Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:21:22.575Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:21:27.575Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:21:32.574Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:21:37.576Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:21:42.576Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:21:47.578Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:21:52.578Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:21:57.578Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:22:02.578Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:22:07.578Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:22:12.578Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:22:17.580Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:22:22.579Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:22:27.580Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:22:32.580Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:22:37.580Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:22:42.580Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:22:47.581Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:22:52.580Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:22:57.581Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:23:02.580Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:23:07.581Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:23:12.581Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:23:17.583Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:23:22.582Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:23:27.583Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:23:32.585Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:23:37.585Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:23:42.586Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:23:47.585Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:23:52.585Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:23:57.585Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:24:02.586Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:24:07.587Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:24:12.587Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:24:17.588Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:24:22.588Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:24:27.587Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:24:32.588Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:24:37.588Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:24:42.589Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:24:47.589Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:24:52.588Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:24:57.588Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:25:02.589Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:25:07.589Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:25:12.591Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:25:17.591Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:25:22.591Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:25:27.592Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:25:32.592Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:25:37.591Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:25:42.592Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:25:47.592Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:25:52.592Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:25:57.593Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:26:02.594Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:26:07.594Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:26:12.597Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:26:17.595Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:26:22.595Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:26:27.596Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:26:32.595Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:26:37.596Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:26:42.596Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:26:47.598Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:40:52.798Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:40:57.799Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:41:02.798Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:41:07.800Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:41:12.800Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:41:17.800Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:41:22.801Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:41:27.803Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:41:32.802Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:41:37.803Z"}
+{"level":"debug","message":"Cleaned 184 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:57:02.389Z"}
+{"attempt":1,"cached":false,"duration":109,"level":"debug","message":"Database query executed","query":"\n        UPDATE chains \n        SET \n          last_processed_block = $1,\n          sync_status = $2","rows":1,"service":"multisig-validator","timestamp":"2025-07-30T19:57:02.512Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:57:07.390Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:57:12.397Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:57:17.403Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:57:22.409Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:57:27.414Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:57:32.416Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:57:37.419Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:57:42.421Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T19:57:47.423Z"}
+{"level":"debug","message":"Cleaned 207 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T20:14:59.330Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T20:15:04.333Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T20:15:09.332Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T20:15:14.336Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T20:15:19.337Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T20:15:24.339Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T20:15:29.338Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T20:15:34.341Z"}
+{"attempt":1,"cached":false,"duration":138,"level":"debug","message":"Database query executed","query":"SELECT * FROM chains WHERE network = $1","rows":1,"service":"multisig-validator","timestamp":"2025-07-30T20:15:39.477Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T20:15:39.478Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T20:15:44.343Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T20:15:49.343Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T20:15:54.344Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T20:15:59.355Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T20:16:04.346Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T20:16:09.346Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T20:16:14.346Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T20:16:19.346Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T20:16:24.347Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T20:16:29.348Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T20:16:34.348Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T20:16:39.350Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T20:16:44.350Z"}
+{"level":"debug","message":"Cleaned 182 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T20:31:54.682Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T20:31:59.680Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T20:32:04.681Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T20:32:09.686Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T20:32:14.685Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T20:32:19.687Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T20:32:24.687Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T20:32:29.690Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T20:32:34.690Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T20:32:39.693Z"}
+{"level":"debug","message":"Cleaned 108 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T20:48:13.692Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T20:57:03.727Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T20:57:08.725Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T20:57:13.725Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T20:57:18.725Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T20:57:23.725Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T20:57:28.725Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T20:57:33.727Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T20:57:38.727Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T20:57:43.729Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T20:57:48.729Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T21:15:03.867Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T21:15:08.867Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T21:15:13.868Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T21:15:18.869Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T21:15:23.870Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T21:15:28.870Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T21:15:33.870Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T21:15:38.871Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T21:15:43.871Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T21:15:48.872Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T21:15:53.872Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T21:15:58.873Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T21:16:03.874Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T21:16:08.874Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T21:16:13.873Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T21:16:18.875Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T21:16:23.876Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T21:16:28.876Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T21:16:33.877Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T21:16:38.878Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T21:16:43.879Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T21:16:48.879Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T21:31:58.992Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T21:32:03.993Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T21:32:08.995Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T21:32:13.995Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T21:32:18.997Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T21:32:23.998Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T21:32:28.998Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T21:32:33.999Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T21:32:39.000Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T21:32:44.000Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T21:48:14.071Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T21:48:19.072Z"}
+{"level":"debug","message":"Cleaned 196 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T22:04:40.597Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T22:04:45.597Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T22:04:50.595Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T22:04:55.598Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T22:05:00.598Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T22:05:05.599Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T22:05:10.600Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T22:05:15.599Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T22:05:20.599Z"}
+{"level":"debug","message":"Cleaned 182 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T22:20:31.524Z"}
+{"attempt":1,"cached":false,"duration":110,"level":"debug","message":"Database query executed","query":"\n        UPDATE chains \n        SET \n          last_processed_block = $1,\n          sync_status = $2","rows":1,"service":"multisig-validator","timestamp":"2025-07-30T22:20:31.647Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T22:20:36.525Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T22:20:41.526Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T22:20:46.529Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T22:20:51.531Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T22:20:56.531Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T22:21:01.534Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T22:21:06.534Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T22:21:11.537Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T22:21:16.539Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T22:21:21.540Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T22:21:26.542Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T22:21:31.544Z"}
+{"level":"debug","message":"Cleaned 187 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T22:37:07.105Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T22:37:12.108Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T22:37:17.109Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T22:37:22.112Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T22:37:27.113Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T22:37:32.114Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T22:37:37.127Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T22:37:42.117Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T22:37:47.117Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T22:37:52.120Z"}
+{"level":"debug","message":"Cleaned 126 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T22:55:11.625Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T23:04:41.629Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T23:04:46.629Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T23:04:51.630Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T23:04:56.631Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T23:05:01.632Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T23:05:06.631Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T23:05:11.631Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T23:05:16.632Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T23:05:21.632Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T23:20:31.713Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T23:20:36.712Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T23:20:41.713Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T23:20:46.713Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T23:20:51.713Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T23:20:56.713Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T23:21:01.714Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T23:21:06.714Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T23:21:11.715Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T23:21:16.715Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T23:21:21.714Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T23:21:26.716Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T23:21:31.715Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T23:37:11.918Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T23:37:16.918Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T23:37:21.919Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T23:37:26.919Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T23:37:31.920Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T23:37:36.921Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T23:37:41.921Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T23:37:46.922Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T23:37:51.923Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T23:37:56.923Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T23:55:12.053Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-30T23:55:17.053Z"}
+{"level":"debug","message":"Cleaned 66 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:00:50.968Z"}
+{"attempt":1,"cached":false,"duration":107,"level":"debug","message":"Database query executed","query":"\n        UPDATE chains \n        SET \n          last_processed_block = $1,\n          sync_status = $2","rows":1,"service":"multisig-validator","timestamp":"2025-07-31T00:00:51.086Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:00:55.961Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:01:00.963Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:01:05.967Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:01:10.970Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:01:15.970Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:01:20.970Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:01:25.972Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:01:30.973Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:01:35.972Z"}
+{"level":"debug","message":"Cleaned 6 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:02:02.222Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:02:07.224Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:02:12.227Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:02:17.230Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:02:22.236Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:02:27.235Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:02:32.241Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:02:37.241Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:02:42.243Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:02:47.247Z"}
+{"level":"debug","message":"Cleaned 34 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:05:38.762Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:05:43.763Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:05:48.767Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:05:53.767Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:05:58.771Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:06:03.773Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:06:08.775Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:06:13.778Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:06:18.780Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:06:23.783Z"}
+{"level":"debug","message":"Cleaned 205 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:23:27.703Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:23:32.685Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:23:37.680Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:23:42.677Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:23:47.677Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:23:52.675Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:23:57.675Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:24:02.680Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:24:07.673Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:24:12.673Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:24:17.673Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:24:22.674Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:24:27.675Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:24:32.675Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:24:37.675Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:24:42.675Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:24:47.681Z"}
+{"level":"debug","message":"Cleaned 161 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:38:13.946Z"}
+{"attempt":1,"cached":false,"duration":103,"level":"debug","message":"Database query executed","query":"\n        UPDATE chains \n        SET \n          last_processed_block = $1,\n          sync_status = $2","rows":1,"service":"multisig-validator","timestamp":"2025-07-31T00:38:14.062Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:38:18.944Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:38:23.945Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:38:28.947Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:38:33.953Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:38:38.951Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:38:43.952Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:38:48.954Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:38:53.953Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:38:58.955Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:39:06.308Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:39:11.311Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:39:16.313Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:39:21.312Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:39:26.318Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:39:31.315Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:39:36.315Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:39:41.315Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:39:46.316Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:39:51.316Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:39:56.316Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:40:01.317Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:40:06.318Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:40:11.318Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:40:16.319Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:40:21.320Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:40:26.320Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:40:31.321Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:40:36.322Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:40:41.321Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:40:46.322Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:40:51.322Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:40:56.322Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:41:01.324Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:41:06.327Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:41:11.329Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:41:16.330Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:41:21.330Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:41:26.331Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:41:31.331Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:41:36.331Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:41:41.331Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:41:46.334Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:41:51.333Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:41:56.334Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:42:01.334Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:42:06.335Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:42:11.335Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:42:16.337Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:42:21.338Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:42:26.339Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:42:31.339Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:42:36.339Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:42:41.340Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:42:46.341Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:42:51.341Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:42:56.342Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:43:01.342Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:43:06.342Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:43:11.343Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:43:16.343Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:43:21.343Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:43:26.345Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:43:31.343Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:43:36.346Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:43:41.348Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:43:46.347Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:43:51.348Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:43:56.348Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:44:01.348Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:44:06.349Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:44:11.350Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:44:16.350Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:44:21.349Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:44:26.351Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:44:31.354Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:44:36.352Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:44:41.352Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:44:46.354Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:44:51.353Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:44:56.354Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:45:01.354Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:45:06.355Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:45:11.356Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:45:16.355Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:45:21.357Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:45:26.357Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:45:31.360Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:45:36.360Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:45:41.364Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:45:46.363Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:45:51.364Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:45:56.365Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:46:01.365Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:46:06.365Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:46:11.367Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:46:16.366Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:46:21.367Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:46:26.368Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:46:31.371Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:46:36.368Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:46:41.368Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:46:46.369Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:46:51.370Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:46:56.371Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:47:01.371Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:47:06.370Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:47:11.370Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:47:16.371Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:47:21.373Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:47:26.376Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:47:31.374Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:47:36.376Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:47:41.376Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:47:46.376Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:47:51.377Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:47:56.377Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:48:01.378Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:48:06.379Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:48:11.380Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:48:16.380Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:48:21.381Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:48:26.380Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:48:31.380Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:48:36.382Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:48:41.382Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:48:46.383Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:48:51.383Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:48:56.383Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:49:01.382Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:49:06.384Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:49:11.386Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:49:16.388Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:49:21.387Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:49:26.388Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:49:31.388Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:49:36.388Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:49:41.390Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:49:46.389Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:49:51.390Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:49:56.391Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:50:01.391Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:50:06.393Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:50:11.393Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:50:16.395Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:50:21.394Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:50:26.395Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:50:31.395Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:50:36.396Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:50:41.396Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:50:46.397Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:50:51.398Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:50:56.398Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:51:01.398Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:51:06.399Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:51:11.399Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:51:16.399Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:51:21.401Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:51:26.401Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:51:31.401Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:51:36.402Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:51:41.402Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:51:46.402Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:51:51.402Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:51:56.403Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:52:01.404Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:52:06.405Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:52:11.407Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:52:16.406Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:52:21.406Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:52:26.407Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:52:31.407Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:52:36.409Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:52:41.409Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:52:46.410Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:52:51.411Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:52:56.412Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:53:01.412Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:53:06.411Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:53:11.420Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:53:16.419Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:53:21.423Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:53:26.418Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:53:31.423Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:53:36.423Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:53:41.431Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:53:46.423Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:53:51.427Z"}
+{"level":"debug","message":"Cleaned 1 old request timestamps","service":"multisig-validator","timestamp":"2025-07-31T00:53:56.423Z"}

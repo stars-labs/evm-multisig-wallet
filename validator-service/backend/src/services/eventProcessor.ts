@@ -703,6 +703,14 @@ export class EventProcessor {
     action: TransactionAction,
     walletRecord: WalletModel
   ): Promise<void> {
+    this.logger.debug('Starting sendTransactionSubmissionNotification', {
+      wallet: wallet.address,
+      network: wallet.network,
+      transactionId: submission.transactionId,
+      submitter: submission.submitter,
+      action
+    });
+
     try {
       const alert: TransactionAlert = {
         wallet: {
@@ -725,19 +733,46 @@ export class EventProcessor {
 
       // Check if it's a large transaction (> 1 ETH)
       const valueInEth = parseFloat(submission.value) / 1e18;
+      
+      this.logger.info('Sending transaction submission notification', {
+        wallet: wallet.address,
+        transactionId: submission.transactionId,
+        action,
+        value: submission.value,
+        valueInEth,
+        isLargeTransaction: valueInEth > 1,
+        destination: submission.destination
+      });
+
       if (valueInEth > 1) {
         await this.slackNotifier.notifyLargeTransaction(alert);
+        this.logger.info('Large transaction notification sent', {
+          transactionId: submission.transactionId,
+          valueInEth
+        });
       } else {
         await this.slackNotifier.notifyTransactionSubmission(alert);
+        this.logger.info('Transaction submission notification sent', {
+          transactionId: submission.transactionId
+        });
       }
 
       // Check if destination is unknown
       if (submission.destination && await this.isUnknownRecipient(submission.destination, wallet.network)) {
         await this.slackNotifier.notifyUnknownRecipient(alert);
+        this.logger.info('Unknown recipient notification sent', {
+          transactionId: submission.transactionId,
+          destination: submission.destination
+        });
       }
 
     } catch (error) {
-      this.logger.error('Failed to send transaction submission notification:', error);
+      this.logger.error('Failed to send transaction submission notification:', {
+        error: error instanceof Error ? error.message : error,
+        stack: error instanceof Error ? error.stack : undefined,
+        wallet: wallet.address,
+        transactionId: submission.transactionId
+      });
     }
   }
 
@@ -746,6 +781,14 @@ export class EventProcessor {
     confirmation: TransactionConfirmationData,
     confirmations: any[]
   ): Promise<void> {
+    this.logger.debug('Starting sendTransactionConfirmationNotification', {
+      wallet: wallet.address,
+      network: wallet.network,
+      transactionId: confirmation.transactionId,
+      confirmer: confirmation.confirmer,
+      confirmationCount: confirmations.length
+    });
+
     try {
       // Get wallet and transaction details
       const walletRecord = await this.getWalletByAddress(wallet.address, wallet.network);
@@ -755,7 +798,22 @@ export class EventProcessor {
         confirmation.transactionId
       );
 
-      if (!walletRecord || !transaction) return;
+      this.logger.debug('Retrieved wallet and transaction records', {
+        walletFound: !!walletRecord,
+        transactionFound: !!transaction,
+        walletId: walletRecord?.id,
+        transactionAction: transaction?.action
+      });
+
+      if (!walletRecord || !transaction) {
+        this.logger.warn('Cannot send confirmation notification - missing data', {
+          wallet: wallet.address,
+          transactionId: confirmation.transactionId,
+          walletFound: !!walletRecord,
+          transactionFound: !!transaction
+        });
+        return;
+      }
 
       const alert: TransactionAlert = {
         wallet: {
@@ -776,10 +834,30 @@ export class EventProcessor {
         timestamp: confirmation.timestamp
       };
 
+      this.logger.info('Sending transaction confirmation notification', {
+        wallet: wallet.address,
+        transactionId: confirmation.transactionId,
+        confirmer: confirmation.confirmer,
+        confirmations: `${confirmations.length}/${walletRecord.required}`,
+        action: transaction.action,
+        value: transaction.value
+      });
+
       await this.slackNotifier.notifyTransactionConfirmation(alert);
 
+      this.logger.info('Transaction confirmation notification sent successfully', {
+        wallet: wallet.address,
+        transactionId: confirmation.transactionId
+      });
+
     } catch (error) {
-      this.logger.error('Failed to send transaction confirmation notification:', error);
+      this.logger.error('Failed to send transaction confirmation notification:', {
+        error: error instanceof Error ? error.message : error,
+        stack: error instanceof Error ? error.stack : undefined,
+        wallet: wallet.address,
+        transactionId: confirmation.transactionId,
+        confirmer: confirmation.confirmer
+      });
     }
   }
 

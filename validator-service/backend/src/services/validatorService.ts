@@ -21,6 +21,10 @@ export class ValidatorService extends EventEmitter {
   private config: ValidatorServiceConfig;
   private isRunning: boolean = false;
   
+  // Event processing queue to ensure proper ordering
+  private eventQueue: Map<string, Array<() => Promise<void>>> = new Map();
+  private processingLocks: Map<string, boolean> = new Map();
+  
   constructor(
     db: Database,
     logger: winston.Logger,
@@ -420,90 +424,170 @@ export class ValidatorService extends EventEmitter {
   // PRIVATE METHODS
   // ============================================================================
   
+  /**
+   * Queue event processing to ensure proper ordering per wallet
+   * This prevents confirmation events from being processed before submission events
+   */
+  private async queueEventProcessing(walletKey: string, eventProcessor: () => Promise<void>): Promise<void> {
+    if (!this.eventQueue.has(walletKey)) {
+      this.eventQueue.set(walletKey, []);
+    }
+    
+    const queue = this.eventQueue.get(walletKey)!;
+    queue.push(eventProcessor);
+    
+    this.logger.debug(`Queued event for wallet ${walletKey}, queue length: ${queue.length}`);
+    
+    // Process queue if not already processing for this wallet
+    if (!this.processingLocks.get(walletKey)) {
+      await this.processEventQueue(walletKey);
+    }
+  }
+  
+  /**
+   * Process all queued events sequentially for a specific wallet
+   */
+  private async processEventQueue(walletKey: string): Promise<void> {
+    if (this.processingLocks.get(walletKey)) {
+      return; // Already processing
+    }
+    
+    this.processingLocks.set(walletKey, true);
+    
+    try {
+      const queue = this.eventQueue.get(walletKey);
+      if (!queue) return;
+      
+      this.logger.debug(`Processing event queue for wallet ${walletKey}, ${queue.length} events`);
+      
+      while (queue.length > 0) {
+        const eventProcessor = queue.shift()!;
+        try {
+          await eventProcessor();
+          this.logger.debug(`Processed event for wallet ${walletKey}, remaining: ${queue.length}`);
+        } catch (error) {
+          this.logger.error(`Error processing queued event for wallet ${walletKey}:`, error);
+          // Continue processing other events in the queue
+        }
+      }
+      
+      this.logger.debug(`Finished processing event queue for wallet ${walletKey}`);
+    } finally {
+      this.processingLocks.set(walletKey, false);
+    }
+  }
+  
+  /**
+   * Generate a unique key for wallet to ensure per-wallet sequential processing
+   */
+  private getWalletKey(address: string, network: string): string {
+    return `${network}:${address.toLowerCase()}`;
+  }
+  
   private setupEventHandlers(): void {
     // Transaction submission events
     this.eventListener.on('transactionSubmitted', async (data) => {
-      try {
-        await this.eventProcessor.processTransactionSubmission(
-          data.wallet,
-          data.event,
-          data.submission,
-          data.action
-        );
-        
-        this.emit('transactionSubmitted', data);
-        
-      } catch (error) {
-        this.logger.error('Failed to process transaction submission:', error);
-        this.emit('processingError', { type: 'transactionSubmitted', error, data });
-      }
+      const walletKey = this.getWalletKey(data.wallet.address, data.wallet.network);
+      
+      await this.queueEventProcessing(walletKey, async () => {
+        try {
+          await this.eventProcessor.processTransactionSubmission(
+            data.wallet,
+            data.event,
+            data.submission,
+            data.action
+          );
+          
+          this.emit('transactionSubmitted', data);
+          
+        } catch (error) {
+          this.logger.error('Failed to process transaction submission:', error);
+          this.emit('processingError', { type: 'transactionSubmitted', error, data });
+        }
+      });
     });
     
     // Transaction confirmation events
     this.eventListener.on('transactionConfirmed', async (data) => {
-      try {
-        await this.eventProcessor.processTransactionConfirmation(
-          data.wallet,
-          data.event,
-          data.confirmation
-        );
-        
-        this.emit('transactionConfirmed', data);
-        
-      } catch (error) {
-        this.logger.error('Failed to process transaction confirmation:', error);
-        this.emit('processingError', { type: 'transactionConfirmed', error, data });
-      }
+      const walletKey = this.getWalletKey(data.wallet.address, data.wallet.network);
+      
+      await this.queueEventProcessing(walletKey, async () => {
+        try {
+          await this.eventProcessor.processTransactionConfirmation(
+            data.wallet,
+            data.event,
+            data.confirmation
+          );
+          
+          this.emit('transactionConfirmed', data);
+          
+        } catch (error) {
+          this.logger.error('Failed to process transaction confirmation:', error);
+          this.emit('processingError', { type: 'transactionConfirmed', error, data });
+        }
+      });
     });
     
     // Transaction execution events
     this.eventListener.on('transactionExecuted', async (data) => {
-      try {
-        await this.eventProcessor.processTransactionExecution(
-          data.wallet,
-          data.event,
-          data.transactionId
-        );
-        
-        this.emit('transactionExecuted', data);
-        
-      } catch (error) {
-        this.logger.error('Failed to process transaction execution:', error);
-        this.emit('processingError', { type: 'transactionExecuted', error, data });
-      }
+      const walletKey = this.getWalletKey(data.wallet.address, data.wallet.network);
+      
+      await this.queueEventProcessing(walletKey, async () => {
+        try {
+          await this.eventProcessor.processTransactionExecution(
+            data.wallet,
+            data.event,
+            data.transactionId
+          );
+          
+          this.emit('transactionExecuted', data);
+          
+        } catch (error) {
+          this.logger.error('Failed to process transaction execution:', error);
+          this.emit('processingError', { type: 'transactionExecuted', error, data });
+        }
+      });
     });
     
     // Owner change events
     this.eventListener.on('ownerAdded', async (data) => {
-      try {
-        await this.eventProcessor.processOwnerChange(
-          data.wallet,
-          data.event,
-          data.change
-        );
-        
-        this.emit('ownerAdded', data);
-        
-      } catch (error) {
-        this.logger.error('Failed to process owner addition:', error);
-        this.emit('processingError', { type: 'ownerAdded', error, data });
-      }
+      const walletKey = this.getWalletKey(data.wallet.address, data.wallet.network);
+      
+      await this.queueEventProcessing(walletKey, async () => {
+        try {
+          await this.eventProcessor.processOwnerChange(
+            data.wallet,
+            data.event,
+            data.change
+          );
+          
+          this.emit('ownerAdded', data);
+          
+        } catch (error) {
+          this.logger.error('Failed to process owner addition:', error);
+          this.emit('processingError', { type: 'ownerAdded', error, data });
+        }
+      });
     });
     
     this.eventListener.on('ownerRemoved', async (data) => {
-      try {
-        await this.eventProcessor.processOwnerChange(
-          data.wallet,
-          data.event,
-          data.change
-        );
-        
-        this.emit('ownerRemoved', data);
-        
-      } catch (error) {
-        this.logger.error('Failed to process owner removal:', error);
-        this.emit('processingError', { type: 'ownerRemoved', error, data });
-      }
+      const walletKey = this.getWalletKey(data.wallet.address, data.wallet.network);
+      
+      await this.queueEventProcessing(walletKey, async () => {
+        try {
+          await this.eventProcessor.processOwnerChange(
+            data.wallet,
+            data.event,
+            data.change
+          );
+          
+          this.emit('ownerRemoved', data);
+          
+        } catch (error) {
+          this.logger.error('Failed to process owner removal:', error);
+          this.emit('processingError', { type: 'ownerRemoved', error, data });
+        }
+      });
     });
     
     // Event listener errors

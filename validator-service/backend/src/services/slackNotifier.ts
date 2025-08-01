@@ -105,23 +105,16 @@ export class SlackNotifier {
           { title: 'Network', value: alert.wallet.network, short: true },
           { title: 'Transaction ID', value: alert.transaction.id.toString(), short: true },
           { title: 'Action', value: this.formatAction(alert.transaction.action), short: true },
-          { title: 'Submitter', value: `\`${alert.transaction.submitter}\``, short: true },
           { title: 'Amount', value: this.formatEther(alert.transaction.value), short: true },
+          { title: 'Destination', value: alert.transaction.destination ? `\`${alert.transaction.destination}\`` : 'N/A', short: false },
           { title: 'Status', value: `${alert.transaction.confirmations}/${alert.transaction.required} confirmations`, short: true },
-          { title: 'Time', value: timeText, short: true }
+          { title: 'Time', value: timeText, short: true },
+          { title: 'Submitted by', value: `\`${alert.transaction.submitter}\``, short: false },
         ],
         footer: 'MultiSig Validator',
         ts: Math.floor(alert.timestamp.getTime() / 1000)
       }]
     };
-
-    if (alert.transaction.destination) {
-      message.attachments![0].fields.push({
-        title: 'Destination',
-        value: `\`${alert.transaction.destination}\``,
-        short: false
-      });
-    }
 
     await this.sendMessage(message);
   }
@@ -144,21 +137,20 @@ export class SlackNotifier {
       attachments: [{
         color: 'good',
         fields: [
-          { title: 'Wallet', value: `${alert.wallet.name}`, short: true },
+          { title: 'Wallet', value: `${alert.wallet.name}\n\`${alert.wallet.address}\``, short: false },
           { title: 'Network', value: alert.wallet.network, short: true },
           { title: 'Transaction ID', value: alert.transaction.id.toString(), short: true },
-          { title: 'Confirmed by', value: confirmerText, short: true },
-          { title: 'Progress', value: `${alert.transaction.confirmations}/${alert.transaction.required} confirmations`, short: true },
+          { title: 'Action', value: this.formatAction(alert.transaction.action), short: true },
           { title: 'Amount', value: this.formatEther(alert.transaction.value), short: true },
-          { title: 'Time', value: timeText, short: true }
+          { title: 'Progress', value: `${alert.transaction.confirmations}/${alert.transaction.required} confirmations`, short: true },
+          { title: 'Time', value: timeText, short: true },
+          { title: 'Confirmed by', value: confirmerText, short: false },
         ],
         footer: 'MultiSig Validator',
         ts: Math.floor(alert.timestamp.getTime() / 1000)
       }]
     };
 
-    // Always notify for confirmations - users want to see progress
-    // Previously only notified when fully confirmed or large amount, but this was too restrictive
     await this.sendMessage(message);
   }
 
@@ -179,25 +171,18 @@ export class SlackNotifier {
       attachments: [{
         color: 'good',
         fields: [
-          { title: 'Wallet', value: `${alert.wallet.name}`, short: true },
+          { title: 'Wallet', value: `${alert.wallet.name}\n\`${alert.wallet.address}\``, short: false },
           { title: 'Network', value: alert.wallet.network, short: true },
           { title: 'Transaction ID', value: alert.transaction.id.toString(), short: true },
           { title: 'Action', value: this.formatAction(alert.transaction.action), short: true },
           { title: 'Amount', value: this.formatEther(alert.transaction.value), short: true },
-          { title: 'Time', value: timeText, short: true }
+          { title: 'Destination', value: alert.transaction.destination ? `\`${alert.transaction.destination}\`` : 'N/A', short: false },
+          { title: 'Time', value: timeText, short: true },
         ],
         footer: 'MultiSig Validator',
         ts: Math.floor(alert.timestamp.getTime() / 1000)
       }]
     };
-
-    if (alert.transaction.destination) {
-      message.attachments![0].fields.push({
-        title: 'Destination',
-        value: `\`${alert.transaction.destination}\``,
-        short: false
-      });
-    }
 
     await this.sendMessage(message);
   }
@@ -224,7 +209,7 @@ export class SlackNotifier {
           { title: 'Amount', value: `💰 ${this.formatEther(alert.transaction.value)}`, short: true },
           { title: 'Transaction ID', value: alert.transaction.id.toString(), short: true },
           { title: 'Action', value: this.formatAction(alert.transaction.action), short: true },
-          { title: 'Submitter', value: `\`${alert.transaction.submitter}\``, short: true },
+          { title: 'Submitter', value: `\`${alert.transaction.submitter}\``, short: false },
           { title: 'Status', value: `${alert.transaction.confirmations}/${alert.transaction.required} confirmations`, short: true },
           { title: 'Time', value: timeText, short: true }
         ],
@@ -253,12 +238,14 @@ export class SlackNotifier {
       attachments: [{
         color: 'warning',
         fields: [
-          { title: 'Wallet', value: `${alert.wallet.name}`, short: true },
+          { title: 'Wallet', value: `${alert.wallet.name}\n\`${alert.wallet.address}\``, short: false },
+          { title: 'Network', value: alert.wallet.network, short: true },
           { title: 'Network', value: alert.wallet.network, short: true },
           { title: 'Transaction ID', value: alert.transaction.id.toString(), short: true },
           { title: 'Amount', value: this.formatEther(alert.transaction.value), short: true },
           { title: 'Status', value: `${alert.transaction.confirmations}/${alert.transaction.required} confirmations`, short: true },
           { title: 'Time', value: timeText, short: true },
+          { title: 'Submitter', value: `\`${alert.transaction.submitter}\``, short: false },
           { title: 'Unknown Recipient', value: `\`${alert.transaction.destination}\``, short: false }
         ],
         footer: 'MultiSig Validator - Security Alert',

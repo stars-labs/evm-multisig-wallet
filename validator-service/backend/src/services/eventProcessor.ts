@@ -831,7 +831,8 @@ export class EventProcessor {
           confirmations: confirmations.length
         },
         alertType: 'confirmation',
-        timestamp: confirmation.timestamp
+        timestamp: confirmation.timestamp,
+        confirmer: confirmation.confirmer
       };
 
       this.logger.info('Sending transaction confirmation notification', {

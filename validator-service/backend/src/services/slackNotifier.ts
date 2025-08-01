@@ -40,6 +40,7 @@ export interface TransactionAlert {
   };
   alertType: 'submission' | 'confirmation' | 'execution' | 'large_amount' | 'unknown_recipient';
   timestamp: Date;
+  confirmer?: string; // For confirmation alerts
 }
 
 export interface OwnerAlert {
@@ -86,6 +87,15 @@ export class SlackNotifier {
     const rateKey = `submission-${alert.wallet.address}-${alert.transaction.id}`;
     if (this.isRateLimited(rateKey)) return;
 
+    const timeText = alert.timestamp.toLocaleString('en-US', {
+      timeZone: 'UTC',
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      timeZoneName: 'short'
+    });
+
     const message: SlackMessage = {
       text: `📝 *New MultiSig Transaction Submitted*`,
       attachments: [{
@@ -97,7 +107,8 @@ export class SlackNotifier {
           { title: 'Action', value: this.formatAction(alert.transaction.action), short: true },
           { title: 'Submitter', value: `\`${alert.transaction.submitter}\``, short: true },
           { title: 'Amount', value: this.formatEther(alert.transaction.value), short: true },
-          { title: 'Status', value: `${alert.transaction.confirmations}/${alert.transaction.required} confirmations`, short: true }
+          { title: 'Status', value: `${alert.transaction.confirmations}/${alert.transaction.required} confirmations`, short: true },
+          { title: 'Time', value: timeText, short: true }
         ],
         footer: 'MultiSig Validator',
         ts: Math.floor(alert.timestamp.getTime() / 1000)
@@ -118,6 +129,16 @@ export class SlackNotifier {
   async notifyTransactionConfirmation(alert: TransactionAlert): Promise<void> {
     if (!this.enabled) return;
 
+    const confirmerText = alert.confirmer ? `\`${alert.confirmer}\`` : 'Unknown';
+    const timeText = alert.timestamp.toLocaleString('en-US', {
+      timeZone: 'UTC',
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      timeZoneName: 'short'
+    });
+
     const message: SlackMessage = {
       text: `✅ *Transaction Confirmation*`,
       attachments: [{
@@ -125,8 +146,10 @@ export class SlackNotifier {
         fields: [
           { title: 'Wallet', value: `${alert.wallet.name}`, short: true },
           { title: 'Transaction ID', value: alert.transaction.id.toString(), short: true },
+          { title: 'Confirmed by', value: confirmerText, short: true },
           { title: 'Progress', value: `${alert.transaction.confirmations}/${alert.transaction.required} confirmations`, short: true },
-          { title: 'Amount', value: this.formatEther(alert.transaction.value), short: true }
+          { title: 'Amount', value: this.formatEther(alert.transaction.value), short: true },
+          { title: 'Time', value: timeText, short: true }
         ],
         footer: 'MultiSig Validator',
         ts: Math.floor(alert.timestamp.getTime() / 1000)
@@ -141,6 +164,15 @@ export class SlackNotifier {
   async notifyTransactionExecution(alert: TransactionAlert): Promise<void> {
     if (!this.enabled) return;
 
+    const timeText = alert.timestamp.toLocaleString('en-US', {
+      timeZone: 'UTC',
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      timeZoneName: 'short'
+    });
+
     const message: SlackMessage = {
       text: `🚀 *Transaction Executed*`,
       attachments: [{
@@ -151,7 +183,8 @@ export class SlackNotifier {
           { title: 'Transaction ID', value: alert.transaction.id.toString(), short: true },
           { title: 'Action', value: this.formatAction(alert.transaction.action), short: true },
           { title: 'Amount', value: this.formatEther(alert.transaction.value), short: true },
-          { title: 'Status', value: '✅ Executed', short: true }
+          { title: 'Status', value: '✅ Executed', short: true },
+          { title: 'Time', value: timeText, short: true }
         ],
         footer: 'MultiSig Validator',
         ts: Math.floor(alert.timestamp.getTime() / 1000)

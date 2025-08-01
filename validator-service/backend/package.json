@@ -25,8 +25,11 @@
     "db:migrate": "psql -h localhost -U validator_user -d multisig_validator -f schema.sql",
     "db:register": "ts-node src/scripts/registerWallets.ts",
     "db:register-local": "ts-node src/scripts/registerLocalWallets.ts",
+    "db:cleanup": "ts-node src/scripts/cleanupTestData.ts",
     "db:seed": "node scripts/seed.js",
-    "db:reset": "node scripts/reset.js"
+    "db:reset": "node scripts/reset.js",
+    "test:regression": "node scripts/runRegressionTests.js",
+    "test:quick": "node test/regression/quick-test.js"
   },
   "dependencies": {
     "@multisig-validator/shared": "file:../shared",

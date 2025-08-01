@@ -37,6 +37,7 @@ export interface TransactionAlert {
     value: string;
     required: number;
     confirmations: number;
+    hash?: string;
   };
   alertType: 'submission' | 'confirmation' | 'execution' | 'large_amount' | 'unknown_recipient';
   timestamp: Date;
@@ -55,6 +56,7 @@ export interface OwnerAlert {
     newOwner?: string;
   };
   timestamp: Date;
+  transactionHash?: string;
 }
 
 export class SlackNotifier {
@@ -110,6 +112,7 @@ export class SlackNotifier {
           { title: 'Status', value: `${alert.transaction.confirmations}/${alert.transaction.required} confirmations`, short: true },
           { title: 'Time', value: timeText, short: true },
           { title: 'Submitted by', value: `\`${alert.transaction.submitter}\``, short: false },
+          { title: 'Transaction Hash', value: alert.transaction.hash ? `\`${alert.transaction.hash}\`` : 'N/A', short: false }
         ],
         footer: 'MultiSig Validator',
         ts: Math.floor(alert.timestamp.getTime() / 1000)
@@ -145,6 +148,7 @@ export class SlackNotifier {
           { title: 'Progress', value: `${alert.transaction.confirmations}/${alert.transaction.required} confirmations`, short: true },
           { title: 'Time', value: timeText, short: true },
           { title: 'Confirmed by', value: confirmerText, short: false },
+          { title: 'Confirmation Hash', value: alert.transaction.hash ? `\`${alert.transaction.hash}\`` : 'N/A', short: false }
         ],
         footer: 'MultiSig Validator',
         ts: Math.floor(alert.timestamp.getTime() / 1000)
@@ -178,6 +182,7 @@ export class SlackNotifier {
           { title: 'Amount', value: this.formatEther(alert.transaction.value), short: true },
           { title: 'Destination', value: alert.transaction.destination ? `\`${alert.transaction.destination}\`` : 'N/A', short: false },
           { title: 'Time', value: timeText, short: true },
+          { title: 'Execution Hash', value: alert.transaction.hash ? `\`${alert.transaction.hash}\`` : 'N/A', short: false }
         ],
         footer: 'MultiSig Validator',
         ts: Math.floor(alert.timestamp.getTime() / 1000)
@@ -211,7 +216,8 @@ export class SlackNotifier {
           { title: 'Action', value: this.formatAction(alert.transaction.action), short: true },
           { title: 'Submitter', value: `\`${alert.transaction.submitter}\``, short: false },
           { title: 'Status', value: `${alert.transaction.confirmations}/${alert.transaction.required} confirmations`, short: true },
-          { title: 'Time', value: timeText, short: true }
+          { title: 'Time', value: timeText, short: true },
+          { title: 'Transaction Hash', value: alert.transaction.hash ? `\`${alert.transaction.hash}\`` : 'N/A', short: false }
         ],
         footer: 'MultiSig Validator - Large Amount Alert',
         ts: Math.floor(alert.timestamp.getTime() / 1000)
@@ -246,7 +252,8 @@ export class SlackNotifier {
           { title: 'Status', value: `${alert.transaction.confirmations}/${alert.transaction.required} confirmations`, short: true },
           { title: 'Time', value: timeText, short: true },
           { title: 'Submitter', value: `\`${alert.transaction.submitter}\``, short: false },
-          { title: 'Unknown Recipient', value: `\`${alert.transaction.destination}\``, short: false }
+          { title: 'Unknown Recipient', value: `\`${alert.transaction.destination}\``, short: false },
+          { title: 'Transaction Hash', value: alert.transaction.hash ? `\`${alert.transaction.hash}\`` : 'N/A', short: false }
         ],
         footer: 'MultiSig Validator - Security Alert',
         ts: Math.floor(alert.timestamp.getTime() / 1000)
@@ -287,7 +294,8 @@ export class SlackNotifier {
           { title: 'Network', value: alert.wallet.network, short: true },
           { title: 'Change Type', value: action, short: true },
           { title: 'Time', value: timeText, short: true },
-          { title: 'Owner', value: `\`${alert.change.owner}\``, short: false }
+          { title: 'Owner', value: `\`${alert.change.owner}\``, short: false },
+          { title: 'Transaction Hash', value: alert.transactionHash ? `\`${alert.transactionHash}\`` : 'N/A', short: false }
         ],
         footer: 'MultiSig Validator - Governance Alert',
         ts: Math.floor(alert.timestamp.getTime() / 1000)

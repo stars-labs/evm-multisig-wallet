@@ -286,7 +286,7 @@ export class EventProcessor {
       });
 
       // Send Slack notification for transaction execution
-      await this.sendTransactionExecutionNotification(wallet, transactionId, event.timestamp);
+      await this.sendTransactionExecutionNotification(wallet, transactionId, event.timestamp, event.transactionHash);
       
     } catch (error) {
       this.logger.error('Failed to process transaction execution:', error);
@@ -357,7 +357,7 @@ export class EventProcessor {
       });
 
       // Send Slack notification for owner change
-      await this.sendOwnerChangeNotification(wallet, change, event.timestamp);
+      await this.sendOwnerChangeNotification(wallet, change, event.timestamp, event.transactionHash);
       
     } catch (error) {
       this.logger.error('Failed to process owner change:', error);
@@ -725,7 +725,8 @@ export class EventProcessor {
           destination: submission.destination,
           value: submission.value,
           required: walletRecord.required,
-          confirmations: 0
+          confirmations: 0,
+          hash: submission.transactionHash
         },
         alertType: 'submission',
         timestamp: submission.timestamp
@@ -828,7 +829,8 @@ export class EventProcessor {
           destination: transaction.destination,
           value: transaction.value,
           required: walletRecord.required,
-          confirmations: confirmations.length
+          confirmations: confirmations.length,
+          hash: confirmation.transactionHash
         },
         alertType: 'confirmation',
         timestamp: confirmation.timestamp,
@@ -865,7 +867,8 @@ export class EventProcessor {
   private async sendTransactionExecutionNotification(
     wallet: WalletConfig,
     transactionId: number,
-    timestamp: Date
+    timestamp: Date,
+    transactionHash?: string
   ): Promise<void> {
     try {
       // Get wallet and transaction details
@@ -891,7 +894,8 @@ export class EventProcessor {
           destination: transaction.destination,
           value: transaction.value,
           required: walletRecord.required,
-          confirmations: walletRecord.required // Fully confirmed if executed
+          confirmations: walletRecord.required, // Fully confirmed if executed
+          hash: transactionHash
         },
         alertType: 'execution',
         timestamp
@@ -907,7 +911,8 @@ export class EventProcessor {
   private async sendOwnerChangeNotification(
     wallet: WalletConfig,
     change: OwnerChangeData,
-    timestamp: Date
+    timestamp: Date,
+    transactionHash?: string
   ): Promise<void> {
     try {
       const walletRecord = await this.getWalletByAddress(wallet.address, wallet.network);
@@ -924,7 +929,8 @@ export class EventProcessor {
           owner: change.owner,
           newOwner: change.newOwner
         },
-        timestamp
+        timestamp,
+        transactionHash
       };
 
       await this.slackNotifier.notifyOwnerChange(alert);

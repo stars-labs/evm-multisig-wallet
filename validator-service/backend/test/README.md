@@ -15,9 +15,6 @@ Complete regression test suite that tests all multisig wallet scenarios:
 - Direct deposits
 - Execution failures
 
-### 2. `regression/quick-test.js`
-Quick test script for development. Test individual scenarios without running the full suite.
-
 ### 3. Database cleanup and setup scripts in `src/scripts/`:
 - `cleanupTestData.ts` - Cleans database before test runs
 - `registerLocalWallets.ts` - Registers wallets with validator service

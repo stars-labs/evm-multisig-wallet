@@ -246,8 +246,8 @@ export class SlackNotifier {
         fields: [
           { title: 'Wallet', value: `${alert.wallet.name}\n\`${alert.wallet.address}\``, short: false },
           { title: 'Network', value: alert.wallet.network, short: true },
-          { title: 'Network', value: alert.wallet.network, short: true },
           { title: 'Transaction ID', value: alert.transaction.id.toString(), short: true },
+          { title: 'Action', value: this.formatAction(alert.transaction.action), short: true },
           { title: 'Amount', value: this.formatEther(alert.transaction.value), short: true },
           { title: 'Status', value: `${alert.transaction.confirmations}/${alert.transaction.required} confirmations`, short: true },
           { title: 'Time', value: timeText, short: true },

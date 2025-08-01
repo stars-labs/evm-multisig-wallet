@@ -20,7 +20,7 @@ const axios = require('axios');
 
 const VALIDATOR_SERVICE_URL = 'http://localhost:3001';
 const HARDHAT_RPC_URL = 'http://127.0.0.1:8545';
-const PROJECT_ROOT = path.join(__dirname, '../../../..');
+const PROJECT_ROOT = path.join(__dirname, '../..');
 
 // Colors for console output
 const colors = {

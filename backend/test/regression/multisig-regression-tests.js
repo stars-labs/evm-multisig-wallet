@@ -23,7 +23,7 @@ const axios = require('axios');
 const CONFIG = {
   delayBetweenTests: 3000, // 3 seconds between tests
   delayBetweenActions: 2000, // 2 seconds between actions within a test
-  deploymentFile: path.join(__dirname, '../../../../deployment-local.json'),
+  deploymentFile: path.join(__dirname, '../../../deployment-local.json'),
   validatorApiUrl: 'http://localhost:3001',
   waitForEventProcessing: 1000, // Wait 1 second after actions for event processing
 };

@@ -1,0 +1,61 @@
+{
+  "passed": 1,
+  "failed": 8,
+  "tests": [
+    {
+      "name": "Transaction Submission and Single Confirmation",
+      "status": "FAILED",
+      "timestamp": "2025-08-01T06:22:57.189Z",
+      "error": "No Submission event found in transaction receipt"
+    },
+    {
+      "name": "Transaction Execution (Full Flow)",
+      "status": "FAILED",
+      "timestamp": "2025-08-01T06:23:00.204Z",
+      "error": "No Submission event found in transaction receipt"
+    },
+    {
+      "name": "Transaction Revocation",
+      "status": "FAILED",
+      "timestamp": "2025-08-01T06:23:03.212Z",
+      "error": "No Submission event found in transaction receipt"
+    },
+    {
+      "name": "Owner Addition",
+      "status": "FAILED",
+      "timestamp": "2025-08-01T06:23:06.270Z",
+      "error": "could not decode result data (value=\"0x\", info={ \"method\": \"getOwners\", \"signature\": \"getOwners()\" }, code=BAD_DATA, version=6.15.0)"
+    },
+    {
+      "name": "Owner Removal",
+      "status": "FAILED",
+      "timestamp": "2025-08-01T06:23:09.278Z",
+      "error": "could not decode result data (value=\"0x\", info={ \"method\": \"getOwners\", \"signature\": \"getOwners()\" }, code=BAD_DATA, version=6.15.0)"
+    },
+    {
+      "name": "Requirement Change",
+      "status": "FAILED",
+      "timestamp": "2025-08-01T06:23:12.283Z",
+      "error": "could not decode result data (value=\"0x\", info={ \"method\": \"required\", \"signature\": \"required()\" }, code=BAD_DATA, version=6.15.0)"
+    },
+    {
+      "name": "Daily Limit Change",
+      "status": "FAILED",
+      "timestamp": "2025-08-01T06:23:15.289Z",
+      "error": "could not decode result data (value=\"0x\", info={ \"method\": \"dailyLimit\", \"signature\": \"dailyLimit()\" }, code=BAD_DATA, version=6.15.0)"
+    },
+    {
+      "name": "Direct Deposit",
+      "status": "PASSED",
+      "timestamp": "2025-08-01T06:23:18.299Z",
+      "depositAmount": "0.5",
+      "finalBalance": "0.5"
+    },
+    {
+      "name": "Execution Failure (Insufficient Balance)",
+      "status": "FAILED",
+      "timestamp": "2025-08-01T06:23:21.306Z",
+      "error": "No Submission event found in transaction receipt"
+    }
+  ]
+}

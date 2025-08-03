@@ -16,7 +16,7 @@ import {
   AlertPriority,
   RiskLevel,
   OwnerStatus
-} from '@multisig-validator/shared';
+} from '../types';
 import { 
   WalletModel,
   OwnerModel,

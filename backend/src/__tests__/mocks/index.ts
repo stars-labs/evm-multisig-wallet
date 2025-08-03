@@ -1,6 +1,6 @@
 // Centralized mock factory for all test dependencies
 import { EventEmitter } from 'events';
-import { NetworkType, WalletType, TransactionAction } from '@multisig-validator/shared';
+import { NetworkType, WalletType, TransactionAction } from '../../types';
 import winston from 'winston';
 
 export class MockFactory {

@@ -17,7 +17,7 @@ import {
   AlertPriority,
   RiskLevel,
   OwnerStatus
-} from '@multisig-validator/shared';
+} from '../../types';
 import winston from 'winston';
 import { TestEnvironment, setupTestEnvironment, teardownTestEnvironment, TestDataGenerator } from '../helpers/testUtils';
 

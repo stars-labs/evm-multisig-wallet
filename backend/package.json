@@ -32,7 +32,6 @@
     "test:quick": "node test/regression/quick-test.js"
   },
   "dependencies": {
-    "@multisig-validator/shared": "file:../shared",
     "axios": "^1.11.0",
     "bcryptjs": "^2.4.3",
     "bull": "^4.12.0",

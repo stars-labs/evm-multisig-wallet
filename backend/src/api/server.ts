@@ -4,7 +4,7 @@ import cors from 'cors';
 import morgan from 'morgan';
 import winston from 'winston';
 import { ValidatorService } from '../services/validatorService';
-import { NetworkType } from '@multisig-validator/shared';
+import { NetworkType } from '../types';
 import { createApiRoutes } from './routes';
 import { errorHandler } from './middleware/errorHandler';
 

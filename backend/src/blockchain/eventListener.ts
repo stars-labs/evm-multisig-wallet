@@ -16,7 +16,7 @@ import {
   NetworkType, 
   WalletType,
   TransactionAction 
-} from '@multisig-validator/shared';
+} from '../types';
 import config from '../config';
 import { RateLimiter } from '../utils/rateLimiter';
 import { ChainService } from '../services/chainService';
@@ -397,27 +397,31 @@ export class MultiSigEventListener extends EventEmitter {
     toBlock: number
   ): Promise<void> {
     try {
+      // Determine if wallet has daily limit based on type
+      const hasDailyLimit = wallet.type === WalletType.MULTISIG_WALLET_WITH_DAILY_LIMIT;
+      
+      this.logger.info(`Processing wallet events`, {
+        address: wallet.address,
+        walletType: wallet.type,
+        hasDailyLimit,
+        fromBlock,
+        toBlock
+      });
+      
       const contract = this.contractFactory.getContract(
         wallet.address,
         wallet.network,
-        wallet.type === WalletType.MULTISIG_WALLET_WITH_DAILY_LIMIT
+        hasDailyLimit
       );
       
-      // Check if contract exists at start block to avoid querying non-existent contracts
-      const provider = this.contractFactory.getProvider(wallet.network);
-      const codeAtStart = await provider.getCode(wallet.address, fromBlock);
-      
-      if (codeAtStart === '0x' || codeAtStart === '0x0') {
-        this.logger.debug('Contract not deployed at start block, skipping', {
-          wallet: wallet.address,
-          network: wallet.network,
-          fromBlock,
-          toBlock
-        });
-        return;
-      }
-      
       const events = await contract.getAllEvents(fromBlock, toBlock);
+      
+      this.logger.debug(`Contract.getAllEvents returned ${events.length} events`, {
+        wallet: wallet.address,
+        fromBlock,
+        toBlock,
+        events: events.length > 0 ? events : 'No events found'
+      });
       
       if (events.length > 0) {
         this.logger.info(`Found ${events.length} events for wallet ${wallet.address}`, {

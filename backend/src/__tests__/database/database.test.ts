@@ -2,7 +2,7 @@
 import { Database } from '../../database';
 import { logger, cleanupTestData } from '../setup';
 import { TestDataGenerator, DatabaseTestHelpers } from '../helpers/testUtils';
-import { NetworkType, WalletType } from '@multisig-validator/shared';
+import { NetworkType, WalletType } from '../../types';
 
 describe('Database Operations', () => {
   let db: Database;

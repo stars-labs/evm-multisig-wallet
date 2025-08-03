@@ -4,7 +4,7 @@ import { EventEmitter } from 'events';
 import { Database } from '../database';
 import { MultiSigEventListener, WalletConfig } from '../blockchain/eventListener';
 import { EventProcessor } from './eventProcessor';
-import { NetworkType, WalletType } from '@multisig-validator/shared';
+import { NetworkType, WalletType } from '../types';
 
 export interface ValidatorServiceConfig {
   networks: NetworkType[];

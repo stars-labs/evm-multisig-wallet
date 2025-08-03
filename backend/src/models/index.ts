@@ -17,7 +17,7 @@ import {
   TransactionConfirmation,
   DecodedTransactionData,
   AlertContext
-} from '@multisig-validator/shared';
+} from '../types';
 
 // ============================================================================
 // BASE MODEL INTERFACE

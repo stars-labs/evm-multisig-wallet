@@ -14,7 +14,7 @@ dotenv.config();
 
 import { Database } from '../database';
 import { logger } from '../utils/logger';
-import { NetworkType } from '@multisig-validator/shared';
+import { NetworkType } from '../types';
 import fs from 'fs';
 import path from 'path';
 

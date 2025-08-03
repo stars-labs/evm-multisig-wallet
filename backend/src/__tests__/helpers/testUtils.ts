@@ -6,7 +6,7 @@ import { ChainService } from '../../services/chainService';
 import { SlackNotifier } from '../../services/slackNotifier';
 import { Database } from '../../database';
 import { TestDatabase, createTestDatabase } from './testDatabase';
-import { NetworkType, WalletType, TransactionAction } from '@multisig-validator/shared';
+import { NetworkType, WalletType, TransactionAction } from '../../types';
 import { ethers } from 'ethers';
 
 // Test logger with minimal output

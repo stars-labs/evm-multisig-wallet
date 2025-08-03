@@ -1,7 +1,7 @@
 // Route aggregation and setup
 import { Router } from 'express';
 import { ValidatorService } from '../../services/validatorService';
-import { NetworkType } from '@multisig-validator/shared';
+import { NetworkType } from '../../types';
 import { createWalletRoutes } from './wallets';
 import { createHealthRoutes } from './health';
 

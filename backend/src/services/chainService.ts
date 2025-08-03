@@ -1,6 +1,6 @@
 // Chain service for multi-chain configuration and sync state management
 import { Database } from '../database';
-import { NetworkType } from '@multisig-validator/shared';
+import { NetworkType } from '../types';
 import { ChainModel, ChainSyncUpdate, ChainCreateRequest, ChainUpdateRequest } from '../models/chainModel';
 import winston from 'winston';
 

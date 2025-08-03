@@ -2,7 +2,7 @@
 import { Request, Response, NextFunction } from 'express';
 import Joi from 'joi';
 import { ValidationError } from '../../utils/errors';
-import { NetworkType, WalletType } from '@multisig-validator/shared';
+import { NetworkType, WalletType } from '../../types';
 
 // Custom validation schemas
 export const commonSchemas = {

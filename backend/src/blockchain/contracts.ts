@@ -333,10 +333,19 @@ export class MultiSigContract {
       
       // Get logs directly from provider with the contract address
       // This is more reliable than using contract.queryFilter("*")
-      const logs = await this.provider.getLogs({
+      const filter = {
         address: this.contract.target as string,
         fromBlock: fromBlock,
         toBlock: toBlock
+      };
+      
+      this.logger?.debug('Getting logs with filter', filter);
+      
+      const logs = await this.provider.getLogs(filter);
+      
+      this.logger?.debug(`Provider returned ${logs.length} logs`, {
+        contract: this.contract.target,
+        logsFound: logs.length
       });
       
       const events: MultiSigEvent[] = [];

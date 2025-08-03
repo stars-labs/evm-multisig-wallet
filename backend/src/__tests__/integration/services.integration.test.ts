@@ -4,7 +4,7 @@ import { EventProcessor } from '../../services/eventProcessor';
 import { ChainService } from '../../services/chainService';
 import { SlackNotifier } from '../../services/slackNotifier';
 import { Database } from '../../database';
-import { NetworkType, WalletType, TransactionAction } from '@multisig-validator/shared';
+import { NetworkType, WalletType, TransactionAction } from '../../types';
 import winston from 'winston';
 import {
   TestEnvironment,

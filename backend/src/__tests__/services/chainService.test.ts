@@ -1,7 +1,7 @@
 // Comprehensive test suite for ChainService
 import { ChainService } from '../../services/chainService';
 import { Database } from '../../database';
-import { NetworkType } from '@multisig-validator/shared';
+import { NetworkType } from '../../types';
 import { ChainModel, ChainCreateRequest, ChainUpdateRequest, ChainSyncUpdate } from '../../models/chainModel';
 import winston from 'winston';
 import { TestEnvironment, setupTestEnvironment, teardownTestEnvironment } from '../helpers/testUtils';

@@ -1,7 +1,7 @@
 // Slack notification service for MultiSig wallet alerts
 import axios from 'axios';
 import winston from 'winston';
-import { NetworkType, TransactionAction } from '@multisig-validator/shared';
+import { NetworkType, TransactionAction } from '../types';
 import config from '../config';
 
 export interface SlackAttachment {

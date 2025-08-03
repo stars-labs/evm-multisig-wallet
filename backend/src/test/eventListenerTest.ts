@@ -5,7 +5,7 @@ dotenv.config();
 import winston from 'winston';
 import { MultiSigEventListener, WalletConfig } from '../blockchain/eventListener';
 import { ContractFactory } from '../blockchain/contracts';
-import { NetworkType, WalletType } from '@multisig-validator/shared';
+import { NetworkType, WalletType } from '../types';
 import config from '../config';
 
 // Create a simple console logger for testing

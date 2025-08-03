@@ -1,4 +1,5 @@
 {
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
   "permissions": {
     "allow": [
       "WebFetch(domain:etherscan.io)",
@@ -42,9 +43,9 @@
       "Bash(npx jest:*)",
       "Bash(chmod:*)",
       "Bash(./check-results.sh:*)",
-      "Bash(tree:*)"
+      "Bash(tree:*)",
+      "Bash(# Fix paths for files in subdirectories\nsed -i '''' \"\"s|from ''../types''|from ''../../types''|g\"\" src/test/*.ts\nsed -i '''' \"\"s|from ''../types''|from ''../../types''|g\"\" src/models/*.ts\nsed -i '''' \"\"s|from ''../types''|from ''../../types''|g\"\" src/blockchain/*.ts\nsed -i '''' \"\"s|from ''../types''|from ''../../types''|g\"\" src/scripts/*.ts\nsed -i '''' \"\"s|from ''../types''|from ''../../types''|g\"\" src/api/middleware/*.ts\nsed -i '''' \"\"s|from ''../types''|from ''../../types''|g\"\" src/api/routes/*.ts\nsed -i '''' \"\"s|from ''../types''|from ''../../types''|g\"\" src/services/*.ts\n\n# Fix paths for files in deeper subdirectories\nsed -i '''' \"\"s|from ''../types''|from ''../../../types''|g\"\" src/__tests__/mocks/*.ts\nsed -i '''' \"\"s|from ''../types''|from ''../../../types''|g\"\" src/__tests__/database/*.ts\nsed -i '''' \"\"s|from ''../types''|from ''../../../types''|g\"\" src/__tests__/integration/*.ts\nsed -i '''' \"\"s|from ''../types''|from ''../../../types''|g\"\" src/__tests__/helpers/*.ts\nsed -i '''' \"\"s|from ''../types''|from ''../../../types''|g\"\" src/__tests__/services/*.ts\n\n# Fix path for api/server.ts (2 levels deep)\nsed -i '''' \"\"s|from ''../types''|from ''../../types''|g\"\" src/api/server.ts\n\n# Fix path for index.ts (1 level deep, should stay as is)\n# Already correct at ''../types'')"
     ],
     "deny": []
-  },
-  "$schema": "https://json.schemastore.org/claude-code-settings.json"
+  }
 }

@@ -1,7 +1,7 @@
 // Wallet management routes
 import { Router, Request, Response } from 'express';
 import { ValidatorService } from '../../services/validatorService';
-import { NetworkType } from '@multisig-validator/shared';
+import { NetworkType } from '../../types';
 import { asyncHandler, createApiError } from '../middleware/errorHandler';
 import { validateAddWallet, validateNetworkSupport } from '../middleware/validation';
 

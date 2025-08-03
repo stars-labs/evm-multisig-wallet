@@ -6,7 +6,7 @@ import { Database } from './database';
 import { ValidatorService } from './services/validatorService';
 import { ApiServer } from './api/server';
 import { logger } from './utils/logger';
-import { NetworkType } from '@multisig-validator/shared';
+import { NetworkType } from './types';
 import config from './config';
 
 // Parse monitored networks from environment

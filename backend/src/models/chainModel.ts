@@ -1,5 +1,5 @@
 // Chain model for multi-chain configuration and sync state
-import { NetworkType } from '@multisig-validator/shared';
+import { NetworkType } from '../types';
 
 export interface ChainModel {
   id: string;

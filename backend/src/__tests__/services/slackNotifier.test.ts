@@ -1,6 +1,6 @@
 // Comprehensive test suite for SlackNotifier
 import { SlackNotifier, TransactionAlert, OwnerAlert } from '../../services/slackNotifier';
-import { NetworkType, TransactionAction } from '@multisig-validator/shared';
+import { NetworkType, TransactionAction } from '../../types';
 import winston from 'winston';
 import axios from 'axios';
 import config from '../../config';

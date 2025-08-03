@@ -3,7 +3,7 @@ import { ValidatorService, ValidatorServiceConfig } from '../../services/validat
 import { Database } from '../../database';
 import { MultiSigEventListener, WalletConfig } from '../../blockchain/eventListener';
 import { EventProcessor } from '../../services/eventProcessor';
-import { NetworkType, WalletType } from '@multisig-validator/shared';
+import { NetworkType, WalletType } from '../../types';
 import winston from 'winston';
 import { EventEmitter } from 'events';
 // Test utilities for comprehensive service testing

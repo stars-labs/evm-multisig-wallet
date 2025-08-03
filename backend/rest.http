@@ -1,34 +1,34 @@
 ### MultiSig Validator Service API Testing
-### Base URL: http://localhost:3002
+### Base URL: http://localhost:3001
 
 # =============================================================================
 # HEALTH & STATUS ENDPOINTS
 # =============================================================================
 
 ### Get API Information
-GET http://localhost:3002/api/
+GET http://localhost:3001/api/
 
 ### Health Check
-GET http://localhost:3002/api/health
+GET http://localhost:3001/api/health
 
 ### Service Metrics
-GET http://localhost:3002/api/metrics
+GET http://localhost:3001/api/metrics
 
 ### Detailed Status
-GET http://localhost:3002/api/status
+GET http://localhost:3001/api/status
 
 # =============================================================================
 # WALLET MANAGEMENT ENDPOINTS
 # =============================================================================
 
 ### List All Wallets
-GET http://localhost:3002/api/wallets
+GET http://localhost:3001/api/wallets
 
 ### List Wallets for Specific Network
-GET http://localhost:3002/api/wallets?network=localhost
+GET http://localhost:3001/api/wallets?network=localhost
 
 ### Add Wallet (Localhost - MultiSig)
-POST http://localhost:3002/api/wallets
+POST http://localhost:3001/api/wallets
 Content-Type: application/json
 
 {
@@ -39,7 +39,7 @@ Content-Type: application/json
 }
 
 ### Add Wallet (MultiSig with Daily Limit)
-POST http://localhost:3002/api/wallets
+POST http://localhost:3001/api/wallets
 Content-Type: application/json
 
 {
@@ -50,7 +50,7 @@ Content-Type: application/json
 }
 
 ### Add Wallet (Sepolia Network)
-POST http://localhost:3002/api/wallets
+POST http://localhost:3001/api/wallets
 Content-Type: application/json
 
 {
@@ -61,7 +61,7 @@ Content-Type: application/json
 }
 
 ### Add Wallet (Auto-detect Contract Type)
-POST http://localhost:3002/api/wallets
+POST http://localhost:3001/api/wallets
 Content-Type: application/json
 
 {
@@ -71,17 +71,17 @@ Content-Type: application/json
 }
 
 ### Get Specific Wallet Details
-GET http://localhost:3002/api/wallets/0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512?network=localhost
+GET http://localhost:3001/api/wallets/0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512?network=localhost
 
 ### Remove Wallet
-DELETE http://localhost:3002/api/wallets/0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512?network=localhost
+DELETE http://localhost:3001/api/wallets/0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512?network=localhost
 
 # =============================================================================
 # ERROR TESTING ENDPOINTS
 # =============================================================================
 
 ### Test Invalid Address Format
-POST http://localhost:3002/api/wallets
+POST http://localhost:3001/api/wallets
 Content-Type: application/json
 
 {
@@ -91,7 +91,7 @@ Content-Type: application/json
 }
 
 ### Test Missing Required Fields
-POST http://localhost:3002/api/wallets
+POST http://localhost:3001/api/wallets
 Content-Type: application/json
 
 {
@@ -99,7 +99,7 @@ Content-Type: application/json
 }
 
 ### Test Invalid Network
-POST http://localhost:3002/api/wallets
+POST http://localhost:3001/api/wallets
 Content-Type: application/json
 
 {
@@ -109,7 +109,7 @@ Content-Type: application/json
 }
 
 ### Test Unmonitored Network (when MONITORED_NETWORKS=localhost)
-POST http://localhost:3002/api/wallets
+POST http://localhost:3001/api/wallets
 Content-Type: application/json
 
 {
@@ -123,7 +123,7 @@ Content-Type: application/json
 # =============================================================================
 
 ### Legacy Health Check
-GET http://localhost:3002/health
+GET http://localhost:3001/health
 
 ### Legacy Metrics
-GET http://localhost:3002/metrics
+GET http://localhost:3001/metrics

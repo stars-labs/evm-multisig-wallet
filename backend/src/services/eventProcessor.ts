@@ -84,6 +84,7 @@ export class EventProcessor {
         }
         
         // 3. Decode transaction data if available
+        this.logger.debug("-------------submission raw:", submission);
         let decodedData = null;
         if (submission.data && submission.data !== '0x') {
           // TODO: Implement transaction data decoding
@@ -92,7 +93,7 @@ export class EventProcessor {
             parameters: {}
           };
         }
-        
+
         // 4. Create transaction record
         const transactionId = await this.createTransaction({
           walletId: walletRecord.id,
@@ -537,7 +538,7 @@ export class EventProcessor {
     if (!walletRecord) return;
     
     const alertType = change.changeType === 'addition' ? 'owner_addition' : 'owner_removal';
-    const priority = AlertPriority.P1; // Owner changes are critical
+    const priority = AlertPriority.P1; // Owner changes are critical (P1 = highest priority)
     
     await client.query(
       `INSERT INTO alerts (
@@ -583,7 +584,7 @@ export class EventProcessor {
       ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
       [
         walletRecord.id,
-        AlertPriority.P1, // Critical system issue
+        AlertPriority.P1, // Critical system issue (P1 = highest priority)
         'event_processing_error',
         'Transaction not found for confirmation',
         `Confirmation event received for transaction ID ${confirmation.transactionId} but no submission event was processed. This may indicate event processing order issues.`,

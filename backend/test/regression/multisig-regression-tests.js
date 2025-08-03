@@ -14,7 +14,7 @@
  * Usage: node test/regression/multisig-regression-tests.js
  */
 
-const { ethers } = require("hardhat");
+const { ethers } = require("ethers");
 const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
@@ -26,6 +26,7 @@ const CONFIG = {
   deploymentFile: path.join(__dirname, '../../../deployment-local.json'),
   validatorApiUrl: 'http://localhost:3001',
   waitForEventProcessing: 1000, // Wait 1 second after actions for event processing
+  rpcUrl: 'http://127.0.0.1:8545',
 };
 
 // Test result tracking
@@ -130,8 +131,20 @@ async function runRegressionTests() {
       throw new Error('Validator service is not running. Please start it first.');
     }
     
-    // Get signers
-    const [deployer, owner1, owner2, owner3] = await ethers.getSigners();
+    // Create provider and connect to running Hardhat node
+    const provider = new ethers.JsonRpcProvider(CONFIG.rpcUrl);
+    console.log('🔗 Connecting to Hardhat node at', CONFIG.rpcUrl);
+    
+    // Get accounts from the running node
+    const accounts = await provider.listAccounts();
+    console.log('👥 Available accounts:', accounts.length);
+    
+    // Create signers using the accounts from deployment
+    const deployer = new ethers.Wallet('0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80', provider); // Account 0
+    const owner1 = new ethers.Wallet('0x59c6995e998f97a5a0044966f0945389dc9e86dae88c7a8412f4603b6b78690d', provider);   // Account 1  
+    const owner2 = new ethers.Wallet('0x5de4111afa1a4b94908f83103eb1f1706367c2e68ca870fc3fb9a804cdab365a', provider);   // Account 2
+    const owner3 = new ethers.Wallet('0x7c852118294e51e653712a81e05800f419141751be58f605c371e15141b007a6', provider);   // Account 3
+    
     console.log('👥 Test Accounts:');
     console.log(`Deployer: ${await deployer.getAddress()}`);
     console.log(`Owner 1: ${await owner1.getAddress()}`);
@@ -139,12 +152,21 @@ async function runRegressionTests() {
     console.log(`Owner 3: ${await owner3.getAddress()}`);
     console.log('');
     
-    // Get contract instances
-    const MultiSigWallet = await ethers.getContractFactory("MultiSigWallet");
-    const MultiSigWithLimit = await ethers.getContractFactory("MultiSigWalletWithDailyLimit");
+    // Load contract ABIs
+    const MultiSigWalletArtifact = require('../../../artifacts/contracts/MultiSigWallet.sol/MultiSigWallet.json');
+    const MultiSigWithLimitArtifact = require('../../../artifacts/contracts/MultiSigWalletWithDailyLimit.sol/MultiSigWalletWithDailyLimit.json');
     
-    const wallet = MultiSigWallet.attach(deploymentInfo.contracts.MultiSigWallet);
-    const walletWithLimit = MultiSigWithLimit.attach(deploymentInfo.contracts.MultiSigWalletWithDailyLimit);
+    // Create contract instances
+    const wallet = new ethers.Contract(
+      deploymentInfo.contracts.MultiSigWallet,
+      MultiSigWalletArtifact.abi,
+      provider
+    );
+    const walletWithLimit = new ethers.Contract(
+      deploymentInfo.contracts.MultiSigWalletWithDailyLimit,
+      MultiSigWithLimitArtifact.abi,
+      provider
+    );
     
     // Run test scenarios
     console.log('🚀 Starting Test Scenarios');
@@ -179,11 +201,11 @@ async function runRegressionTests() {
     await delay(CONFIG.delayBetweenTests);
     
     // Test 8: Deposit Event
-    await testDepositEvent(wallet, owner1);
+    await testDepositEvent(wallet, owner1, provider);
     await delay(CONFIG.delayBetweenTests);
     
     // Test 9: Execution Failure
-    await testExecutionFailure(wallet, owner1, owner2, deployer);
+    await testExecutionFailure(wallet, owner1, owner2, deployer, provider);
     
     // Print summary
     console.log('');
@@ -608,13 +630,13 @@ async function testDailyLimitChange(walletWithLimit, owner1, owner2) {
   }
 }
 
-async function testDepositEvent(wallet, depositor) {
+async function testDepositEvent(wallet, depositor, provider) {
   const testName = 'Direct Deposit';
   console.log(`\n💰 ${testName}`);
   
   try {
     // Get initial balance
-    const balanceBefore = await ethers.provider.getBalance(await wallet.getAddress());
+    const balanceBefore = await provider.getBalance(await wallet.getAddress());
     console.log(`   Wallet balance before: ${ethers.formatEther(balanceBefore)} ETH`);
     
     // Send ETH directly
@@ -644,7 +666,7 @@ async function testDepositEvent(wallet, depositor) {
     }
     
     // Verify new balance
-    const balanceAfter = await ethers.provider.getBalance(await wallet.getAddress());
+    const balanceAfter = await provider.getBalance(await wallet.getAddress());
     console.log(`   Wallet balance after: ${ethers.formatEther(balanceAfter)} ETH`);
     
     logTest(testName, 'PASSED', { 
@@ -657,13 +679,13 @@ async function testDepositEvent(wallet, depositor) {
   }
 }
 
-async function testExecutionFailure(wallet, owner1, owner2, recipient) {
+async function testExecutionFailure(wallet, owner1, owner2, recipient, provider) {
   const testName = 'Execution Failure (Insufficient Balance)';
   console.log(`\n💥 ${testName}`);
   
   try {
     // Get wallet balance
-    const walletBalance = await ethers.provider.getBalance(await wallet.getAddress());
+    const walletBalance = await provider.getBalance(await wallet.getAddress());
     console.log(`   Wallet balance: ${ethers.formatEther(walletBalance)} ETH`);
     
     // Try to send more than balance

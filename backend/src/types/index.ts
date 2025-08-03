@@ -31,10 +31,9 @@ export enum TransactionAction {
 }
 
 export enum AlertPriority {
-  LOW = 'low',
-  MEDIUM = 'medium',
-  HIGH = 'high',
-  CRITICAL = 'critical'
+  P1 = 'P1',  // Critical priority
+  P2 = 'P2',  // High priority  
+  P3 = 'P3'   // Medium priority
 }
 
 export enum RiskLevel {

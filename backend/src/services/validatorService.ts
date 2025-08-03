@@ -487,6 +487,9 @@ export class ValidatorService extends EventEmitter {
   private setupEventHandlers(): void {
     // Transaction submission events
     this.eventListener.on('transactionSubmitted', async (data) => {
+      this.logger.debug("-------------validatorService data:", data);
+      this.logger.debug("-------------validatorService data.submission:", data.submission);
+      
       const walletKey = this.getWalletKey(data.wallet.address, data.wallet.network);
       
       await this.queueEventProcessing(walletKey, async () => {

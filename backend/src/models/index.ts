@@ -447,9 +447,9 @@ export const ModelUtils = {
   // Get alert priority color for UI
   getAlertPriorityColor: (priority: AlertPriority): string => {
     switch (priority) {
-      case AlertPriority.P1: return '#F44336'; // Red
-      case AlertPriority.P2: return '#FF9800'; // Orange
-      case AlertPriority.P3: return '#2196F3'; // Blue
+      case AlertPriority.P1: return '#F44336'; // Red - Critical
+      case AlertPriority.P2: return '#FF9800'; // Orange - High  
+      case AlertPriority.P3: return '#2196F3'; // Blue - Medium
       default: return '#757575';
     }
   }

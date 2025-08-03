@@ -106,7 +106,7 @@ export class SlackNotifier {
           { title: 'Wallet', value: `${alert.wallet.name}\n\`${alert.wallet.address}\``, short: false },
           { title: 'Network', value: alert.wallet.network, short: true },
           { title: 'Transaction ID', value: alert.transaction.id.toString(), short: true },
-          { title: 'Action', value: this.formatAction(alert.transaction.action), short: true },
+          { title: 'Action', value: this.formatAction(alert.transaction.action, alert.transaction), short: true },
           { title: 'Amount', value: this.formatEther(alert.transaction.value), short: true },
           { title: 'Destination', value: alert.transaction.destination ? `\`${alert.transaction.destination}\`` : 'N/A', short: false },
           { title: 'Status', value: `${alert.transaction.confirmations}/${alert.transaction.required} confirmations`, short: true },
@@ -143,7 +143,7 @@ export class SlackNotifier {
           { title: 'Wallet', value: `${alert.wallet.name}\n\`${alert.wallet.address}\``, short: false },
           { title: 'Network', value: alert.wallet.network, short: true },
           { title: 'Transaction ID', value: alert.transaction.id.toString(), short: true },
-          { title: 'Action', value: this.formatAction(alert.transaction.action), short: true },
+          { title: 'Action', value: this.formatAction(alert.transaction.action, alert.transaction), short: true },
           { title: 'Amount', value: this.formatEther(alert.transaction.value), short: true },
           { title: 'Progress', value: `${alert.transaction.confirmations}/${alert.transaction.required} confirmations`, short: true },
           { title: 'Time', value: timeText, short: true },
@@ -178,7 +178,7 @@ export class SlackNotifier {
           { title: 'Wallet', value: `${alert.wallet.name}\n\`${alert.wallet.address}\``, short: false },
           { title: 'Network', value: alert.wallet.network, short: true },
           { title: 'Transaction ID', value: alert.transaction.id.toString(), short: true },
-          { title: 'Action', value: this.formatAction(alert.transaction.action), short: true },
+          { title: 'Action', value: this.formatAction(alert.transaction.action, alert.transaction), short: true },
           { title: 'Amount', value: this.formatEther(alert.transaction.value), short: true },
           { title: 'Destination', value: alert.transaction.destination ? `\`${alert.transaction.destination}\`` : 'N/A', short: false },
           { title: 'Time', value: timeText, short: true },
@@ -213,7 +213,7 @@ export class SlackNotifier {
           { title: 'Network', value: alert.wallet.network, short: true },
           { title: 'Amount', value: `💰 ${this.formatEther(alert.transaction.value)}`, short: true },
           { title: 'Transaction ID', value: alert.transaction.id.toString(), short: true },
-          { title: 'Action', value: this.formatAction(alert.transaction.action), short: true },
+          { title: 'Action', value: this.formatAction(alert.transaction.action, alert.transaction), short: true },
           { title: 'Submitter', value: `\`${alert.transaction.submitter}\``, short: false },
           { title: 'Status', value: `${alert.transaction.confirmations}/${alert.transaction.required} confirmations`, short: true },
           { title: 'Time', value: timeText, short: true },
@@ -247,7 +247,7 @@ export class SlackNotifier {
           { title: 'Wallet', value: `${alert.wallet.name}\n\`${alert.wallet.address}\``, short: false },
           { title: 'Network', value: alert.wallet.network, short: true },
           { title: 'Transaction ID', value: alert.transaction.id.toString(), short: true },
-          { title: 'Action', value: this.formatAction(alert.transaction.action), short: true },
+          { title: 'Action', value: this.formatAction(alert.transaction.action, alert.transaction), short: true },
           { title: 'Amount', value: this.formatEther(alert.transaction.value), short: true },
           { title: 'Status', value: `${alert.transaction.confirmations}/${alert.transaction.required} confirmations`, short: true },
           { title: 'Time', value: timeText, short: true },
@@ -346,18 +346,66 @@ export class SlackNotifier {
     }
   }
 
-  private formatAction(action: TransactionAction): string {
-    const actionMap: Record<TransactionAction, string> = {
+  private extractOwnerAddressFromTransaction(transaction: any): string | null {
+    try {
+      // Method 1: If the address is already decoded in transaction context
+      if (transaction.targetOwner) {
+        return transaction.targetOwner;
+      }
+      
+      // Method 2: Extract from transaction data (encoded function call)
+      if (transaction.data && transaction.data.length >= 74) {
+        // addOwner: 0x7065cb48 + padded address
+        // removeOwner: 0x173825d9 + padded address
+        const functionSelector = transaction.data.slice(0, 10); // 0x + 8 chars
+        
+        if (functionSelector === '0x7065cb48' || functionSelector === '0x173825d9') {
+          // Extract address from the last 40 characters (20 bytes)
+          const addressHex = transaction.data.slice(-40);
+          return `0x${addressHex}`;
+        }
+      }
+      
+      // Method 3: If available in decoded data
+      if (transaction.decodedData && transaction.decodedData.args && transaction.decodedData.args[0]) {
+        return transaction.decodedData.args[0];
+      }
+      
+    } catch (error) {
+      this.logger.debug('Could not extract owner address from transaction:', error);
+    }
+    
+    return null;
+  }
+
+  private formatAction(action: TransactionAction, transaction?: any): string {
+    const baseActionMap: Record<TransactionAction, string> = {
       [TransactionAction.TRANSFER]: '💸 Transfer',
-      [TransactionAction.ADD_OWNER]: '👤➕ Add Owner',
-      [TransactionAction.REMOVE_OWNER]: '👤➖ Remove Owner',
-      [TransactionAction.REPLACE_OWNER]: '👤🔄 Replace Owner',
+      [TransactionAction.ADD_OWNER]: ':bust_in_silhouette::heavy_plus_sign: Add Owner',
+      [TransactionAction.REMOVE_OWNER]: ':bust_in_silhouette::heavy_minus_sign: Remove Owner',
+      [TransactionAction.REPLACE_OWNER]: ':bust_in_silhouette::arrows_counterclockwise: Replace Owner',
       [TransactionAction.CHANGE_REQUIREMENT]: '🔢 Change Requirement',
       [TransactionAction.CHANGE_DAILY_LIMIT]: '📅 Change Daily Limit',
-      [TransactionAction.CONTRACT_CALL]: '📋 Contract Call'
+      [TransactionAction.CONTRACT_CALL]: '📋 Contract Call',
+      [TransactionAction.SUBMISSION]: '📝 Submission',
+      [TransactionAction.CONFIRMATION]: '✅ Confirmation',
+      [TransactionAction.REVOCATION]: '🔙 Revocation',
+      [TransactionAction.EXECUTION]: '⚡ Execution',
+      [TransactionAction.EXECUTION_FAILURE]: '💥 Execution Failure',
+      [TransactionAction.DEPOSIT]: '💰 Deposit'
     };
 
-    return actionMap[action] || action;
+    let baseAction = baseActionMap[action] || action;
+
+    // Extract specific address for owner operations
+    if (transaction && (action === TransactionAction.ADD_OWNER || action === TransactionAction.REMOVE_OWNER)) {
+      const ownerAddress = this.extractOwnerAddressFromTransaction(transaction);
+      if (ownerAddress) {
+        baseAction += ` (${ownerAddress})`;
+      }
+    }
+
+    return baseAction;
   }
 
   private formatEther(wei: string): string {

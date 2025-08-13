@@ -54,6 +54,127 @@ export class EventProcessor {
   }
   
   // ============================================================================
+  // TRANSACTION DATA DECODING
+  // ============================================================================
+
+  private decodeTransactionData(data: string, action: TransactionAction): any {
+    try {
+      if (!data || data === '0x' || data.length < 10) {
+        return null;
+      }
+
+      const functionSelector = data.slice(0, 10).toLowerCase();
+      
+      // Function selector mappings for MultiSig operations
+      const functionSelectors: Record<string, string> = {
+        '0x7065cb48': 'addOwner',           // addOwner(address)
+        '0x173825d9': 'removeOwner',       // removeOwner(address)  
+        '0xe20056e6': 'replaceOwner',      // replaceOwner(address,address)
+        '0xba51a6df': 'changeRequirement', // changeRequirement(uint)
+        '0x659010e7': 'changeDailyLimit',  // changeDailyLimit(uint)
+      };
+
+      const functionName = functionSelectors[functionSelector];
+      
+      if (!functionName) {
+        return {
+          functionName: 'unknown',
+          functionSelector,
+          rawData: data,
+          parameters: {}
+        };
+      }
+
+      // Decode parameters based on function
+      const parameters = this.decodeFunctionParameters(functionName, data);
+      
+      return {
+        functionName,
+        functionSelector,
+        rawData: data,
+        parameters
+      };
+
+    } catch (error) {
+      this.logger.error('Failed to decode transaction data:', error);
+      return {
+        functionName: 'decode_error',
+        rawData: data,
+        error: error instanceof Error ? error.message : 'Unknown error',
+        parameters: {}
+      };
+    }
+  }
+
+  private decodeFunctionParameters(functionName: string, data: string): any {
+    try {
+      // Remove function selector (first 10 characters: 0x + 8 hex chars)
+      const paramData = data.slice(10);
+      
+      switch (functionName) {
+        case 'addOwner':
+        case 'removeOwner': {
+          // Single address parameter (32 bytes, last 20 bytes are the address)
+          if (paramData.length >= 64) {
+            const addressHex = paramData.slice(-40); // Last 40 chars = 20 bytes = address
+            const address = `0x${addressHex}`;
+            return {
+              owner: address,
+              targetOwner: address // For compatibility with Slack formatter
+            };
+          }
+          break;
+        }
+        
+        case 'replaceOwner': {
+          // Two address parameters (64 bytes total)
+          if (paramData.length >= 128) {
+            const oldOwnerHex = paramData.slice(24, 64); // First address (skip padding)
+            const newOwnerHex = paramData.slice(88, 128); // Second address (skip padding)
+            return {
+              oldOwner: `0x${oldOwnerHex}`,
+              newOwner: `0x${newOwnerHex}`,
+              targetOwner: `0x${newOwnerHex}` // For compatibility
+            };
+          }
+          break;
+        }
+        
+        case 'changeRequirement': {
+          // Single uint parameter
+          if (paramData.length >= 64) {
+            const requirementHex = paramData.slice(-64);
+            const requirement = parseInt(requirementHex, 16);
+            return {
+              newRequirement: requirement
+            };
+          }
+          break;
+        }
+        
+        case 'changeDailyLimit': {
+          // Single uint parameter  
+          if (paramData.length >= 64) {
+            const limitHex = paramData.slice(-64);
+            const limit = BigInt('0x' + limitHex).toString();
+            return {
+              newDailyLimit: limit,
+              newDailyLimitEth: (Number(limit) / 1e18).toFixed(6)
+            };
+          }
+          break;
+        }
+      }
+      
+      return {};
+      
+    } catch (error) {
+      this.logger.error(`Failed to decode parameters for ${functionName}:`, error);
+      return { decodeError: error instanceof Error ? error.message : 'Unknown error' };
+    }
+  }
+
+  // ============================================================================
   // TRANSACTION SUBMISSION PROCESSING
   // ============================================================================
   
@@ -65,14 +186,17 @@ export class EventProcessor {
   ): Promise<void> {
     try {
       await this.db.transaction(async (client) => {
-        // 1. Get or create submitter owner record
+        // 1. Sync wallet state from blockchain to get latest requirement
+        await this.syncWalletState(wallet.address, wallet.network, client);
+        
+        // 2. Get or create submitter owner record
         const submitter = await this.getOrCreateOwner(
           submission.submitter,
           wallet.network,
           client
         );
         
-        // 2. Get wallet record
+        // 3. Get wallet record (now with updated requirement)
         const walletRecord = await this.getWalletByAddress(
           wallet.address,
           wallet.network,
@@ -83,18 +207,15 @@ export class EventProcessor {
           throw new Error(`Wallet not found: ${wallet.address}`);
         }
         
-        // 3. Decode transaction data if available
+        // 4. Decode transaction data if available
         this.logger.debug("-------------submission raw:", submission);
         let decodedData = null;
         if (submission.data && submission.data !== '0x') {
-          // TODO: Implement transaction data decoding
-          decodedData = {
-            functionName: action,
-            parameters: {}
-          };
+          decodedData = this.decodeTransactionData(submission.data, action);
+          this.logger.debug("-------------decoded data:", decodedData);
         }
 
-        // 4. Create transaction record
+        // 5. Create transaction record
         const transactionId = await this.createTransaction({
           walletId: walletRecord.id,
           transactionId: submission.transactionId,
@@ -119,7 +240,7 @@ export class EventProcessor {
           submittedAt: submission.timestamp, // This is already blockchain timestamp from getBlockTimestamp
         }, client);
         
-        // 5. Update owner activity
+        // 6. Update owner activity
         await this.updateOwnerActivity(
           submitter.id,
           submission.timestamp,
@@ -195,7 +316,7 @@ export class EventProcessor {
         
         // Check if already confirmed by this owner
         const alreadyConfirmed = confirmations.some(
-          (c: any) => c.owner.toLowerCase() === confirmation.confirmer.toLowerCase()
+          (c: any) => c.owner_address?.toLowerCase() === confirmation.confirmer.toLowerCase()
         );
         
         if (alreadyConfirmed) {
@@ -208,8 +329,10 @@ export class EventProcessor {
         
         // Add new confirmation with consistent timezone (UTC)
         confirmations.push({
-          owner: confirmation.confirmer,
-          confirmedAt: confirmation.timestamp.toISOString(),
+          transaction_id: confirmation.transactionId,
+          owner_address: confirmation.confirmer,
+          confirmed_time: confirmation.timestamp,
+          transaction_hash: confirmation.transactionHash
         });
         
         // 3. Update transaction with new confirmation
@@ -264,17 +387,18 @@ export class EventProcessor {
   async processTransactionExecution(
     wallet: WalletConfig,
     event: ProcessedEvent,
-    transactionId: number
+    transactionId: number,
+    executor?: string
   ): Promise<void> {
     try {
       await this.db.transaction(async (client) => {
-        // Update transaction status
+        // Update transaction status and executor
         await client.query(
           `UPDATE transactions 
-           SET executed_at = $1, execution_status = 'executed', updated_at = NOW()
-           WHERE wallet_id = (SELECT id FROM wallets WHERE address = $2 AND network = $3)
-           AND transaction_id = $4`,
-          [event.timestamp, wallet.address, wallet.network, transactionId]
+           SET executed_at = $1, execution_status = 'executed', executor = $2, updated_at = NOW()
+           WHERE wallet_id = (SELECT id FROM wallets WHERE address = $3 AND network = $4)
+           AND transaction_id = $5`,
+          [event.timestamp, executor, wallet.address, wallet.network, transactionId]
         );
         
         // Update wallet balance (will be synced later)
@@ -287,7 +411,7 @@ export class EventProcessor {
       });
 
       // Send Slack notification for transaction execution
-      await this.sendTransactionExecutionNotification(wallet, transactionId, event.timestamp, event.transactionHash);
+      await this.sendTransactionExecutionNotification(wallet, transactionId, event.timestamp, event.transactionHash, executor);
       
     } catch (error) {
       this.logger.error('Failed to process transaction execution:', error);
@@ -365,6 +489,121 @@ export class EventProcessor {
       throw error;
     }
   }
+
+  async processOwnerAddition(
+    wallet: WalletConfig,
+    owner: string,
+    timestamp: Date,
+    transactionHash: string
+  ): Promise<void> {
+    try {
+      await this.db.transaction(async (client) => {
+        // Get or create owner record
+        const ownerRecord = await this.getOrCreateOwner(
+          owner,
+          wallet.network,
+          client
+        );
+        
+        // Add wallet to owner's wallet list
+        const wallets = ownerRecord.contractData?.wallets || [];
+        if (!wallets.includes(wallet.address)) {
+          wallets.push(wallet.address);
+          
+          await client.query(
+            `UPDATE owners 
+             SET wallets = $1, updated_at = NOW()
+             WHERE id = $2`,
+            [JSON.stringify(wallets), ownerRecord.id]
+          );
+        }
+        
+        // Update wallet owners list
+        await this.syncWalletState(wallet.address, wallet.network, client);
+        
+        this.logger.info('Owner addition processed', {
+          wallet: wallet.address,
+          owner,
+          transactionHash
+        });
+      });
+    } catch (error) {
+      this.logger.error('Failed to process owner addition:', error);
+      throw error;
+    }
+  }
+
+  async processOwnerRemoval(
+    wallet: WalletConfig,
+    owner: string,
+    timestamp: Date,
+    transactionHash: string
+  ): Promise<void> {
+    try {
+      await this.db.transaction(async (client) => {
+        // Update owner status to removed
+        await client.query(
+          `UPDATE owners 
+           SET status = $1, updated_at = NOW()
+           WHERE address = $2 AND network = $3`,
+          [OwnerStatus.REMOVED, owner, wallet.network]
+        );
+        
+        // Update wallet owners list
+        await this.syncWalletState(wallet.address, wallet.network, client);
+        
+        this.logger.info('Owner removal processed', {
+          wallet: wallet.address,
+          owner,
+          transactionHash
+        });
+      });
+    } catch (error) {
+      this.logger.error('Failed to process owner removal:', error);
+      throw error;
+    }
+  }
+
+  async processRequirementChange(
+    wallet: WalletConfig,
+    newRequirement: number,
+    timestamp: Date,
+    transactionHash: string
+  ): Promise<void> {
+    try {
+      await this.db.transaction(async (client) => {
+        // Update wallet requirement in database
+        await client.query(
+          `UPDATE wallets 
+           SET required_confirmations = $1, updated_at = NOW()
+           WHERE address = $2 AND network = $3`,
+          [newRequirement, wallet.address, wallet.network]
+        );
+        
+        // Log the requirement change
+        this.logger.info('Requirement change processed', {
+          wallet: wallet.address,
+          network: wallet.network,
+          newRequirement,
+          transactionHash
+        });
+
+        // Alert is handled via Slack notification below
+      });
+
+      // TODO: Add specific Slack notification method for requirement changes
+      this.logger.info('Requirement change completed', {
+        wallet: wallet.address,
+        network: wallet.network,
+        newRequirement,
+        transactionHash
+      });
+      
+    } catch (error) {
+      this.logger.error('Failed to process requirement change:', error);
+      throw error;
+    }
+  }
   
   // ============================================================================
   // HELPER METHODS
@@ -401,18 +640,20 @@ export class EventProcessor {
   private async getWalletByAddress(
     address: string,
     network: NetworkType,
-    client: any
+    client?: any
   ): Promise<WalletModel | null> {
-    const result = await client.query(
+    const dbInstance = client || this.db;
+    const result = await dbInstance.query(
       'SELECT * FROM wallets WHERE address = $1 AND network = $2',
       [address, network]
     );
     
-    if (result.rows.length === 0) {
+    const rows = result.rows || result; // Handle both client.query and db.query response formats
+    if (rows.length === 0) {
       return null;
     }
     
-    return this.mapWalletFromDb(result.rows[0]);
+    return this.mapWalletFromDb(rows[0]);
   }
   
   private async createTransaction(
@@ -457,20 +698,22 @@ export class EventProcessor {
     walletAddress: string,
     network: NetworkType,
     transactionId: number,
-    client: any
+    client?: any
   ): Promise<TransactionModel | null> {
-    const result = await client.query(
+    const dbInstance = client || this.db;
+    const result = await dbInstance.query(
       `SELECT t.* FROM transactions t
        JOIN wallets w ON t.wallet_id = w.id
        WHERE w.address = $1 AND w.network = $2 AND t.transaction_id = $3`,
       [walletAddress, network, transactionId]
     );
     
-    if (result.rows.length === 0) {
+    const rows = result.rows || result; // Handle both client.query and db.query response formats
+    if (rows.length === 0) {
       return null;
     }
     
-    return this.mapTransactionFromDb(result.rows[0]);
+    return this.mapTransactionFromDb(rows[0]);
   }
   
   private async updateOwnerActivity(
@@ -519,8 +762,65 @@ export class EventProcessor {
     network: NetworkType,
     client: any
   ): Promise<void> {
-    // TODO: Sync wallet state from blockchain
-    // This would update owners, balance, requirements, etc.
+    try {
+      // Get contract instance from blockchain
+      const { ContractFactory } = require('../blockchain/contracts');
+      const config = require('../config').default;
+      const contractFactory = new ContractFactory(config.blockchain.networks, this.logger);
+      
+      // Determine if wallet has daily limit (could be fetched from DB)
+      const hasDailyLimit = false; // Default to false, could check wallet.type from DB
+      const contract = contractFactory.getContract(address, network, hasDailyLimit);
+      
+      if (!contract) {
+        this.logger.error('Failed to get contract for wallet sync', { address, network });
+        return;
+      }
+      
+      // Get provider from contractFactory
+      const provider = contractFactory.getProvider(network);
+      if (!provider) {
+        this.logger.error('Failed to get provider for network', { network });
+        return;
+      }
+      
+      // Fetch current state from blockchain using MultiSigContract methods
+      const [owners, required, balance] = await Promise.all([
+        contract.getOwners(),
+        contract.getRequired(),
+        provider.getBalance(address)
+      ]);
+      
+      // Update wallet state in database
+      await client.query(
+        `UPDATE wallets 
+         SET owners = $1, 
+             required = $2,
+             balance = $3,
+             last_sync = NOW(),
+             updated_at = NOW()
+         WHERE address = $4 AND network = $5`,
+        [
+          JSON.stringify(owners),
+          Number(required),
+          balance.toString(),
+          address,
+          network
+        ]
+      );
+      
+      this.logger.debug('Wallet state synced', {
+        address,
+        network,
+        owners: owners.length,
+        required: Number(required),
+        balance: balance.toString()
+      });
+      
+    } catch (error) {
+      this.logger.error('Failed to sync wallet state:', error);
+      // Don't throw - this is a best-effort sync
+    }
   }
   
   private async createOwnerChangeAlert(
@@ -869,7 +1169,8 @@ export class EventProcessor {
     wallet: WalletConfig,
     transactionId: number,
     timestamp: Date,
-    transactionHash?: string
+    transactionHash?: string,
+    executor?: string
   ): Promise<void> {
     try {
       // Get wallet and transaction details
@@ -899,7 +1200,8 @@ export class EventProcessor {
           hash: transactionHash
         },
         alertType: 'execution',
-        timestamp
+        timestamp,
+        executor: executor || 'Unknown'
       };
 
       await this.slackNotifier.notifyTransactionExecution(alert);
@@ -954,39 +1256,4 @@ export class EventProcessor {
     }
   }
 
-  private async getWalletByAddress(address: string, network: NetworkType): Promise<WalletModel | null> {
-    try {
-      const result = await this.db.query(
-        'SELECT * FROM wallets WHERE address = $1 AND network = $2',
-        [address, network]
-      );
-      
-      if (result.length === 0) return null;
-      return this.mapWalletFromDb(result[0]);
-    } catch (error) {
-      this.logger.error('Failed to get wallet:', error);
-      return null;
-    }
-  }
-
-  private async getTransactionByWalletAndId(
-    walletAddress: string,
-    network: NetworkType,
-    transactionId: number
-  ): Promise<TransactionModel | null> {
-    try {
-      const result = await this.db.query(
-        `SELECT t.* FROM transactions t
-         JOIN wallets w ON t.wallet_id = w.id
-         WHERE w.address = $1 AND w.network = $2 AND t.transaction_id = $3`,
-        [walletAddress, network, transactionId]
-      );
-      
-      if (result.length === 0) return null;
-      return this.mapTransactionFromDb(result[0]);
-    } catch (error) {
-      this.logger.error('Failed to get transaction:', error);
-      return null;
-    }
-  }
 }

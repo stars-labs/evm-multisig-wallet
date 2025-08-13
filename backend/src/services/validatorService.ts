@@ -540,7 +540,8 @@ export class ValidatorService extends EventEmitter {
           await this.eventProcessor.processTransactionExecution(
             data.wallet,
             data.event,
-            data.transactionId
+            data.transactionId,
+            data.executor
           );
           
           this.emit('transactionExecuted', data);
@@ -558,6 +559,15 @@ export class ValidatorService extends EventEmitter {
       
       await this.queueEventProcessing(walletKey, async () => {
         try {
+          // Update database with new owner
+          await this.eventProcessor.processOwnerAddition(
+            data.wallet,
+            data.owner,
+            data.event.timestamp,
+            data.event.transactionHash
+          );
+          
+          // Process for notifications
           await this.eventProcessor.processOwnerChange(
             data.wallet,
             data.event,
@@ -578,6 +588,15 @@ export class ValidatorService extends EventEmitter {
       
       await this.queueEventProcessing(walletKey, async () => {
         try {
+          // Update database by removing owner
+          await this.eventProcessor.processOwnerRemoval(
+            data.wallet,
+            data.owner,
+            data.event.timestamp,
+            data.event.transactionHash
+          );
+          
+          // Process for notifications
           await this.eventProcessor.processOwnerChange(
             data.wallet,
             data.event,
@@ -589,6 +608,29 @@ export class ValidatorService extends EventEmitter {
         } catch (error) {
           this.logger.error('Failed to process owner removal:', error);
           this.emit('processingError', { type: 'ownerRemoved', error, data });
+        }
+      });
+    });
+    
+    // Requirement change events
+    this.eventListener.on('requirementChanged', async (data) => {
+      const walletKey = this.getWalletKey(data.wallet.address, data.wallet.network);
+      
+      await this.queueEventProcessing(walletKey, async () => {
+        try {
+          await this.eventProcessor.processRequirementChange(
+            data.wallet,
+            data.newRequirement,
+            data.event.timestamp,
+            data.event.transactionHash
+          );
+        } catch (error) {
+          this.logger.error('Failed to process requirement change:', {
+            error: error instanceof Error ? error.message : String(error),
+            wallet: data.wallet.address,
+            network: data.wallet.network,
+            newRequirement: data.newRequirement
+          });
         }
       });
     });

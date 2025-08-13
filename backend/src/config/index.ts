@@ -45,6 +45,7 @@ const configSchema = joi.object({
   
   // Notifications
   SLACK_WEBHOOK_URL: joi.string().uri().optional(),
+  SLACK_BOT_TOKEN: joi.string().optional(),
   SLACK_DEFAULT_CHANNEL: joi.string().allow('').default('#multisig-alerts'),
   SLACK_ENABLED: joi.boolean().default(false),
   
@@ -133,6 +134,7 @@ export interface Config {
     };
     slack: {
       webhookUrl: string;
+      botToken: string;
       defaultChannel: string;
       enabled: boolean;
     };
@@ -223,6 +225,7 @@ const config: Config = {
     },
     slack: {
       webhookUrl: validatedEnv.SLACK_WEBHOOK_URL || '',
+      botToken: validatedEnv.SLACK_BOT_TOKEN || '',
       defaultChannel: validatedEnv.SLACK_DEFAULT_CHANNEL,
       enabled: validatedEnv.SLACK_ENABLED,
     },

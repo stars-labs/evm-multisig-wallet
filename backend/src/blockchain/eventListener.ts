@@ -749,10 +749,23 @@ export class MultiSigEventListener extends EventEmitter {
       return;
     }
     
+    // Get the executor from the blockchain transaction
+    let executor: string | undefined;
+    try {
+      const contract = this.contractFactory.getContract(wallet.address, wallet.network, wallet.type);
+      if (contract?.provider) {
+        const tx = await contract.provider.getTransaction(event.transactionHash);
+        executor = tx?.from;
+      }
+    } catch (error) {
+      this.logger.error('Failed to get executor from transaction:', error);
+    }
+    
     this.emit('transactionExecuted', {
       wallet,
       event: processedEvent,
       transactionId,
+      executor,
     });
     
     this.logger.info('Transaction executed', {
@@ -819,6 +832,7 @@ export class MultiSigEventListener extends EventEmitter {
       wallet,
       event: processedEvent,
       change: ownerChangeData,
+      owner: event.args.owner, // Add owner field for easier access
     });
     
     this.logger.info('Owner added', {
@@ -844,6 +858,7 @@ export class MultiSigEventListener extends EventEmitter {
       wallet,
       event: processedEvent,
       change: ownerChangeData,
+      owner: event.args.owner, // Add owner field for easier access
     });
     
     this.logger.info('Owner removed', {
@@ -978,7 +993,7 @@ export class MultiSigEventListener extends EventEmitter {
       
       const rateLimiter = this.rateLimiters.get(network);
       if (rateLimiter) {
-        rateLimiter.onRequestError(error);
+        rateLimiter.onRequestError(error instanceof Error ? error : new Error(String(error)));
       }
       
       // Don't use current time as fallback - this creates incorrect timestamps
@@ -1016,7 +1031,7 @@ export class MultiSigEventListener extends EventEmitter {
         this.logger.warn(`Failed to get current block for ${network}:`, error);
         const rateLimiter = this.rateLimiters.get(network);
         if (rateLimiter) {
-          rateLimiter.onRequestError(error);
+          rateLimiter.onRequestError(error instanceof Error ? error : new Error(String(error)));
         }
         // For production networks, start from a reasonable recent block
         return network === NetworkType.SEPOLIA ? 6000000 : 18000000; // Approximate recent blocks

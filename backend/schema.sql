@@ -206,6 +206,7 @@ CREATE TABLE transactions (
     required_confirmations INTEGER NOT NULL,
     executed_at TIMESTAMP WITH TIME ZONE,
     execution_status VARCHAR(20), -- 'pending', 'executed', 'failed'
+    executor VARCHAR(42), -- Address that executed the transaction (final confirmer who triggered execution)
     
     -- Timeline
     submitted_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),

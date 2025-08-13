@@ -1,181 +1,193 @@
-# MultiSig Wallet Validator Service Test Suite
+# MultiSig Validator Tests
 
-This directory contains comprehensive test scripts for the MultiSig wallet and validator service integration.
+This directory contains all tests for the MultiSig Wallet Validator Service, organized by test type following Node.js conventions.
 
-## Test Files
+## Directory Structure
 
-### 1. `regression/multisig-regression-tests.js`
-Complete regression test suite that tests all multisig wallet scenarios:
-- Transaction submission and confirmation
-- Transaction execution (full flow)
-- Transaction revocation
-- Owner management (add/remove)
-- Requirement changes
-- Daily limit changes (for WithDailyLimit wallet)
-- Direct deposits
-- Execution failures
+```
+test/
+├── unit/           # Unit tests (TypeScript) - fast, isolated component tests
+├── integration/    # Integration tests (JavaScript) - component interaction tests
+├── e2e/           # End-to-end tests - full system workflow tests
+├── fixtures/      # Test data and mocks (planned)
+└── README.md      # This file
+```
 
-### 3. Database cleanup and setup scripts in `src/scripts/`:
-- `cleanupTestData.ts` - Cleans database before test runs
-- `registerLocalWallets.ts` - Registers wallets with validator service
+## Test Categories
+
+### Unit Tests (`unit/`)
+
+Fast, isolated tests for individual components written in TypeScript:
+- `checksumDebugTest.ts` - Address checksum validation
+- `contractFactoryTest.ts` - Contract factory functionality  
+- `eventDebugTest.ts` - Event parsing and handling
+- `eventListenerTest.ts` - Event listener unit tests
+- `localhostEventTest.ts` - Local blockchain event tests
+- `simpleTest.ts` - Basic functionality tests
+
+Run with:
+```bash
+npm run test:unit
+# or specific files
+npx jest test/unit/eventListenerTest.ts
+```
+
+### Integration Tests (`integration/`)
+
+Tests that verify component interactions, written in JavaScript:
+- `debug-owner-removal.js` - Owner removal workflow debugging
+- `debug-transaction-state.js` - Transaction state management testing
+- `test-owner-removal-fixed.js` - Fixed owner removal scenarios
+
+Run with:
+```bash
+npm run test:integration
+# or individually
+node test/integration/debug-owner-removal.js
+```
+
+### End-to-End Tests (`e2e/`)
+
+Full system tests that verify complete workflows:
+
+#### Regression Tests (`e2e/regression/`)
+- `multisig-regression-tests.js` - Complete system verification with all scenarios
+- `quick-test.js` - Individual scenario testing for faster debugging
+
+**Run full regression suite:**
+```bash
+cd backend
+node test/e2e/regression/multisig-regression-tests.js
+```
+
+**Run specific scenarios:**
+```bash
+# Individual scenarios for focused testing
+node test/e2e/regression/quick-test.js submit    # Transaction submission only
+node test/e2e/regression/quick-test.js confirm   # Submission + confirmation  
+node test/e2e/regression/quick-test.js execute   # Full execution flow
+node test/e2e/regression/quick-test.js revoke    # Transaction revocation
+node test/e2e/regression/quick-test.js owner-add # Owner addition
+node test/e2e/regression/quick-test.js owner-remove # Owner removal
+node test/e2e/regression/quick-test.js requirement # Requirement changes
+node test/e2e/regression/quick-test.js deposit   # Deposit events
+node test/e2e/regression/quick-test.js all       # All scenarios
+```
+
+## Prerequisites
+
+Before running any tests, ensure the following are set up:
+
+1. **Hardhat node running**: 
+   ```bash
+   npx hardhat node
+   ```
+
+2. **Contracts deployed**: 
+   ```bash
+   npx hardhat run scripts/deployLocal.js --network localhost
+   ```
+
+3. **Database initialized**: 
+   ```bash
+   psql -U validator_user -d multisig_validator -f schema.sql
+   ```
+
+4. **Validator service running**: 
+   ```bash
+   npm run dev
+   ```
 
 ## Running Tests
 
-### Automated Full Regression Suite
-
-Run the complete automated test suite:
+### All tests:
 ```bash
-cd validator-service/backend
-node scripts/runRegressionTests.js
+npm test
 ```
 
-This will automatically:
-1. ✅ Check/start Hardhat node
-2. ✅ Deploy contracts
-3. ✅ Clean database from previous runs
-4. ✅ Register wallets with validator service API
-5. ✅ Verify validator service is running
-6. ✅ Run all regression tests
-7. ✅ Generate HTML report
-
-### Manual Prerequisites (if not using automated runner)
-If running tests manually, ensure these steps are completed first:
-
-1. **Start Hardhat node**: `npx hardhat node`
-2. **Deploy contracts**: `node scripts/deployLocal.js` (from project root)
-3. **Clean database**: `npx ts-node src/scripts/cleanupTestData.ts`
-4. **Register wallets**: `npx ts-node src/scripts/registerLocalWallets.ts`
-5. **Start validator service**: `npm run dev`
-
-### Quick Tests
-
-Test individual scenarios during development:
-
+### By category:
 ```bash
-cd validator-service/backend
-
-# Test transaction submission only
-node test/regression/quick-test.js submit
-
-# Test submission and confirmation
-node test/regression/quick-test.js confirm
-
-# Test full execution flow
-node test/regression/quick-test.js execute
-
-# Test revocation
-node test/regression/quick-test.js revoke
-
-# Test adding owner
-node test/regression/quick-test.js owner-add
-
-# Test removing owner
-node test/regression/quick-test.js owner-remove
-
-# Test changing requirement
-node test/regression/quick-test.js requirement
-
-# Test deposit event
-node test/regression/quick-test.js deposit
-
-# Run all scenarios
-node test/regression/quick-test.js all
+npm run test:unit         # Unit tests only
+npm run test:integration  # Integration tests only  
+npm run test:e2e         # End-to-end tests only
 ```
 
-### Manual Testing with Hardhat Console
-
-You can also test manually using Hardhat console:
-
+### With coverage:
 ```bash
-# From project root
-npx hardhat console --network localhost
+npm run test:coverage
 ```
 
-Then load the test helpers:
-```javascript
-const [deployer, owner1, owner2, owner3] = await ethers.getSigners();
-const MultiSigWallet = await ethers.getContractFactory("MultiSigWallet");
-const wallet = MultiSigWallet.attach("0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512");
-```
+## Test Development Guidelines
+
+### Adding New Tests
+
+- **Unit tests**: Add `.ts` files to `test/unit/` for isolated component testing
+- **Integration tests**: Add `.js` files to `test/integration/` for component interactions
+- **E2E tests**: Add to `test/e2e/` with appropriate subdirectory for user workflows
+- **Test data**: Add to `test/fixtures/` for reusable test data and mocks
+
+### Best Practices
+
+- **Unit tests**: Keep fast and isolated, test single functions/classes
+- **Integration tests**: Test component interactions, database operations
+- **E2E tests**: Test complete user workflows, full system integration
+- Use descriptive test names that explain the scenario
+- Add fixtures for reusable test data
+- Mock external dependencies in unit tests
 
 ## Database Setup and Cleanup
 
 ### Why Database Cleanup is Important
 When contracts are redeployed with the same addresses:
 - Old transaction records become invalid
-- Chain sync state (`last_processed_block`) needs reset
+- Chain sync state (`last_processed_block`) needs reset  
 - Event processing starts from wrong block
 
-### What the Cleanup Script Does
-The `cleanupTestData.ts` script:
-- ✅ Removes old transactions for test wallets
-- ✅ Clears confirmation records
-- ✅ Deletes old events
-- ✅ Resets `last_processed_block` to 0 in chains table
-- ✅ Resets sync status and error counts
+### Cleanup Process
+The cleanup scripts handle:
+- ✅ Remove old transactions for test wallets
+- ✅ Clear confirmation records
+- ✅ Delete old events
+- ✅ Reset `last_processed_block` to 0 in chains table
+- ✅ Reset sync status and error counts
 
-## Wallet Registration
-
-### Why Registration is Required
-The validator service needs to know which wallets to monitor:
-- Wallets must be registered in the database
-- `monitored` flag must be set to `true`
-- Network and type information is required
-
-### What the Registration Does
-- ✅ Registers MultiSigWallet at deployed address
-- ✅ Registers MultiSigWalletWithDailyLimit at deployed address
-- ✅ Sets both wallets as `monitored = true`
-- ✅ Uses correct network (`localhost`) and types
-
-## Test Results and Monitoring
+## Monitoring During Tests
 
 ### Test Results
-- JSON results: `test/regression/regression-results-{timestamp}.json`
-- HTML reports: `test/regression/regression-report.html`
+- JSON results: `test/e2e/regression/regression-results-{timestamp}.json`
+- HTML reports: `test/e2e/regression/regression-report.html`
 - Exit codes: 0 = success, 1 = failure
 
-### Monitoring During Tests
-While tests are running, monitor:
+### Monitoring Services
+While tests run, monitor:
 
 1. **Hardhat Console** - Transaction details and gas usage
 2. **Validator Service Logs** - Event detection and processing
    ```bash
    tail -f logs/validator-service.log
    ```
-3. **Slack Notifications** - Real-time alerts (if configured)
-4. **Database** - Check transactions and confirmations are stored
+3. **Database** - Check transactions and confirmations
    ```sql
    SELECT * FROM transactions ORDER BY submitted_at DESC LIMIT 5;
    ```
 
-### Test Verification
-Each test verifies:
-- ✅ Smart contract events are emitted correctly
-- ✅ Validator service detects events
-- ✅ Database records are created
-- ✅ Slack notifications are sent
-- ✅ API endpoints return correct data
-
 ## Troubleshooting
 
-### Tests fail with "contract not deployed"
+### Common Issues
+
+**Tests fail with "contract not deployed"**
 ```bash
-# Solution: Deploy contracts
-cd ../../../  # Go to project root
-node scripts/deployLocal.js
+# Deploy contracts first
+npx hardhat run scripts/deployLocal.js --network localhost
 ```
 
-### No events detected by validator service
+**No events detected by validator service**
 ```bash
-# Check last processed block
-psql -d validator_service -c "SELECT network, last_processed_block FROM chains WHERE network = 'localhost';"
-
-# Reset if needed
-npx ts-node src/scripts/cleanupTestData.ts
+# Check and reset last processed block
+psql -d multisig_validator -c "SELECT network, last_processed_block FROM chains WHERE network = 'localhost';"
 ```
 
-### Validator service not running
+**Validator service not running**
 ```bash
 # Start validator service
 npm run dev
@@ -184,55 +196,25 @@ npm run dev
 curl http://localhost:3001/health
 ```
 
-### Wallets not registered
-```bash
-# Register wallets
-npx ts-node src/scripts/registerLocalWallets.ts
-
-# Check registration
-curl http://localhost:3001/api/wallets?network=localhost
-```
-
-### Database connection issues
+**Database connection issues**
 ```bash
 # Check PostgreSQL is running
 pg_isready
 
-# Check connection in validator service logs
+# Check connection in logs
 tail -f logs/error.log
-```
-
-### Hardhat node issues
-```bash
-# Kill existing processes
-pkill -f "hardhat node"
-
-# Start fresh
-npx hardhat node
 ```
 
 ## Test Structure
 
 ### Test Flow
-1. **Setup Phase**
-   - Environment verification
-   - Contract deployment
-   - Database cleanup
-   - Wallet registration
-
-2. **Test Execution**
-   - Each test scenario runs independently
-   - Configurable delays between actions
-   - Event verification after each action
-
-3. **Verification Phase**
-   - Smart contract state checks
-   - Validator service API verification
-   - Database record validation
+1. **Setup Phase** - Environment verification, contract deployment, database cleanup
+2. **Test Execution** - Independent test scenarios with configurable delays
+3. **Verification Phase** - Smart contract state, validator service API, database validation
 
 ### Test Coverage
 - ✅ All multisig wallet operations
-- ✅ All event types (9 different events)
+- ✅ All event types (9 different events)  
 - ✅ Both standard and daily limit wallets
 - ✅ Success and failure scenarios
 - ✅ Validator service integration
